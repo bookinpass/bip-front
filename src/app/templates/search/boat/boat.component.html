@@ -1,0 +1,30 @@
+<div class="ui form text-white">
+  <div class="two equal width fields mb-1">
+    <div class="required field">
+      <label>Liaison</label>
+      <select (change)="setPort()" [(ngModel)]="selectedLiaison" class="ui fluid dropdown" name="liaison">
+        <option value="">Séléctionner</option>
+        <option *ngFor="let item of listLiaison" [value]="item">{{item}}</option>
+      </select>
+    </div>
+    <div class="required field">
+      <label>Port de depart</label>
+      <select [(ngModel)]="selectedPort" [disabled]="selectedLiaison === ''" class="ui fluid dropdown" name="port">
+        <option value="">Séléctionner</option>
+        <option *ngFor="let item of listPort" [value]="item">{{item | titlecase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="two equal width fields mb-0">
+    <div class="field">
+      <label>Bateau</label>
+      <select [(ngModel)]="selectedBoat" class="ui fluid dropdown" name="boat">
+        <option value="">Peu importe</option>
+        <option *ngFor="let item of listBoats" [value]="item">{{item}}</option>
+      </select>
+    </div>
+    <div class="field" style="height: 30px">
+      <div (click)="searchCruise()" class="search_btn ui right floated orange button">Rechercher</div>
+    </div>
+  </div>
+</div>

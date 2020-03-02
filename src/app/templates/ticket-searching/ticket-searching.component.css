@@ -1,0 +1,81 @@
+#search-main-container {
+  width: 100%;
+  height: 550px;
+}
+
+.searching-block {
+  height: auto;
+  border-radius: 8px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.77);
+  font-size: 15px;
+  position: absolute;
+}
+
+.choice-block {
+  background-color: rgba(97, 97, 97, 0.54);
+  text-align: center;
+  font-size: 12px !important;
+  padding: .46153846em !important;
+  width: 80px;
+  height: 58px;
+  color: whitesmoke;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.choice-block.active {
+  background-color: #004e93;
+  cursor: default;
+}
+
+.ui.tabular > .item {
+  width: 33.3333%;
+  color: black;
+  background-color: white;
+  border: 0;
+}
+
+.ui.tabular > .item.active:nth-of-type(1) {
+  background-color: #FF6600;
+  color: white;
+}
+
+.ui.tabular > .item.active:nth-of-type(2) {
+  background-color: #CA0D18;
+  color: white;
+}
+
+.ui.tabular > .item.active:nth-of-type(3) {
+  background-color: #2daae1;
+}
+
+.ui.tabular > .item.active {
+  border-radius: 0 !important;
+  color: white;
+  border: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .searching-block {
+    min-width: 650px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .searching-block {
+    min-width: 100%;
+    position: relative;
+  }
+
+  #search-main-container {
+    height: auto;
+  }
+
+}
+
+@media screen and (max-width: 479px) {
+
+
+}

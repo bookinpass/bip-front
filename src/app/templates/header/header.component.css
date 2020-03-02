@@ -1,0 +1,158 @@
+.header-logo {
+  width: 140px;
+}
+
+.phone-number {
+  background-color: #FF6600;
+  border-radius: 7px;
+  padding: 3px 10px;
+  width: 250px;
+}
+
+.phone-number > .ui.label {
+  border: 0;
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 22px;
+  color: white;
+  padding: 0;
+}
+
+.phone-text {
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.navbar-expand {
+  background-color: #333333;
+}
+
+.navbar-nav .nav-item .nav-link {
+  background: transparent;
+  padding: 0 12px;
+  color: #fff;
+  border: none;
+  line-height: 64px;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #f60;
+}
+
+.active {
+  border-bottom: 4px solid #f60;
+}
+
+.account-portion > a:hover {
+  width: auto;
+  color: white !important;
+}
+
+.user-dropdown div {
+  width: 100%;
+  background-color: #333;
+  top: 65px;
+  border: 0;
+  border-radius: 0;
+}
+
+.user-dropdown:hover > div {
+  display: grid;
+}
+
+.user-dropdown div a {
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 14px;
+  display: grid;
+}
+
+.user-dropdown div a:hover {
+  background-color: transparent;
+  text-decoration: underline;
+  color: #FF6600 !important;
+  cursor: pointer;
+}
+
+.collapse > .launch.icon {
+  cursor: pointer;
+}
+
+.sidebar > .item,
+div.item > .menu > a.item {
+  font-size: 13px;
+  color: white;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.sidebar > .item > .header {
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.ui.sidebar.vertical {
+  z-index: 9;
+  display: none;
+  background-color: #333333;
+  height: max-content !important;
+  top: 63px !important;
+  border-bottom-right-radius: 15px !important;
+}
+
+div.sidebar > .item:hover,
+div.sidebar > .item:active,
+div.item > .menu > a.item:active,
+div.item > .menu > a.item:hover {
+  color: #FF6600;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.ui.icon.input::placeholder,
+.ui.icon.input:-ms-input-placeholder,
+.ui.icon.input:-ms-input-placeholder {
+  color: #333333 !important;
+  opacity: 1 !important; /* Firefox */
+}
+
+@media screen and (max-width: 992px) {
+  nav {
+    justify-content: space-between;
+  }
+
+  nav > div {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .header-logo {
+    width: 100px;
+    height: 50px;
+  }
+
+  .phone-number {
+    width: 175px;
+  }
+
+  .phone-text {
+    font-size: 11px;
+  }
+
+  .phone-number > .ui.label {
+    font-size: 18px;
+  }
+}

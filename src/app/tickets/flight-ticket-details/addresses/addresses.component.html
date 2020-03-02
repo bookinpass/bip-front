@@ -1,0 +1,167 @@
+<form class="ui small form raised segments section-headed">
+  <div class="ui compact segment raised very stacked">
+    <div class="ui fluid center aligned h7">
+      <p class="m-0">Veuillez remplir formulaire suivant avec les informations du voyageur principal</p>
+      <p class="m-0">Pour utiliser votre position actuelle,
+        <a (click)="locateUser()" class="cursor-pointer text-underline h6 font-weight-bold">cliquez ici</a>
+      </p>
+    </div>
+  </div>
+
+  <div [ngClass]="loading ? 'loading' : ''" class="ui raised compact segment">
+    <div class="three equal fields">
+      <div [ngClass]="setError.has('firstName') ? 'error' : ''" class="required field">
+        <label>Prénom</label>
+        <input [(ngModel)]="principal.name.firstName" name="firstName" placeholder="Prénom" type="text">
+      </div>
+      <div class="field">
+        <label>Second prénom</label>
+        <input [(ngModel)]="principal.name.middleName" name="secondName" placeholder="Second prénom" type="text">
+      </div>
+      <div [ngClass]="setError.has('lastName') ? 'error' : ''" class="required field">
+        <label>Nom</label>
+        <input [(ngModel)]="principal.name.lastName" name="lastName" placeholder="Nom" type="text">
+      </div>
+    </div>
+
+    <div class="three fields">
+      <div [ngClass]="setError.has('gender') ? 'select-error' : ''" class="three wide required field">
+        <label>Genre</label>
+        <select [(ngModel)]="principal.gender" class="dropdown" name="gender" required>
+          <option value="">Séléctionner</option>
+          <option value="MALE">
+            <fa-icon [icon]="faMale"></fa-icon>
+            Homme
+          </option>
+          <option value="FEMALE">
+            <fa-icon [icon]="faFemale"></fa-icon>
+            Femme
+          </option>
+        </select>
+      </div>
+      <div [ngClass]="setError.has('email') || !isEmailValid ? 'error' : ''" class="six wide required field">
+        <label>Email</label>
+        <input (blur)="emailValidityChecker()" [(ngModel)]="principal.contact.emailAddress" name="email" placeholder="Email" type="email"/>
+        <div *ngIf="principal.contact.emailAddress.length > 0 && !isEmailValid" [ngClass]="!isEmailValid ? 'd-block p-2 mt-1' : ''"
+             class="ui message error">
+          <p>Le format de votre e-mail est incorrect</p>
+        </div>
+      </div>
+      <div [ngClass]="setError.has('birthDate') ? 'error' : ''" class="three wide required field">
+        <label>Date de naissance</label>
+        <input (input)="principal.dateOfBirth = parseDate($event.target.value)"
+               [value]="principal.dateOfBirth | date:'yyyy-MM-dd'" type="date">
+      </div>
+      <div [ngClass]="setError.has('birthPlace') ? 'select-error' : ''" class="four wide required field">
+        <label>Lieu de naissance</label>
+        <select (change)="setBirthCountry($event.target.value)" class="ui fluid search dropdown" name="birthCountry">
+          <option value="">Lieu de naissance</option>
+          <option *ngFor="let item of countries" [value]="item.countryCode">{{item.countryName | titlecase}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="five fields">
+      <div class="ten wide field">
+        <label>Informations sur le titre de voyage</label>
+        <div class="three fields">
+          <div [ngClass]="setError.has('documentType') ? 'select-error' : ''" class="required field">
+            <select [(ngModel)]="principal.documents.documentType" class="dropdown" name="docType">
+              <option value="">Séléctionner</option>
+              <option value="IDENTITY_CARD">Carte d'identité</option>
+              <option value="PASSPORT">Passeport</option>
+            </select>
+          </div>
+          <div [ngClass]="setError.has('documentNumber') ? 'error' : ''" class="required field">
+            <input [(ngModel)]="principal.documents.number" autocomplete="false" name="docNum" placeholder="Numéro document" type="text"/>
+          </div>
+          <div class="field">
+            <select (change)="setDocumentDeliveryCountry($event.target.value)" class="ui fluid search dropdown" name="documentCountry">
+              <option value="">Lieu de délivrance</option>
+              <option *ngFor="let item of countries" [value]="item.countryCode">{{item.countryName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="three wide field">
+        <label>Délivrer le</label>
+        <input [(ngModel)]="principal.documents.issuanceDate" name="deliveryDate" type="date"/>
+      </div>
+      <div class="three wide field">
+        <label>Expire le</label>
+        <input [(ngModel)]="principal.documents.expiryDate" name="expiryDate" type="date"/>
+      </div>
+    </div>
+
+    <div class="three fields">
+      <div [ngClass]="setError.has('line') ? 'error' : ''" class="eight wide required field">
+        <label>Adresse</label>
+        <input [(ngModel)]="principal.contact.address.lines[0]" autocapitalize="words" autocomplete="true"
+               class="editable-addr" name="addr" placeholder="Adresse" type="text">
+      </div>
+      <div class="five wide field">
+        <label>Département</label>
+        <input [(ngModel)]="principal.contact.address.cityNam" autocapitalize="words" autocomplete="true" class="editable-addr"
+               name="city" placeholder="Département" type="text">
+      </div>
+      <div class="three wide field">
+        <label>Code Postal</label>
+        <input [(ngModel)]="principal.contact.address.postalCode" autocapitalize="words" autocomplete="true" class="editable-addr"
+               name="postalCode" placeholder="Code Postal" type="text">
+      </div>
+    </div>
+
+    <div class="three fields">
+      <div [ngClass]="setError.has('state') ? 'error' : ''" class="four wide required field">
+        <label>Ville</label>
+        <input [(ngModel)]="principal.contact.address.stateName" autocapitalize="words" autocomplete="true"
+               class="editable-addr" name="state" placeholder="Adresse" type="text">
+      </div>
+      <div [ngClass]="setError.has('country') ? 'select-error' : ''" class="four wide required field">
+        <label>Pays</label>
+        <select (change)="setPhonePrefix()" [(ngModel)]="selectedCountry"
+                class="dropdown editable-addr" name="country">
+          <option value="">Séléctionner</option>
+          <option *ngFor="let item of listCountries" [value]="item">{{item}}</option>
+        </select>
+      </div>
+      <div [ngClass]="setError.has('phone') ? 'error' : ''" class="eight wide required field">
+        <label>Téléphone</label>
+        <div [ngClass]="setError.has('phone') ? 'error' : ''" class="ui left action input">
+          <button class="ui labeled icon button cursor-default phone-prefix" style="padding: 0 10px !important;">
+            <i class="{{countryCode | lowercase}} flag"></i>
+            {{principal.contact.phones[0].countryCallingCode}}
+          </button>
+          <input #tel="ngModel" (blur)="format_number(); checkNumber()" [(ngModel)]="principal.contact.phones[0].number"
+                 class="editable-addr phone-field" name="tel" placeholder="Téléphone" type="text"/>
+          <div *ngIf="tel.invalid && (tel.dirty || tel.touched)" class="alert alert-danger">
+            <p *ngIf="!tel.errors.required && !isNumberValidForRegion">Ce numéro de téléphone n'est pas valide pour le pays séléctionner</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui raised segment info-checked">
+    <div class="required field">
+      <div class="ui checkbox">
+        <input (click)="checkInformation()" id="principal-condition" type="checkbox">
+        <label (click)="checkInformation()" class="text-underline cursor-pointer">
+          En cochant cette case vous acceptez les conditions ci-dessous.</label>
+      </div>
+    </div>
+    <div class="details-info-legal">
+      <p>
+        - J’ai bien vérifié que les noms et prénoms des voyageurs sont bien orthographiés et correspondent aux noms et prénoms indiqués sur
+        le passeport ou la carte d'identité qui servira de document de voyage lors de l’enregistrement.
+      </p>
+      <p>
+        - J’ai bien vérifié que l’adresse e-mail sur laquelle je souhaite recevoir tous mes documents de voyages est correcte ainsi que
+        le numéro de téléphone que j'ai indiqué.
+      </p>
+    </div>
+  </div>
+  <div class="ui raised segment sending-by-mail-info">
+    Une fois votre réservation effectuée, vous recevrez une confirmation de réservation par e-mail.
+  </div>
+  <button class="ui primary submit button d-none" id="form-sunbmit-btn" type="submit"></button>
+</form>

@@ -1,0 +1,144 @@
+footer {
+  /*position: absolute;*/
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+  clear: both;
+  background: url("../../../assets/images/background/footer-bd sky blue.webp");
+  background-size: cover;
+}
+
+.rubrique_show {
+  color: white;
+}
+
+footer > div {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+strong {
+  color: white !important;
+}
+
+.btn-primary-footer-custom {
+  border-color: #e94e38 !important;
+  background: #e94e38 !important;
+}
+
+.btn-primary-footer-custom:hover {
+  border-color: #e94e38 !important;
+  background: #e94e38 !important;
+}
+
+.white-back-custom {
+  width: 45%;
+  border: 1px solid white;
+}
+
+.a-footer-custom {
+  font-size: 40px;
+}
+
+a {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.inputWithIcon input[type="text"] {
+  padding-right: 56px;
+}
+
+.inputWithIcon {
+  position: relative;
+}
+
+.inputWithIcon button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 9px 8px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+
+.inputWithIcon.inputIconBg button {
+  background-color: orange;
+  padding: 6px 17px;
+  border-radius: 0 4px 4px 0px;
+}
+
+.inputWithIcon.inputIconBg input[type="text"]:focus + button {
+  color: #fff;
+  background-color: orange;
+}
+
+.inputWithIcon {
+  position: relative;
+}
+
+.inputWithIcon button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 9px 8px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.inputWithIcon input[type="text"]:focus + button {
+  color: orange;
+}
+
+/**
+ * Responsive
+ */
+@media (min-width: 320px) and (max-width: 730px) {
+  .color {
+    background-color: #51585c;
+    color: white;
+  }
+
+  .rubrique_hide {
+    display: none;
+  }
+
+  .rubrique_show {
+    display: block;
+  }
+
+}
+
+@media (min-width: 730px) and (max-width: 1370px) {
+  .rubriqueHide {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .footer-copyright {
+    margin-left: 12px !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  footer {
+    background: #fff;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .inputWithIcon input[type="text"] {
+    min-width: 171px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .inputWithIcon input[type="text"] {
+    min-width: 240px;
+  }
+
+  .footer-copyright {
+    margin-left: 64px !important;
+  }
+}
+

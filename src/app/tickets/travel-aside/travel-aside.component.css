@@ -1,0 +1,41 @@
+.travel-main-aside {
+  width: 100%;
+  border: 1px solid #27a0a0;
+  border-top: 5px solid #27a0a0;
+  border-radius: 7px 7px 0 0;
+  height: max-content;
+  padding: 0 0 15px;
+  margin-top: 72px;
+}
+
+.travel-aside {
+  width: 100%;
+  height: 150px;
+  background-image: url("../../../assets/images/icons/travel_hublot.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: border-box;
+  background-position: top left;
+}
+
+.travel-aside > p {
+  font-size: 16px;
+  padding: 26px 0 0 20px;
+  color: black;
+}
+
+.travel-aside > p > span {
+  font-size: 33px;
+  font-weight: bold;
+  line-height: 36px;
+}
+
+.travel-main-aside > .segment {
+  padding: 4px 15px
+}
+
+.travel-main-aside > .segment > div > p {
+  font-size: 12px;
+  color: rgb(51, 51, 51);
+  margin-bottom: 0;
+}

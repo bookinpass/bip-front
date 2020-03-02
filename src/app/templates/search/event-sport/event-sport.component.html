@@ -1,0 +1,65 @@
+<div [ngClass]="loading ? 'loading' : ''" class="ui form fluid">
+  <div class="two fields">
+    <div *ngIf="option.equalIgnoreCase('event')" class="required field">
+      <label>{{'type événement' | titlecase}}</label>
+      <select [(ngModel)]="eventType" class="ui search dropdown" name="eventType">
+        <option value="tout">{{'Peu importe' | titlecase}}</option>
+        <option *ngFor="let item of variableConfig.eventType.sort()" [value]="item.toLowerCase()">{{item | titlecase}}</option>
+      </select>
+    </div>
+    <div [ngClass]="option.equalIgnoreCase('sport') ? 'mt-2' : ''" class="required field">
+      <label>{{'Date' | titlecase}}</label>
+      <input (pickerSelectedDateChange)="validateEventDate()"
+             [(ngModel)]="eventSearch.date"
+             [pickerFirstDayOfWeek]="0"
+             [pickerInitialDate]="today"
+             [pickerMinDate]="today"
+             [pickerMode]="'date'"
+             [pickerUseNativeOnMobile]="true"
+             class="cursor-pointer"
+             fuiDatepicker
+             placeholder="Date"/>
+    </div>
+  </div>
+
+  <div *ngIf="option.equalIgnoreCase('event')" class="field">
+    <label>Entrer des mots clés</label>
+    <tag-input [(ngModel)]="eventSearch.keyword"
+               [addOnBlur]="true"
+               [addOnPaste]="true"
+               [allowDupes]="false"
+               [editable]="true"
+               [maxItems]="5"
+               [modelAsStrings]="true"
+               [removable]="true"
+               [trimTags]="true"
+               placeholder="Mot clés"></tag-input>
+  </div>
+
+  <div class="field">
+    <label>Lieu</label>
+    <fui-multi-select #multiSelect
+                      (selectedOptionsChange)="eventPlacesSelection($event)"
+                      [hasLabels]="true"
+                      [isClearable]="true"
+                      [isDisabled]="false"
+                      [isSearchable]="false"
+                      [maxSelected]="3"
+                      [options]="allPlaces"
+                      [placeholder]="'Sélectionnez un ou plusieurs lieu (s)'"
+                      [showCountText]="'Select'"
+                      class="selection"
+                      labelField="designation"
+                      valueField="placeId">
+      <div class="scrolling menu">
+        <fui-select-option *ngFor="let o of multiSelect.filteredOptions" [value]="o"></fui-select-option>
+      </div>
+    </fui-multi-select>
+  </div>
+
+  <div>
+    <button (click)="searchEvent()" class="plane-search-button" type="button">Rechercher
+    </button>
+  </div>
+
+</div>

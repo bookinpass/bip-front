@@ -1,0 +1,37 @@
+<div class="d-flex flex-column justify-content-start mb-2" mat-dialog-title>
+  <div class="d-flex flex-row justify-content-between">
+    <img alt="logo BIP" height="80px" src="../../../../assets/images/logo/bip-logo.png" width="130px">
+    <img alt="logo paiment en espece" height="80px" src="../../../../assets/images/icons/cash.jpg" width="80px">
+  </div>
+  <p class="payment-text">Paiement en point de relai</p>
+</div>
+
+<div [ngClass]="loading ? 'loading' : ''" class="ui form w-100 m-0 p-0" mat-dialog-content>
+  <div class="ui required field">
+    <label>Prénom</label>
+    <input [(ngModel)]="paymentData.payer.firstName" name="firstName" type="text"/></div>
+  <div class="ui required field">
+    <label>Nom</label>
+    <input [(ngModel)]="paymentData.payer.lastName" name="lastName" type="text"/>
+  </div>
+  <div class="field">
+    <label>Pays</label>
+    <select [(ngModel)]="paymentData.payer.countryCode" class="ui compact selection dropdown">
+      <option *ngFor="let country of countries" [value]="country.code">{{country.name}}</option>
+    </select>
+  </div>
+  <div class="ui required field">
+    <label>Téléphone</label>
+    <div class="ui labeled input">
+      <div class="ui basic label">
+        <i class="{{paymentData.payer.countryCode.toLowerCase()}} flag"></i>{{getCountryDialingCode()}}
+      </div>
+      <input [(ngModel)]="paymentData.payer.phone" class="phone" name="phone" type="text"/>
+    </div>
+  </div>
+  <div class="w-100 d-flex flex-row justify-content-around align-items-center" mat-dialog-actions>
+    <button (click)="cancelRequest()" class="ui gray button">Annuler</button>
+    <button (click)="validateRequest()" class="ui orange button">Valider</button>
+  </div>
+</div>
+

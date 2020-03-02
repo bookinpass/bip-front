@@ -1,0 +1,100 @@
+<div *ngIf="loading" [ngClass]="option" class="main-loader">
+  <p>Veuillez patienter SVP!</p>
+  <span>Nous optimisons votre recherche!</span>
+</div>
+
+<div *ngIf="!loading" class="container ui form grid mt-3">
+  <div class="row">
+    <div class="four wide column sticky-sidebar d-none d-lg-flex flex-column">
+      <div class="ui dividing header">Filtrer</div>
+      <div class="ui form">
+        <div class="field">
+          <label>Catégorie</label>
+          <select (change)="updateList()" [(ngModel)]="category" class="ui selection search dropdown" name="eventType">
+            <option value="tout">Peu importe</option>
+            <option *ngFor="let item of varRepo.eventType.sort()" [value]="item.toUpperCase()">{{item | titlecase}}</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input (change)="validateEventDate(); updateList()" [(ngModel)]="eventSearch.date" name="date" type="date"/>
+        </div>
+        <div class="field">
+          <label>Lieu</label>
+          <p (click)="updatePlaces(item.placeId, false)" *ngFor="let item of getSelectedPlaces()"
+             class="place-filter-item d-flex flex-row justify-content-between">
+            <span>{{item.designation | titlecase}}</span>
+            <span>&times;</span>
+          </p>
+          <select class="item ui selection search dropdown">
+            <option value="">Séléctionner</option>
+            <option (click)="updatePlaces(item.placeId, true)" *ngFor="let item of allPlaces"
+                    [ngClass]="listOfPlacesId.indexOf(item.placeId) !== -1 ? 'd-none' : ''">
+              {{item.designation}}
+            </option>
+          </select>
+        </div>
+        <div class="field"></div>
+      </div>
+    </div>
+    <div class="sixteen wide tablet twelve wide computer column event-container">
+      <div class=" ui dividing header">Résultat de votre recherche</div>
+      <div *ngIf="markedList.size === 0">
+        <p class="heads">Votre recherche n'a fourni aucun résultat.</p>
+      </div>
+      <div *ngIf="markedList.size > 0" class="ui divided items">
+        <div *ngFor="let item of markedList" class="item">
+          <div [ngClass]="!images.has(item.eventId) ? 'placeholder' : 'small image'" class="ui">
+            <div *ngIf="!images.has(item.eventId)" class="square image"></div>
+            <img *ngIf="images.has(item.eventId)" [src]="images.get(item.eventId)" alt="{{item.eventId}}"/>
+          </div>
+          <div class="content">
+            <a class="header">{{item.designation}}</a>
+            <div class="meta">
+              <span class="cinema">{{item.place.designation}}</span>
+            </div>
+            <div class="description">
+              <p>{{item.description}}</p>
+            </div>
+            <div class="extra">
+              <div *ngFor="let price of item.tarification" class="ui green label">
+                {{price.description}}: {{price.price | currency: varRepo.currencyCode: 'symbol-narrow':'1.1-2'}}
+              </div>
+              <button (click)="selectTicket(item.eventId)" class="ui orange right floated button">Séléctionner</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="unmarkedList.size > 0" class="ui dividing header">Autres événements</div>
+      <div *ngIf="unmarkedList.size > 0">
+        <div class="ui divided items">
+          <div *ngFor="let item of unmarkedList" class="item">
+            <div [ngClass]="!images.has(item.eventId) ? 'placeholder' : 'small image'" class="ui">
+              <div *ngIf="!images.has(item.eventId)" class="square image"></div>
+              <img *ngIf="images.has(item.eventId)" [src]="images.get(item.eventId)" alt="{{item.eventId}}"/>
+            </div>
+            <div class="content">
+              <div class="header w-100 d-flex flex-row justify-content-between">
+                <a class="cursor-default">{{item.designation | titlecase}}</a>
+                <a class="ui violet tag label cursor-default">{{item.eventType | titlecase}}</a>
+              </div>
+              <div class="meta">
+              <span class="cinema">{{item.place.designation | titlecase}} - {{item.eventType | uppercase}} -
+                {{item.startingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}}</span>
+              </div>
+              <div class="description">
+                <p>{{item.description}}</p>
+              </div>
+              <div class="extra">
+                <div *ngFor="let price of item.tarification" class="ui green label">
+                  {{price.description| titlecase}}: {{price.price | currency: varRepo.currencyCode: 'symbol-narrow':'1.1-2'}}
+                </div>
+                <button (click)="selectTicket(item.eventId)" class="ui orange right floated button">Séléctionner</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

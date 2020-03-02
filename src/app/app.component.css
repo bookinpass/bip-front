@@ -1,0 +1,57 @@
+#main-app-container {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+}
+
+.ui.inverted.menu {
+  background-color: #333333;
+  border: 0;
+  border-radius: 0;
+}
+
+.item:first-child {
+  margin: 16px 0;
+}
+
+.item > img {
+  width: 150px !important;
+  height: 62px;
+}
+
+.ui.menu .item {
+  font-size: 16px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  border: 0;
+  padding: 7px 16px;
+}
+
+.ui.vertical.menu .item::before {
+  height: 0;
+}
+
+.ui.vertical.menu .item:hover,
+.ui.vertical.menu .item:active {
+  color: #FF6600;
+  text-decoration: underline;
+}
+
+.ui.icon.input::placeholder,
+.ui.icon.input:-ms-input-placeholder,
+.ui.icon.input:-ms-input-placeholder {
+  color: #333333 !important;
+  opacity: 1 !important; /**Firefox*/
+}
+
+.ui.dividing.header {
+  font-size: 20px;
+  font-weight: 700;
+  color: #e99e26;
+  width: max-content;
+  border-bottom: 2px dashed #e99e26;
+  margin: 12px;
+}
+

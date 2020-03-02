@@ -1,0 +1,51 @@
+<div class="content-wrapper">
+  <p mat-dialog-title class="m-0">
+    <mat-card-title matDialogTitle>Se connecter
+      <fa-icon [icon]="faClose" (click)="dialogRef.close(false)" class="float-right cursor-pointer"></fa-icon>
+    </mat-card-title>
+  </p>
+  <mat-dialog-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column" style="height: 125px"
+          (keyup)="isEnterKeyPressed($event)">
+      <mat-form-field>
+        <input matInput type="email" formControlName="email" (change)="email=f.email.value" placeholder="Email"/>
+        <mat-error *ngIf="f.email.errors && f.email.touched && f.email.dirty && f.email.errors.required">Ce champ est requis</mat-error>
+        <mat-error *ngIf="f.email.errors && f.email.touched && f.email.dirty && (f.email.errors.pattern)">
+          L'email doit etre au format abc@cde.yz
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [type]="showPwd1 ? 'text' : 'password'" id="passwordRow" formControlName="password"
+               (change)="password=f.password.value" placeholder="Mot de passe"/>
+        <span matSuffix class="toggle-pwd">
+          <i [ngClass]="showPwd1 ? 'eye slash icon' : 'eye icon' " (click)="showPwd1 = !showPwd1"></i>
+        </span>
+        <mat-error *ngIf="f.password.touched && f.password.dirty && f.password.errors?.required">
+          Ce champ est requis
+        </mat-error>
+        <mat-error *ngIf="f.password.touched && f.password.dirty && f.password.errors?.minlength">
+          Le mot de passe doit comporter au moins 8 caractères.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex flex-row">
+    <p class="text-right full-width m-0 pb-2"><a (click)="forgottenPassword()">Mot de passe oublié ?</a></p>
+    <button (click)="onSubmit()" class="btn btn-login">Se connecter</button>
+    <hr class="mat-stepper-horizontal-line">
+    <p class="full-width text-center pb-1 m-0">Nouvel utilisateur ?
+      <a (click)="register()" style="cursor: pointer">Créer un compte</a>
+    </p>
+  </mat-dialog-actions>
+</div>
+
+<div class="login-layer-notifications" *ngIf="loading">
+  <div class="login-waiting-wheel">
+    <div [ngClass]="status === 0 ? 'dialog-image-waiting-wheel' : 'dialog-image-waiting-wheel-success'"></div>
+  </div>
+  <div class="login-sending-instructions mt-3">
+    {{status === 0 ? 'Connexion en cours ...' : 'Connexion réussi'}}
+    <fa-icon [icon]="faShield" *ngIf="status === 1" style="color: #7ab044"></fa-icon>
+  </div>
+</div>
+<button class="d-none" id="registering" (click)="register()"></button>

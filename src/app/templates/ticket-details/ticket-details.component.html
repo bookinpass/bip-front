@@ -1,0 +1,33 @@
+<section *ngIf="ticket" class="col d-flex justify-content-between flex-column article-item ui raised segment">
+  <div *ngFor="let itinerary of ticket.itineraries; let i = index">
+    <div *ngFor="let segment of itinerary.segments; let j = index">
+      <h3 *ngIf="itinerary.segments[0] === segment" class="ui header">
+        <img [src]="sanitizer.bypassSecurityTrustUrl('../../assets/images/airlines/' + ticket.validatingAirlineCodes[0] + '.png')"
+             alt="Airline Logo" class="ui image" height="40px" width="60px">
+        <fa-icon [icon]="faDeparture" [ngClass]="i > 0 ? 'fa-flip-horizontal' : ''" class="mr-2 ml-2"></fa-icon>
+        <span class="mb-0 mr-2 underlined"> {{i === 0 ? 'Aller' : 'Retour'}}:</span>
+        {{company.designation}}, {{getFlightNumber(segment)}}
+      </h3>
+
+      <div class="ui two column doubling stackable">
+        <div class="pl-0 pr-0 column">
+          <div class="content">
+            <div class="description trip-details">
+              <p class="text-capitalize"><span>Date:</span> {{segment.departure.at| date: 'EEEE, dd MMM yyyy'}} </p>
+              <p class="text-justify"><span>Départ:</span>
+                {{segment.departure.terminal ? 'Terminal ' + segment.departure.terminal + ' à ' : ''}}{{segment.departure.at | date: 'HH:mm'}}
+                ,
+                {{formatAirport(segment.departure.iataCode)}}
+              </p>
+              <p class="text-justify"><span>Arrivée:</span>
+                {{segment.arrival.terminal ? 'Terminal ' + segment.arrival.terminal + ' à ' : ''}}{{segment.arrival.at | date: 'HH:mm'}},
+                {{formatAirport(segment.arrival.iataCode)}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="itinerary.segments.length > 1" class="ui divider divider-no-last"></div>
+  </div>
+</section>

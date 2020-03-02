@@ -1,0 +1,19 @@
+.field > label {
+  color: white;
+  font-size: 15px;
+}
+
+.plane-search-button {
+  cursor: pointer;
+  color: #fff;
+  height: 44px;
+  padding: 0 15px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 15px;
+  border-color: #f60;
+  border-style: solid;
+  background-color: #f60;
+  float: right;
+  margin-bottom: 15px;
+}

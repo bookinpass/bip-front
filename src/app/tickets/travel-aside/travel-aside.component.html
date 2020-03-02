@@ -1,0 +1,76 @@
+<aside class="ui raised very stacked segments d-none d-lg-block travel-main-aside">
+  <div class="travel-aside">
+    <p>
+      Votre voyage {{to.charAt(0).toLowerCase().match('^[aieou].*') ? 'en ' : 'à '}}<br/>{{to}}
+    </p>
+  </div>
+  <div class="ui raised segment">
+    <p class="underlined text-center font-weight-bold h5">Passager(s):</p>
+    <p *ngFor="let passenger of travelerTypeMap | keyvalue" class="h6 mb-1">{{passenger.value}} {{passenger.key | titlecase}}</p>
+  </div>
+  <div class="ui raised segment">
+    <p class="underlined text-center font-weight-bold h5">Baggage en soute</p>
+    <div class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Aller</p>
+      <p class="h6 mb-1">2 bagages</p>
+    </div>
+    <div *ngIf="ticket.itineraries.length > 1" class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Retour</p>
+      <p class="h6 mb-1">2 bagages</p>
+    </div>
+  </div>
+  <div class="ui raised segment">
+    <p class="underlined text-center text-underline font-weight-bold h5">Escale(s):</p>
+    <div class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Aller</p>
+      <p *ngIf="ticket.itineraries[0].segments.length === 1" class="h6 mb-1">Sans escale</p>
+      <p *ngIf="ticket.itineraries[0].segments.length > 1" class="h6 mb-1">{{ticket.itineraries[0].segments.length - 1}}
+        escale{{ticket.itineraries[0].segments.length > 2 ? 's' : ''}}</p><!--<br/>{{wayToReturn[0].vol.stopoverDuration}}-->
+    </div>
+    <div *ngIf="ticket.itineraries.length > 1" class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Retour</p>
+      <p *ngIf="ticket.itineraries[1].segments.length === 1" class="h6 mb-1">Sans escale</p>
+      <p *ngIf="ticket.itineraries[1].segments.length > 1" class="h6 mb-1">{{ticket.itineraries[1].segments.length - 1}}
+        escale{{ticket.itineraries[1].segments.length > 2 ? 's' : ''}}</p><!--<br/>{{wayToReturn[0].vol.stopoverDuration}}-->
+    </div>
+  </div>
+  <div class="ui raised segment">
+    <p class="underlined text-center font-weight-bold h5">Durée {{ticket.itineraries.length === 1 ? 'du vol' : 'des vols'}}:</p>
+    <div class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Aller</p>
+      <p class="h6 mb-1">{{getDuration(true)}}</p>
+    </div>
+    <div *ngIf="ticket.itineraries.length > 1" class="d-flex flex-row justify-content-between">
+      <p class="h6 mb-1">Retour</p>
+      <p class="h6 mb-1">{{getDuration(false)}}</p>
+    </div>
+  </div>
+
+  <div class="ui raised segment d-flex flex-column justify-content-between">
+    <p class="h5 underlined text-center font-weight-bold">Tarification:</p>
+    <div *ngFor="let item of pricing" class="d-flex flex-column w-100">
+      <p class="h6 font-weight-bold underlined">{{item.travelerType}}</p>
+      <div class="d-flex justify-content-between flex-row">
+        <p class="ml-5 mb-0 h7">Base</p>
+        <p class="mr-4 mb-0 h7">{{item.price.base | currency: ticket.price.currency.toUpperCase() :'symbol-narrow':'1.1-2'}}</p>
+      </div>
+      <div class="d-flex justify-content-between flex-row">
+        <p class="ml-5 mb-0 h7">Frais et Taxes</p>
+        <p
+          class="mr-4 mb-0 h7">{{item.price.total - item.price.base | currency: ticket.price.currency.toUpperCase() :'symbol-narrow':'1.1-2'}}</p>
+      </div>
+      <div class="d-flex justify-content-between flex-row">
+        <p class="ml-5 mb-0 h7 font-weight-bold">Total</p>
+        <p
+          class="mr-4 mb-0 h7 font-weight-bold">{{item.price.total | currency: ticket.price.currency.toUpperCase() :'symbol-narrow':'1.1-2'}}</p>
+      </div>
+      <hr style="width: 80%">
+    </div>
+    <div class="d-flex flex-row justify-content-between font-weight-bolder ">
+      <p class="underlined" style="font-size: 20px; font-weight: bolder">Net a payer</p>
+      <p style="font-size: 22px; font-weight: bolder">
+        {{ticket.price.total | currency: ticket.price.currency.toUpperCase() :'symbol-narrow':'1.1-2'}}
+      </p>
+    </div>
+  </div>
+</aside>

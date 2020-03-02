@@ -1,0 +1,15 @@
+.brands > img {
+  padding: 0 3px;
+}
+
+@media screen and (max-width: 576px) {
+  .brands img {
+    height: 30px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .brands img {
+    height: 40px !important;
+  }
+}

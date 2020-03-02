@@ -1,0 +1,153 @@
+.btn-login {
+  height: 40px;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  border: 1px solid #f60;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: #f60;
+  border-radius: 10px;
+  color: white !important;
+}
+
+.btn-login:hover {
+  letter-spacing: 1.5px;
+}
+
+.content-wrapper {
+  width: 100%;
+  padding: 0px 10px;
+}
+
+.mat-dialog-title {
+  /*font-size: 15px;*/
+  text-align: center;
+  color: #00004A;
+  margin: 0;
+}
+
+.mat-card-title {
+  /*font-size: 15px;*/
+  text-align: center;
+}
+
+.mat-form-field {
+  color: #00004A;
+}
+
+.mat-dialog-content {
+  margin: 0;
+  padding: 0;
+}
+
+.mat-dialog-actions {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  float: right;
+  position: relative;
+  bottom: 9px;
+}
+
+.full-width {
+  width: 100%;
+  color: #00004A;
+}
+
+.full-width a:hover {
+  text-decoration: underline !important;
+  color: #00004a !important;
+  cursor: pointer;
+}
+
+.mat-form-field-label {
+  color: #00004A !important;
+}
+
+.mat-stepper-horizontal-line {
+  width: 80%;
+  margin-bottom: 7px;
+  margin-top: 13px;
+  border-top: 0.141em dotted #00004a;
+}
+
+.login-sending-instructions,
+.login-layer-notifications {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-align: center
+}
+
+.login-layer-notifications:not(.od-ui-dialog) {
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 30px 0;
+  border-radius: 4px;
+  min-width: max-content;
+  padding: 40px 20px;
+  position: fixed;
+  background: #fff;
+  left: 50%;
+  top: 40%;
+  margin-left: -110px;
+  z-index: 3;
+  display: block;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+  visibility: visible
+}
+
+.login-layer-notifications:not(.od-ui-dialog).hidden {
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  transition: all .3s;
+  visibility: hidden;
+  display: block
+}
+
+.login-layer-notifications {
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 0 30px 0;
+  width: 220px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  border-top: 0
+}
+
+.login-layer-notifications.od-ui-dialog {
+  text-align: center;
+  margin-top: 15px;
+  padding: 0
+}
+
+.login-waiting-wheel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 75px;
+}
+
+.dialog-image-waiting-wheel,
+.dialog-image-waiting-wheel-success {
+  background: url("../../../assets/images/loader/loader.gif") center no-repeat;
+  height: 75px;
+  width: 75px;
+  border-radius: 50%;
+  background-size: cover !important;
+}
+
+.dialog-image-waiting-wheel-success {
+  background: url("../../../assets/images/loader/check-gif.gif") center no-repeat;
+}
+
+.toggle-pwd {
+  font-size: 20px;
+  cursor: pointer;
+  color: #00004a;
+}

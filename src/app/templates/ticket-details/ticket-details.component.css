@@ -1,0 +1,87 @@
+.article-item {
+  border: 0;
+  background-color: white;
+}
+
+.article-item h3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.article-item-header {
+  color: #00004a;
+  font-size: 15px;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.trip {
+  border-bottom: 1px solid #ccc;
+}
+
+.trip-details p,
+.trip-details-duration p {
+  font-size: 15px;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+  color: #00004a;
+}
+
+.trip-details > p > span {
+  font-weight: bold;
+  text-transform: capitalize;
+  text-decoration: underline;
+}
+
+.trip-details-duration p fa-icon {
+  color: #00004A;
+  font-size: 13px
+}
+
+/*.trip-details p:first-child,*/
+/*.trip-details-duration p:first-child {*/
+/*  font-size: 15px;*/
+/*  font-weight: 600;*/
+/*  color: #333;*/
+/*  letter-spacing: -0.3px;*/
+/*}*/
+
+.horizontal-line {
+  width: 60px;
+  border-top: 2px solid #00004A;
+  position: relative;
+  top: 5px;
+  height: 0;
+}
+
+.stopover-trip {
+  color: #00004A;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+  position: relative;
+  bottom: 2px;
+}
+
+.rounded-circle {
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: 1px solid #f46569;
+}
+
+@media screen and (max-width: 768px) {
+  .article-item-header {
+    font-size: 14px;
+  }
+
+  .trip-details > p {
+    font-size: 13px;
+  }
+
+  .article-item h3 {
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,13 @@
+<div class="ui very raised segment">
+  <h3 class="ui dividing header">Vous souhaitez voyager a <span style="color: #ff6600">{{country | uppercase}}</span></h3>
+  <div class="ui form content-bloc" mat-dialog-content>
+    <h4>Selectionner une date de depart SVP</h4>
+    <div class="ui fluid field">
+      <label>Date de Depart</label>
+      <input [(ngModel)]="selectedDepart" matInput name="departDate" type="date"/>
+    </div>
+  </div>
+  <hr class="w-100">
+  <button (click)="onNoClick()" class="ui right floated basic button">Annuler</button>
+  <button [mat-dialog-close]="selectedDepart" class="ui right floated green button">Valider</button>
+</div>

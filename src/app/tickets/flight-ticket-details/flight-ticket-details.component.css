@@ -1,0 +1,140 @@
+.plane-search-loader {
+  background-image: url("../../../assets/images/background/plane3.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 0 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
+}
+
+.loader-box {
+  border: 6px solid #f60;
+  background-color: white;
+  padding: 10px 0;
+}
+
+.logo-bip {
+  width: 70%;
+  float: left;
+}
+
+.logo-bip img {
+  text-align: center;
+  margin: 28px auto auto 20px;
+  width: 100%;
+}
+
+.plane-gif {
+  margin: 20px 15px auto auto;
+  width: 30%
+}
+
+.plane-gif img {
+  width: 100%;
+}
+
+.loader-box h2 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 0;
+  color: #172368;
+}
+
+.travel-to {
+  padding: 0;
+  font-size: 30px;
+  margin: 21px 0 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.sections-wrapper section {
+  background-color: #fff0f5;
+  border-radius: 6px;
+}
+
+.section-headed {
+  border-top: 5px solid #27a0a0;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+.fluid.col.segments,
+.fluid.col.segments > div:not(:last-child) {
+  background-color: #f2f2f2;
+}
+
+.field > div > label {
+  padding-left: 18px;
+  margin-right: 12px;
+  color: indigo;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-section::before {
+  transform: rotate(4deg) !important;
+}
+
+.auth-section::after {
+  transform: rotate(-4deg) !important;
+}
+
+.auth-section {
+  background-color: white !important;
+  border: 1px solid #d3d3d3 !important;
+  border-radius: 0 !important;
+}
+
+.travelers > .fields > .field > label,
+.travelers > .fields > .field > input,
+.travelers > .fields > .field > .fields > .field > label,
+.travelers > .fields > .field > .fields > .field > input,
+.travelers > .fields > .field > .field > select,
+.travelers > .fields > .field > .fields > .field > select {
+  font-size: 13px;
+}
+
+.hovered-condition:hover > a {
+  text-decoration: underline !important;
+}
+
+.select-error > label {
+  color: #9f3a38 !important;
+}
+
+.select-error > select {
+  background-color: #fff6f6 !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38 !important;
+  box-shadow: none !important;
+}
+
+@media screen and (max-width: 576px) {
+  .travel-to {
+    font-size: 18px
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .auth-section::before {
+    transform: rotate(1.5deg) !important;
+  }
+
+  .auth-section::after {
+    transform: rotate(-1.5deg) !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .plane-search-loader {
+    background-image: none;
+    background-color: white;
+  }
+}

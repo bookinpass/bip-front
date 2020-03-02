@@ -1,0 +1,120 @@
+<div class="main-container container mt-5 mb-3">
+  <!--  <app-home-banner></app-home-banner>-->
+
+  <div class="ui horizontal menu d-flex flex-row justify-content-center menu-home">
+    <div (click)="selectedTrend = 1" [ngClass]="selectedTrend === 1 ? 'active' : ''">
+      <fa-icon [icon]="faList"></fa-icon>
+    </div>
+    <div (click)="selectedTrend = 2" [ngClass]="selectedTrend === 2 ? 'active' : ''">
+      <fa-icon [icon]="faPlane"></fa-icon>
+    </div>
+    <div (click)="selectedTrend = 3" [ngClass]="selectedTrend === 3 ? 'active' : ''">
+      <fa-icon [icon]="faEvent"></fa-icon>
+    </div>
+    <div (click)="selectedTrend = 4" [ngClass]="selectedTrend === 4 ? 'active' : ''">
+      <fa-icon [icon]="faBall"></fa-icon>
+    </div>
+  </div>
+
+  <div class="ui very raised segment container w-900 pt-3 pb-3">
+    <div class="ui left close rail">
+      <div class="ui segment">
+        <img alt="" src="../../../assets/images/advert1.90.jpg"/>
+      </div>
+    </div>
+    <div class="ui right close rail">
+      <div class="ui segment">
+        <img alt="" src="../../../assets/images/advert1.-90.jpg"/>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTrend === 1 || selectedTrend === 3" class="d-flex flex-column mb-5">
+      <div class="ui dividing header">Top Evènement et Loisir</div>
+      <div [ngClass]="width >= 910 ? 'four' : 'six'" class="ui doubling cards justify-content-center">
+        <div (click)="selectItem(item.eventId)" *ngFor="let item of listOfEvents"
+             [ngClass]="!fetchingEvents ? 'transition visible' : ''"
+             class="card cursor-pointer">
+          <div [ngClass]="fetchingEvents ? 'ui placeholder imgContainer' : 'ui image imageContainer'">
+            <div *ngIf="fetchingEvents || !listImage.has(item?.eventId)" class="square image"></div>
+            <img *ngIf="listImage.has(item?.eventId)" [src]="listImage.get(item?.eventId)" alt=""/>
+          </div>
+          <div *ngIf="fetchingEvents" class="content">
+            <div class="ui placeholder">
+              <div class="header">
+                <div class="very long line"></div>
+                <div class="long line"></div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!fetchingEvents" class="content">
+            <a class="header">{{item.designation}}</a>
+            <hr class="content-hr"/>
+            <div class="meta">
+              <p class="mb-0">
+                <i class="building icon"></i>
+                <span>{{item.place.designation}}</span>
+              </p>
+            </div>
+            <div class="extra">
+              <i class="calendar icon"></i>
+              <span class="date text-capitalize">{{item.startingDate | date: 'dd MMMM yyyy'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTrend === 1 || selectedTrend === 4" class="d-flex flex-column mb-5">
+      <div class="ui dividing header">Top Evènement Sportif</div>
+      <div [ngClass]="width >= 910 ? 'four' : 'six'" class="ui doubling cards justify-content-center">
+        <div (click)="selectItem(item.eventId)" *ngFor="let item of listOfSports"
+             [ngClass]="!fetchingEvents ? 'transition visible' : ''"
+             class="card cursor-pointer">
+          <div [ngClass]="fetchingEvents ? 'ui placeholder imgContainer' : 'ui image imageContainer'">
+            <div *ngIf="fetchingEvents || !listImage.has(item?.eventId)" class="square image"></div>
+            <img *ngIf="listImage.has(item?.eventId)" [src]="listImage.get(item?.eventId)" alt=""/>
+          </div>
+          <div *ngIf="fetchingEvents" class="content">
+            <div class="ui placeholder">
+              <div class="header">
+                <div class="very long line"></div>
+                <div class="long line"></div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="!fetchingEvents" class="content">
+            <a class="header">{{item.designation}}</a>
+            <hr class="content-hr"/>
+            <div class="meta">
+              <p class="mb-0">
+                <i class="building icon"></i>
+                <span>{{item.place.designation}}</span>
+              </p>
+            </div>
+            <div class="extra">
+              <i class="calendar icon"></i>
+              <span class="date text-capitalize">{{item.startingDate | date: 'dd MMMM yyyy'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedTrend === 1 || selectedTrend === 2" class="d-flex flex-column mb-5">
+      <div class="ui dividing header">Top Destination du mois</div>
+      <div [ngClass]="width >= 910 ? 'four' : 'six'" class="ui doubling cards justify-content-center">
+        <div (click)="selectDestination(item.code)" *ngFor="let item of topFlight" class="card cursor-pointer">
+          <div class="ui image imageContainer">
+            <img [src]="item.img" alt=""/>
+          </div>
+          <div class="content">
+            <a class="header">{{item.country}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

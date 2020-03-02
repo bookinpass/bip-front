@@ -1,0 +1,174 @@
+.plane-search-loader {
+  background-image: url("../../../assets/images/background/plane3.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 0 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
+}
+
+.loader-box {
+  border: 6px solid #f60;
+  background-color: white;
+  padding: 10px 0;
+}
+
+.logo-bip {
+  width: 70%;
+  float: left;
+}
+
+.logo-bip img {
+  text-align: center;
+  margin: 28px auto auto 20px;
+  width: 100%;
+}
+
+.plane-gif {
+  margin: 20px 15px auto auto;
+  width: 30%
+}
+
+.plane-gif img {
+  width: 100%;
+}
+
+.loader-box h2 {
+  text-align: center;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 0;
+  color: #172368;
+}
+
+.search-field > label > input {
+  font-size: 12px;
+  width: max-content;
+  width: -moz-max-content;
+}
+
+.updatingData {
+  background-image: url("../../../assets/images/loader/loader.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 3;
+}
+
+.swal2-title {
+  color: #465e8d !important;
+}
+
+.article-item {
+  border: 0;
+  border-top: 3px solid #27a0a0;
+  border-radius: 7px;
+  background-color: #f2f2f2;
+}
+
+/*DISPLAYING TICKET*/
+.ng-fa-icon {
+  margin-bottom: 0 !important;
+  margin-right: 10px !important;
+  font-size: 15px !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  color: #f49632;
+}
+
+.segment-content > .segment {
+  padding: 6px 10px;
+  font-size: 13px;
+}
+
+.segment-content > .segment > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.image {
+  width: 110px !important;
+}
+
+.image > img {
+  padding: 0 10px;
+}
+
+.flight-details {
+  width: -moz-available;
+  justify-content: space-between !important;
+}
+
+.flight-details p {
+  margin-bottom: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flight-details div img {
+  width: 22px;
+  height: 22px;
+}
+
+.reduce-height {
+  max-height: 700px !important;
+}
+
+/*END DISPLAYING TICKET*/
+
+@media screen and (max-width: 767px) {
+  .image > p {
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  .ui.segment {
+    padding-right: 0;
+    padding-left: 4px;
+  }
+
+  .tiny > img {
+    height: 85px !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .plane-search-loader {
+    background-image: none;
+    background-color: white;
+  }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1439px) {
+  .root {
+    width: 90vw;
+    left: 5%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .root {
+    width: 80%;
+    left: 10%
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .root {
+    max-width: 1300px;
+    width: 70%;
+    left: 15%;
+  }
+}

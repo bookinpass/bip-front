@@ -1,0 +1,126 @@
+/* Filter Aside */
+.filtering {
+  background: #f2f2f2;
+  border-radius: 4px 4px 0 0;
+  padding: 0;
+  border: none;
+  color: #333333;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 1px 0;
+  height: max-content;
+}
+
+.filtering .card {
+  margin: 10px;
+}
+
+.filtering {
+  display: flow-root;
+}
+
+.filtering .card,
+.filtering .card .card-header,
+.filtering .card .card-body {
+  border: 0;
+  border-radius: 0;
+  background-color: #f2f2f2;
+}
+
+.collapse-header {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.stopover-filter {
+  width: 100%;
+}
+
+.company-all-none strong {
+  margin: 0 5px;
+}
+
+.company-all-none {
+  font-size: 14px;
+  justify-content: start !important;
+  margin-bottom: 7px;
+}
+
+.company-all-none span:hover {
+  color: #f60;
+  text-decoration: underline;
+}
+
+.mat-button-toggle-group, .mat-button-toggle-standalone {
+  border-radius: 10px;
+  box-shadow: 9px 9px 11px -1px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+
+.mat-button-toggle {
+  line-height: normal;
+  font-size: 13px;
+}
+
+.mat-button-toggle-button:hover {
+  background-color: #f2f2f2;
+}
+
+.mat-button-toggle-checked {
+  background-color: #f49632;
+}
+
+/* ng5-slider */
+
+::ng-deep .ng5-slider {
+  margin: 15px 0 10px 0 !important;
+}
+
+::ng-deep .ng5-slider .ng5-slider-bar {
+  height: 3px !important;
+}
+
+::ng-deep .ng5-slider .ng5-slider-selection {
+  background: #6435c9 !important;
+}
+
+::ng-deep .ng5-slider .ng5-slider-pointer {
+  width: 18px !important;
+  height: 18px !important;
+  top: -9px !important;
+  background-color: #6435c9 !important;
+  border-radius: 16px !important;
+}
+
+::ng-deep .ng5-slider .ng5-slider-pointer:after {
+  width: 6px !important;
+  height: 6px !important;
+  top: 0.45rem !important;
+  left: 0.45rem !important;
+  border-radius: 100% !important;
+  background-color: white !important;
+}
+
+::ng-deep .ng5-slider .ng5-slider-pointer.ng5-slider-active::after {
+  background-color: white !important;
+}
+
+.p-bar {
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 15px 0 0;
+  text-align: left;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1200px){
+  .p-bar{
+    font-size: 13px;
+  }
+
+  .ui.checkbox > label{
+    font-size: 12px;
+  }
+}

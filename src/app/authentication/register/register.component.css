@@ -1,0 +1,112 @@
+.main-header {
+  font-size: 22px;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #00004a;
+}
+
+fa-icon {
+  color: #f60;
+  margin-right: 10px;
+}
+
+.stepper-header {
+  font-size: 14px !important;
+  color: #00004a !important;
+  margin-bottom: 0;
+}
+
+.mid-row-sized {
+  width: 49% !important;
+}
+
+.not-mid-row-sized {
+  width: 100% !important;
+}
+
+.bubble {
+  position: absolute;
+  width: 60% !important;
+  height: auto;
+  padding: 10px 5px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  border: #f60 solid 2px;
+  font-size: 12px;
+  align-self: center;
+  left: 20%;
+  top: 30px;
+  font-weight: bold;
+}
+
+.bubble:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 15px 0;
+  border-color: #FFFFFF transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-left: -15px;
+  bottom: -15px;
+  left: 50%;
+}
+
+.bubble:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 16px 16px 0;
+  border-color: #ff6600 transparent;
+  display: block;
+  width: 0;
+  z-index: 0;
+  margin-left: -16px;
+  bottom: -18px;
+  left: 50%;
+}
+
+.toggle-pwd {
+  cursor: pointer;
+  color: red !important;
+}
+
+mat-error {
+  font-weight: 600 !important;
+}
+
+.mat-field mat-form-field {
+  margin-bottom: 4px !important;
+}
+
+.recap-form > div.field {
+  margin-bottom: 1px;
+  padding: 0;
+}
+
+@media screen and (min-width: 576px) {
+  .recap-form > div.field {
+    padding: 0 3px;
+  }
+}
+
+.main-header > p {
+  font-size: 30px;
+  margin-bottom: 5px;
+  color: darkred;
+}
+
+.main-header-icon {
+  position: absolute;
+  margin-bottom: 18px;
+}
+
+.pwd-icon {
+  cursor: pointer !important;
+  pointer-events: auto;
+  padding: 0 !important;
+  font-size: 26px;
+  color: red;
+  width: 45px;
+}

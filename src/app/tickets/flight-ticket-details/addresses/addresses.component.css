@@ -1,0 +1,63 @@
+input:hover {
+  border-color: #85b7d9 !important;
+}
+
+.info-checked > .ui.checkbox {
+  margin: 0;
+  position: relative;
+  padding: 10px 0;
+}
+
+.info-checked > .ui.checkbox > label {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  color: #666666;
+  cursor: pointer;
+}
+
+.details-info-legal > p {
+  display: block;
+  margin-bottom: 5px;
+  color: #999;
+  font-size: 11px !important;
+}
+
+.sending-by-mail-info {
+  text-align: right;
+  margin: 0 !important;
+  padding: 4px 12px 4px 0 !important;
+  font-size: 11px !important;
+  line-height: 1.5;
+  color: #909090;
+}
+
+label > sup {
+  font-size: 15px;
+  font-weight: bold;
+  color: red;
+  top: -2px;
+}
+
+.phone-prefix {
+  padding: 0 10px !important;
+  background-color: white !important;
+  border: 1px solid #dedede !important;
+}
+
+.alert.alert-danger {
+  font-size: 12px;
+  padding: 2px 10px;
+  margin: 0;
+}
+
+.select-error > label {
+  color: #9f3a38 !important;
+}
+
+.select-error > select {
+  background-color: #fff6f6 !important;
+  border-color: #e0b4b4 !important;
+  color: #9f3a38 !important;
+  box-shadow: none !important;
+}

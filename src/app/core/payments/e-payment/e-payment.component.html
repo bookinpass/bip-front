@@ -1,0 +1,39 @@
+<div class="d-flex flex-column justify-content-start mb-2" mat-dialog-title>
+  <div class="d-flex flex-row justify-content-between">
+    <img alt="logo BIP" height="80px" src="../../../../assets/images/logo/bip-logo.png" width="130px">
+    <img [alt]="'logo '+ paymentData.type" [src]="getPaymentDisplay().path" height="80px" width="80px">
+  </div>
+  <p class="payment-text">Paiement {{getPaymentDisplay().alt}}</p>
+</div>
+
+<div [ngClass]="loading ? 'loading' : ''" class="ui form w-100 m-0 p-0" mat-dialog-content>
+  <div class="ui required field">
+    <label>Prénom</label>
+    <input [(ngModel)]="paymentData.payer.firstName" name="firstName" type="text"/></div>
+  <div class="ui required field">
+    <label>Nom</label>
+    <input [(ngModel)]="paymentData.payer.lastName" name="lastName" type="text"/>
+  </div>
+  <div class="ui required field">
+    <label>Téléphone</label>
+    <div class="ui labeled input">
+      <div class="ui basic label">
+        <i class="{{paymentData.payer.countryCode.toLowerCase()}} flag"></i>{{getCountryDialingCode()}}
+      </div>
+      <input [(ngModel)]="paymentData.payer.phone" class="phone" name="phone" type="text"/>
+    </div>
+  </div>
+  <div class="ui field w-100">
+    <p *ngIf="paymentData.type.equalIgnoreCase('om')" class="h7 mb-1">Tapez <strong>#144#391*code_secret#</strong> pour obtenir un code
+      paiement
+    </p>
+    <p class="h7 mb-1 font-weight-bold">Une fois un code d'autorisation obtenu, vous allez disposer de 15 minutes pour valider la
+      transaction.</p>
+    <label>Code Paiement</label>
+    <input [(ngModel)]="authorizationCode" [minLength]="0" maxlength="6" name="authorizationCode" type="text">
+  </div>
+  <div class="w-100 d-flex flex-row justify-content-around align-items-center" mat-dialog-actions>
+    <button (click)="cancelRequest()" class="ui gray button">Annuler</button>
+    <button (click)="validateRequest()" class="ui orange button">Valider</button>
+  </div>
+</div>
