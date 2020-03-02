@@ -2,41 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca8241b0-1446-4074-a5b8-4b981b48add2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/css/payexpresse.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/ABJ.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/ADD.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/BKO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/BRU.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/CAS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/CDG.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/LHR.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/MAN.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/cities/NBO.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/js/payexpresse.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/event-searching/event-searching.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/event-searching/event-searching.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/event-sport/event-sport-details/event-sport-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/event-sport/event-sport-details/event-sport-details.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/search/event-sport/event-sport.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/event-sport/event-sport.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-searching/ticket-searching.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-searching/ticket-searching.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/url.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/url.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +192,7 @@
       <workItem from="1581636767437" duration="1815000" />
       <workItem from="1582100829322" duration="47000" />
       <workItem from="1582810500515" duration="259000" />
-      <workItem from="1583122560117" duration="33000" />
+      <workItem from="1583122560117" duration="570000" />
     </task>
     <servers />
   </component>
