@@ -6,7 +6,7 @@ import '../assets/prototypes/array-prototypes';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './templates/header/header.component';
 import {FooterComponent} from './templates/footer/footer.component';
@@ -44,8 +44,6 @@ import {TicketDetailsComponent} from './templates/ticket-details/ticket-details.
 // make jquery to be available globally
 import * as $ from 'jquery';
 import {AddressesComponent} from './tickets/flight-ticket-details/addresses/addresses.component';
-import {PaypalComponent} from './core/payments/paypal/paypal.component';
-import {CreditCardComponent} from './core/payments/credit-card/credit-card.component';
 import {InCashComponent} from './core/payments/in-cash/in-cash.component';
 import {NgxPayPalModule} from 'ngx-paypal';
 import {FomanticUIModule} from 'ngx-fomantic-ui';
@@ -59,7 +57,6 @@ import {BoatComponent} from './templates/search/boat/boat.component';
 import {BoatResultComponent} from './templates/search/boat/boat-result/boat-result.component';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {CorePaymentComponent} from './core/core-payment/core-payment.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {GeneralConditionComponent} from './core/modal/general-condition/general-condition.component';
 import {BusComponent} from './templates/search/bus/bus.component';
@@ -69,10 +66,11 @@ import {CorePaymentV2Component} from './core/core-payment-v2/core-payment-v2.com
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {HomeBannerComponent} from './advertising/home-banner/home-banner.component';
 import {EPaymentComponent} from './core/payments/e-payment/e-payment.component';
-import {SlideshowModule} from "ng-simple-slideshow";
-import {SidebarModule} from "ng-sidebar";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {SlideshowModule} from 'ng-simple-slideshow';
+import {SidebarModule} from 'ng-sidebar';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {ChooseFlightDialogComponent} from './templates/trend-preference/choose-flight-dialog/choose-flight-dialog.component';
+import {TokenInterceptor} from './core/Interceptors/token-interceptor.service';
 
 registerLocaleData(localeFr);
 
@@ -102,9 +100,6 @@ window['jQuery'] = $;
     RegisterComponent,
     TicketDetailsComponent,
     AddressesComponent,
-    PaypalComponent,
-    CreditCardComponent,
-    EPaymentComponent,
     InCashComponent,
     TrendPreferenceComponent,
     TravelAsideComponent,
@@ -113,13 +108,13 @@ window['jQuery'] = $;
     EventSportComponent,
     BoatComponent,
     BoatResultComponent,
-    CorePaymentComponent,
     GeneralConditionComponent,
     BusComponent,
     BusResultComponent,
     CorePaymentV2Component,
     HomeBannerComponent,
-    ChooseFlightDialogComponent
+    EPaymentComponent,
+    ChooseFlightDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -159,14 +154,15 @@ window['jQuery'] = $;
     MatTooltipModule,
     SlideshowModule,
     SidebarModule,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   providers: [
     CurrencyPipe,
     DatePipe,
     {provide: LOCALE_ID, useValue: 'fr-SN'},
     CookieService,
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService}
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],
   entryComponents: [

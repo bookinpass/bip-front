@@ -5,7 +5,6 @@ import {CompanyJson} from '../../../assets/compagnies.json';
 import {CompagnieModel} from '../../models/compagnie.model';
 import {AirportsJson} from '../../../assets/airports.json';
 import {ActivatedRoute} from '@angular/router';
-import {IClientAuthorizeCallbackData} from 'ngx-paypal';
 import {DatePipe} from '@angular/common';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -20,7 +19,6 @@ export class PrintFlightTicketComponent implements OnInit, AfterViewInit {
   public ticket: FlightModel;
   public travelers: Array<TravelerModel>;
   public airlines: CompagnieModel;
-  public details: IClientAuthorizeCallbackData;
   public from: string;
   public to: string;
   public transaction: string;
@@ -41,7 +39,6 @@ export class PrintFlightTicketComponent implements OnInit, AfterViewInit {
     this.travelers.forEach(() => {
       this.listOfBookingRef.push(this.getBookingRef());
     });
-    this.details = JSON.parse(localStorage.getItem(this.transaction));
     this.airlines = new CompanyJson().companies.find(x => x.iata === this.ticket.validatingAirlineCodes[0]);
   }
 

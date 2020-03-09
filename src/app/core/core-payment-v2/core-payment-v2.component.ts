@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {IClientAuthorizeCallbackData, ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
 import {EventNominationModel} from '../../models/event-nomination.model';
 import {MatDialog} from '@angular/material/dialog';
 import {GeneralConditionComponent} from '../modal/general-condition/general-condition.component';
@@ -10,16 +9,13 @@ import {AsYouType, CountryCode, getExampleNumber} from 'libphonenumber-js';
 import examples from 'libphonenumber-js/examples.mobile.json';
 import {CountryJson} from '../../../assets/Country.json';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
-import {retry} from 'rxjs/operators';
-import {GlobalErrorHandlerService} from '../error/global-error-handler.service';
-import Swal from 'sweetalert2';
-import {CurrencyService} from '../payments/services/currency.service';
 import {Subscription} from 'rxjs';
-import {CurrencyPipe} from '@angular/common';
-import {EPaymentComponent} from '../payments/e-payment/e-payment.component';
 import {SafeUrl} from '@angular/platform-browser';
 import {EventModel} from '../../models/event.model';
-import {InCashComponent} from "../payments/in-cash/in-cash.component";
+import {InCashComponent} from '../payments/in-cash/in-cash.component';
+import {UrlConfig} from '../../../assets/url.config';
+
+declare const PayExpresse: any;
 
 export class EPaymentData {
   orderId: string;
@@ -58,44 +54,12 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
   public hasAcceptedCondition = false;
   public countries = new CountryFRJson().countries;
   public listOfPersons = new Array<EventNominationModel>();
-  public paymentType = '';
-  public payPalConfig: IPayPalConfig;
-  public paymentDisplay = [
-    {path: '../../../assets/images/icons/cash.jpg', alt: 'en espece', type: 'cash'},
-    {path: '../../../assets/images/icons/OM.jpg', alt: 'avec Orange money', type: 'om'},
-    {path: '../../../assets/images/icons/paypal.png', alt: 'avec Paypal', type: 'paypal'},
-    {path: '../../../assets/images/icons/credit-card.png', alt: 'avec votre carte de credit', type: 'card'},
-    {path: '../../../assets/images/icons/wari.png', alt: 'avec Wari', type: 'wari'},
-    {path: '../../../assets/images/icons/tigoCash.png', alt: 'avec Tigo Cash', type: 'tigo'}
-    // {path: '../../../assets/images/icons/credit.jpg', alt: 'Credit telephonique', type: 'mobile'},
-  ];
-  private toCurrency = 'USD';
+  private url = new UrlConfig().eventHost;
   private subs = new Subscription();
   private hasError = false;
-  private priceToUsd: string;
-  private paypalDetails: IClientAuthorizeCallbackData;
 
   constructor(public matDialog: MatDialog,
-              public matDialog2: MatDialog,
-              public cashMatDialog: MatDialog,
-              private converter: CurrencyService,
-              private currencyPipe: CurrencyPipe) {
-  }
-
-  public static onPaymentError() {
-    Swal.fire({
-      title: 'Erreur',
-      html: 'Votre paiement a échoué! Veuillez vérifier que vous disposez d\'un solde suffisant. Si le problème persiste, veuillez' +
-        ' contacter Paypal pour trouver une solution au problème.',
-      type: 'error',
-      showCancelButton: false,
-      confirmButtonText: 'OK',
-      allowEnterKey: true,
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      position: 'center'
-    });
+              public cashMatDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -134,10 +98,6 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
       .subscribe(() => {
         this.hasAcceptedCondition = true;
       });
-  }
-
-  public getLogoPath(type: string): string {
-    return this.paymentDisplay.find(item => item.type.equalIgnoreCase(type)).path;
   }
 
   public emailValidityChecker(person: EventNominationModel) {
@@ -203,7 +163,6 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
     if (this.hasError) {
       new SwalConfig().ErrorSwalWithNoReturn('Erreur', 'Tous les champs sont obligatoires. Veuillez les remplir correctement!');
     } else {
-      this.convertAmount();
       this.listOfPersons.filter(x => x.ticketType.equalIgnoreCase('unset')).forEach(x => {
         this.listOfPersons[this.listOfPersons.indexOf(x)] = this.listOfPersons[0];
       });
@@ -211,33 +170,7 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
     }
   }
 
-  public openPaymentDialog(type: string) {
-    this.paymentType = type;
-    const dialog = this.matDialog2.open(EPaymentComponent, {
-      width: window.innerWidth > 420 ? '420px' : '360px',
-      height: 'max-content',
-      hasBackdrop: true,
-      disableClose: true,
-      closeOnNavigation: true,
-      data: {
-        type: this.paymentType,
-        payer: this.listOfPersons[0],
-        orderId: null,
-        status: null,
-        price: this.totalPrice(),
-      } as EPaymentData
-    });
-    dialog.afterClosed()
-      .subscribe((data: EPaymentData) => {
-        this.paymentData = data;
-        if (data.status.equalIgnoreCase('succeed')) {
-          this.currentStep = 3;
-        }
-      });
-  }
-
   public openCashPaymentDialog() {
-    this.paymentType = 'cash';
     const dialog = this.cashMatDialog.open(InCashComponent, {
       width: window.innerWidth > 400 ? '400px' : '360px',
       height: 'max-content',
@@ -245,7 +178,7 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
       disableClose: true,
       closeOnNavigation: true,
       data: {
-        type: this.paymentType,
+        type: 'cash',
         payer: this.listOfPersons[0],
         orderId: null,
         status: null,
@@ -257,6 +190,41 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
         this.paymentData = data;
         // todo: save record to background
       });
+  }
+
+  public pay() {
+    const name = this.name;
+    const id = '';
+    (new PayExpresse({
+      item_id: id
+    })).withOption({
+      requestTokenUrl: `${this.url}/request-payment?name=${name}&price=${this.price}.0&order=${this.description}`,
+      method: 'POST',
+      headers: {
+        Accept: 'application/json'
+      },
+      prensentationMode: PayExpresse.OPEN_IN_POPUP,
+      // tslint:disable-next-line:variable-name
+      didPopupClosed(is_completed, success_url, cancel_url) {
+        console.log("done");
+        if (is_completed) {
+          this.currentStep = 3;
+        }
+      },
+      willGetToken() {
+        console.log('Je me prepare a obtenir un token');
+      },
+      didGetToken(token, redirectUrl) {
+        console.log('Mon token est : ' + token + ' et url est ' + redirectUrl);
+      },
+      didReceiveError(error) {
+        console.log(error);
+      },
+      didReceiveNonSuccessResponse(jsonResponse) {
+        console.log('non success response ', jsonResponse);
+        alert(jsonResponse.errors);
+      }
+    }).send();
   }
 
   private setListOfTicketType() {
@@ -281,108 +249,6 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
     this.hasError = adding;
     adding ? set.add(value) : set.delete(value);
     this.mapError.set(key, set);
-  }
-
-  private convertAmount() {
-    this.subs = this.converter.getCurrencyConverterRate(this.fromCurrency, this.toCurrency, this.price)
-      .pipe(retry(2))
-      .subscribe((data: any) => {
-          this.priceToUsd = (Number(data.rates[this.toCurrency].rate_for_amount).toFixed(2)).toString();
-          this.initConfig();
-        }, error => new GlobalErrorHandlerService().handleError(error)
-      );
-  }
-
-  private initConfig(): void {
-    this.payPalConfig = {
-      currency: this.toCurrency,
-      clientId: 'AXw_WRBFaIrxRT_Hu5t-NeqILen5xynZzNOB9iKXhvLtU6__pCJrTEoGQdtEcO&#45;&#45;2TSXlLYvvahC9gVw',
-      // tslint:disable-next-line:no-angle-bracket-type-assertion
-      createOrderOnClient: (data) => <ICreateOrderRequest>{
-        intent: 'CAPTURE',
-        purchase_units: [
-          {
-            amount: {
-              currency_code: this.toCurrency,
-              value: this.priceToUsd,
-              breakdown: {
-                item_total: {
-                  currency_code: this.toCurrency,
-                  value: this.priceToUsd
-                }
-              }
-            },
-            items: [
-              {
-                name: this.name,
-                quantity: '1',
-                category: 'DIGITAL_GOODS',
-                unit_amount: {
-                  currency_code: this.toCurrency,
-                  value: this.priceToUsd,
-                },
-                description: this.description,
-              }
-            ]
-          }
-        ]
-      },
-      advanced: {
-        commit: 'true'
-      },
-      style: {
-        color: 'blue',
-        shape: 'pill',
-        label: 'pay',
-        size: 'responsive'
-      },
-      onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized');
-        console.log(data);
-        console.log(actions);
-        actions.order.get().then(details => {
-          console.log('onApprove - you can get full order details inside onApprove');
-          console.log(details);
-        });
-      },
-      onClientAuthorization: (data) => {
-        this.loader = false;
-        this.onPaymentSucceed(data);
-      },
-      onCancel: (data, actions) => {
-        this.loader = false;
-        Swal.fire('Info', 'La transaction a ete annulee', 'info');
-      },
-      onError: () => {
-        this.loader = false;
-        CorePaymentV2Component.onPaymentError();
-      },
-      onClick: _ => {
-        this.loader = true;
-      }
-    };
-  }
-
-  private onPaymentSucceed(success: IClientAuthorizeCallbackData) {
-    this.paypalDetails = success;
-    Swal.fire({
-      title: 'Done',
-      html: 'Votre paiement a été approuvé! <br/>' +
-        'Numéro de la transaction: ' + this.paypalDetails.id + '<br/>' +
-        'Montant net payer: ' + this.currencyPipe.transform(this.totalPrice(), this.fromCurrency, 'symbol-narrow', '1.1-2'),
-      type: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'OK',
-      allowEnterKey: true,
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      position: 'center'
-    }).then(res => {
-      if (res) {
-        this.currentStep = 3;
-      }
-    });
   }
 
   private totalPrice = () => {

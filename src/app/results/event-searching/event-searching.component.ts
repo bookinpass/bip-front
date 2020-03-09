@@ -13,7 +13,7 @@ import {VariableConfig} from '../../../assets/variable.config';
 import {DatePipe, Location} from '@angular/common';
 import {PlaceModel} from '../../models/place.model';
 import {isEqual} from 'date-fns';
-import {isDate} from "moment";
+import {isDate} from 'moment';
 
 @Component({
   selector: 'app-event-searching',

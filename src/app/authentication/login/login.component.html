@@ -1,37 +1,29 @@
-<div class="content-wrapper">
-  <p mat-dialog-title class="m-0">
-    <mat-card-title matDialogTitle>Se connecter
-      <fa-icon [icon]="faClose" (click)="dialogRef.close(false)" class="float-right cursor-pointer"></fa-icon>
+<div *ngIf="!resetPassword" class="content-wrapper">
+  <p class="m-0" mat-dialog-title>
+    <mat-card-title matDialogTitle>Connexion
+      <fa-icon (click)="dialogRef.close(false)" [icon]="faClose" class="float-right cursor-pointer"></fa-icon>
     </mat-card-title>
   </p>
   <mat-dialog-content>
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="d-flex flex-column" style="height: 125px"
-          (keyup)="isEnterKeyPressed($event)">
+    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="d-flex flex-column" style="height: 125px">
       <mat-form-field>
-        <input matInput type="email" formControlName="email" (change)="email=f.email.value" placeholder="Email"/>
-        <mat-error *ngIf="f.email.errors && f.email.touched && f.email.dirty && f.email.errors.required">Ce champ est requis</mat-error>
-        <mat-error *ngIf="f.email.errors && f.email.touched && f.email.dirty && (f.email.errors.pattern)">
-          L'email doit etre au format abc@cde.yz
+        <input formControlName="username" matInput placeholder="Nom d'utilisateur" type="text"/>
+        <mat-error *ngIf="f.username.errors && f.username.touched && f.username.dirty && f.username.errors.required">Ce champ est requis
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [type]="showPwd1 ? 'text' : 'password'" id="passwordRow" formControlName="password"
-               (change)="password=f.password.value" placeholder="Mot de passe"/>
-        <span matSuffix class="toggle-pwd">
-          <i [ngClass]="showPwd1 ? 'eye slash icon' : 'eye icon' " (click)="showPwd1 = !showPwd1"></i>
+        <input [type]="showPwd ? 'text' : 'password'" formControlName="password" id="passwordRow" matInput placeholder="Mot de passe"/>
+        <span class="toggle-pwd" matSuffix>
+          <i (click)="showPwd = !showPwd" [ngClass]="showPwd ? 'eye slash icon' : 'eye icon' "></i>
         </span>
-        <mat-error *ngIf="f.password.touched && f.password.dirty && f.password.errors?.required">
-          Ce champ est requis
-        </mat-error>
-        <mat-error *ngIf="f.password.touched && f.password.dirty && f.password.errors?.minlength">
-          Le mot de passe doit comporter au moins 8 caractères.
-        </mat-error>
+        <mat-error *ngIf="f.password.touched && f.password.dirty && f.password.errors?.required">Ce champ est requis</mat-error>
       </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions class="d-flex flex-row">
-    <p class="text-right full-width m-0 pb-2"><a (click)="forgottenPassword()">Mot de passe oublié ?</a></p>
-    <button (click)="onSubmit()" class="btn btn-login">Se connecter</button>
+    <p class="text-right full-width m-0 pb-2"><a (click)="resetPassword = true">Mot de passe oublié ?</a></p>
+    <button (click)="onSubmit()" class="btn btn-login">Se connecter
+    </button>
     <hr class="mat-stepper-horizontal-line">
     <p class="full-width text-center pb-1 m-0">Nouvel utilisateur ?
       <a (click)="register()" style="cursor: pointer">Créer un compte</a>
@@ -39,13 +31,67 @@
   </mat-dialog-actions>
 </div>
 
-<div class="login-layer-notifications" *ngIf="loading">
+<div *ngIf="resetPassword" class="content-wrapper">
+  <p class="m-0" mat-dialog-title>
+    <mat-card-title matDialogTitle>{{isCodeValid ? 'Nouveau mot de passe' : enterCode ? 'Verification' : 'Entrer vos Informations'}}
+      <fa-icon (click)="dialogRef.close(false)" [icon]="faClose" class="float-right cursor-pointer"></fa-icon>
+    </mat-card-title>
+  </p>
+  <mat-dialog-content>
+    <div *ngIf="!isCodeValid" [ngStyle]="{height: enterCode ? '220px' : '160px'} " class="ui form">
+      <div class="field">
+        <label>Séléctionner votre pays</label>
+        <select (change)="getDialCode()" [(ngModel)]="country" [disabled]="enterCode" class="ui selection dropdown" name="countrySelect">
+          <option *ngFor="let ctr of countries" [selected]="ctr.code === 'SN'" [value]="ctr.code">{{ctr.name}}</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Téléphone</label>
+        <div class="ui labeled input">
+          <div class="ui basic label">{{dialCode}}</div>
+          <input [(ngModel)]="telephone" [disabled]="enterCode" name="telephone" placeholder="Telephone" type="tel">
+        </div>
+      </div>
+      <div *ngIf="enterCode" class="field">
+        <label>Code de verification</label>
+        <input [(ngModel)]="code" name="code" placeholder="Code" type="text"/>
+      </div>
+    </div>
+    <div *ngIf="isCodeValid" class="ui form" style="height: 160px">
+      <div class="field">
+        <label>Nouveau Mot de passe</label>
+        <div class="ui icon input">
+          <input [(ngModel)]="newPwd" [type]="showPwd2 ? 'text' : 'password'" name="newPwd" placeholder="Nouveau Mot de passe"/>
+          <i (click)="showPwd2 = !showPwd2" [ngClass]="showPwd2 ? 'eye slash icon' : 'eye icon'" class="cursor-pointer"
+             style="pointer-events: auto"></i>
+        </div>
+      </div>
+      <div class="field">
+        <input [(ngModel)]="pwdConfirmation" [type]="showPwd2 ? 'text' : 'password'" name="confirmation" placeholder="Confirmation">
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-end align-items-center mb-3">
+      <button (click)="this.resetPassword = false" class="ui basic button">Annuler</button>
+      <button (click)="enterCode ? validateCode() : generateCode()" *ngIf="!isCodeValid" class="ui green button">
+        {{!enterCode ? 'Obtenir un code' : 'Vérifier'}}</button>
+      <button (click)="changePassword()" *ngIf="isCodeValid" class="ui green button">Enregistrer</button>
+    </div>
+  </mat-dialog-content>
+</div>
+
+<div *ngIf="loading && !resetPassword" class="login-layer-notifications">
   <div class="login-waiting-wheel">
     <div [ngClass]="status === 0 ? 'dialog-image-waiting-wheel' : 'dialog-image-waiting-wheel-success'"></div>
   </div>
   <div class="login-sending-instructions mt-3">
     {{status === 0 ? 'Connexion en cours ...' : 'Connexion réussi'}}
-    <fa-icon [icon]="faShield" *ngIf="status === 1" style="color: #7ab044"></fa-icon>
+    <fa-icon *ngIf="status === 1" [icon]="faShield" style="color: #7ab044"></fa-icon>
   </div>
 </div>
-<button class="d-none" id="registering" (click)="register()"></button>
+<div *ngIf="loading && resetPassword" class="login-layer-notifications">
+  <div class="login-waiting-wheel">
+    <div [ngClass]="status === 0 ? 'dialog-image-waiting-wheel' : 'dialog-image-waiting-wheel-success'"></div>
+    <p>Vérification</p>
+  </div>
+</div>
+<button (click)="register()" class="d-none" id="registering"></button>

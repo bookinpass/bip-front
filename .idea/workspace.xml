@@ -2,8 +2,65 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca8241b0-1446-4074-a5b8-4b981b48add2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/core/Interceptors/token-interceptor.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/epayment.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/hammerjs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/hammerjs/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/authentication/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/authentication/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/authentication/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/authentication/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/authentication/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/authentication/register/register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/authentication/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/authentication/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment/core-payment.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/credit-card/credit-card.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/credit-card/credit-card.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/credit-card/credit-card.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payments/e-payment/e-payment.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/in-cash/in-cash.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payments/in-cash/in-cash.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/paypal/paypal.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/paypal/paypal.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/paypal/paypal.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payments/services/currency.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payments/services/currency.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/client.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/client.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/results/event-searching/event-searching.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/event-searching/event-searching.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/airport/airport.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/cookie/cookies.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/cookie/cookies.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/searching/flight/flight-searching.service.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/searching/ticket/ticket-searching.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/authentication/ip-address.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/header/header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/print-flight-ticket/print-flight-ticket.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/print-flight-ticket/print-flight-ticket.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/boat/boat-result/boat-result.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/search/bus/bus-result/bus-result.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/js/payexpresse.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/payexpresse.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/url.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/url.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/variable.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/variable.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,19 +118,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/app/templates/trend-preference" />
-      <recent name="$PROJECT_DIR$/src/assets/images/cities" />
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/app/core/core-payment-v2" />
-      <recent name="$PROJECT_DIR$/src/app/templates/search/event-sport" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/assets/images" />
       <recent name="$PROJECT_DIR$/src/assets/images/icons" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/services/authentication" />
+      <recent name="$PROJECT_DIR$/src/app/core/Interceptors" />
+      <recent name="$PROJECT_DIR$/src/app/templates/trend-preference" />
+      <recent name="$PROJECT_DIR$/src/assets/images/cities" />
+      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -193,7 +250,16 @@
       <workItem from="1581636767437" duration="1815000" />
       <workItem from="1582100829322" duration="47000" />
       <workItem from="1582810500515" duration="259000" />
-      <workItem from="1583122560117" duration="1198000" />
+      <workItem from="1583122560117" duration="1264000" />
+      <workItem from="1583174944039" duration="22000" />
+      <workItem from="1583178641799" duration="7403000" />
+      <workItem from="1583279283027" duration="611000" />
+      <workItem from="1583280034802" duration="10054000" />
+      <workItem from="1583361154178" duration="4928000" />
+      <workItem from="1583533986298" duration="655000" />
+      <workItem from="1583536621101" duration="976000" />
+      <workItem from="1583586273184" duration="15598000" />
+      <workItem from="1583688416788" duration="24860000" />
     </task>
     <servers />
   </component>
@@ -231,6 +297,10 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="559" y="216" key="#Images/0.28.1920.1052@0.28.1920.1052" timestamp="1578972584858" />
+    <state x="559" y="216" key="#Inspections" timestamp="1583363327908">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="559" y="216" key="#Inspections/0.28.1920.1052@0.28.1920.1052" timestamp="1583363327908" />
     <state x="559" y="216" key="#Notifications" timestamp="1578449764721">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -248,16 +318,16 @@
     </state>
     <state x="738" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1044@0.0.1920.1044" timestamp="1576839756607" />
     <state x="738" y="352" width="528" height="401" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1578955841713" />
-    <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser" timestamp="1578805781396">
+    <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser" timestamp="1583696341360">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="772" y="244" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1044@0.0.1920.1044" timestamp="1578016231847" />
-    <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1578805781396" />
-    <state x="643" y="282" width="634" height="541" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1581461168125">
+    <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1583696341360" />
+    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1583536589831">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="643" y="252" width="634" height="541" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1044@0.0.1920.1044" timestamp="1577443415026" />
-    <state x="643" y="282" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1581461168125" />
+    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1583536589831" />
     <state x="697" y="305" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581462192244">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -270,11 +340,11 @@
       <screen x="0" y="0" width="1920" height="1044" />
     </state>
     <state x="99" y="100" width="1722" height="845" maximized="true" key="DiffContextDialog/0.0.1920.1044@0.0.1920.1044" timestamp="1577963265728" />
-    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl" timestamp="1582100874615">
+    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl" timestamp="1583406775057">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="747" y="283" key="FileChooserDialogImpl/0.0.1920.1044@0.0.1920.1044" timestamp="1578156739916" />
-    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1582100874615" />
+    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1583406775057" />
     <state x="0" y="28" key="FileDocumentManager.FileCacheConflict" timestamp="1579629061664">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -372,11 +442,11 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="628" y="228" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1581473067731" />
-    <state x="763" y="468" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579344646534">
+    <state x="763" y="468" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583361953892">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="763" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1044@0.0.1920.1044" timestamp="1578006964946" />
-    <state x="763" y="468" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1052@0.28.1920.1052" timestamp="1579344646534" />
+    <state x="763" y="468" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1052@0.28.1920.1052" timestamp="1583361953892" />
     <state x="287" y="161" width="1513" height="807" key="dock-window-1" timestamp="1578266095550">
       <screen x="0" y="0" width="1920" height="1044" />
     </state>
@@ -389,16 +459,16 @@
       <screen x="0" y="0" width="1920" height="1044" />
     </state>
     <state x="608" y="244" width="700" height="530" key="recent.locations.popup/0.0.1920.1044@0.0.1920.1044" timestamp="1576804427586" />
-    <state x="293" y="261" key="run.anything.popup" timestamp="1581544146846">
+    <state x="293" y="261" key="run.anything.popup" timestamp="1583692701555">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="293" y="231" key="run.anything.popup/0.0.1920.1044@0.0.1920.1044" timestamp="1578270083423" />
-    <state x="293" y="261" key="run.anything.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1581544146846" />
-    <state x="623" y="260" width="672" height="684" key="search.everywhere.popup" timestamp="1579097796457">
+    <state x="293" y="261" key="run.anything.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1583692701555" />
+    <state x="623" y="260" width="672" height="684" key="search.everywhere.popup" timestamp="1583714675109">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="623" y="230" width="672" height="678" key="search.everywhere.popup/0.0.1920.1044@0.0.1920.1044" timestamp="1578158575619" />
-    <state x="623" y="260" width="672" height="684" key="search.everywhere.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1579097796457" />
+    <state x="623" y="260" width="672" height="684" key="search.everywhere.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1583714675109" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>

@@ -12,19 +12,21 @@ export class ClientModel {
 
 export class AddressModel {
   idAddress: number;
-  line1: string = '';
-  line2: string = '';
-  city: string = '';
-  state: string = '';
-  country: string = '';
+  line1 = '';
+  line2 = '';
+  city = '';
+  state = '';
+  country = '';
   postalCode: number = null;
-  phonePrefix: string = '';
-  telephone: string = '';
-  isPreferred: boolean = false;
+  phonePrefix = '';
+  telephone = '';
+  isPreferred = false;
 }
 
 export class DocumentModel {
-  constructor(){ }
-  identifier: string = '';
-  type: number = 0;
+  identifier = '';
+  type = 0;
+
+  constructor() {
+  }
 }

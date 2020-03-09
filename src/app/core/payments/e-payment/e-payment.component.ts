@@ -23,7 +23,6 @@ export class EPaymentComponent implements OnInit {
     {path: '../../../assets/images/icons/wari.png', alt: 'avec Wari', type: 'wari'},
     {path: '../../../assets/images/icons/tigoCash.png', alt: 'avec Tigo Cash', type: 'tigo'},
     {path: '../../../assets/images/icons/cash.png', alt: 'en espece', type: 'cash'},
-    // {path: '../../../assets/images/icons/credit.jpg', alt: 'Credit telephonique', type: 'mobile'},
   ];
 
   constructor(public dialogRef: MatDialogRef<EPaymentComponent>,

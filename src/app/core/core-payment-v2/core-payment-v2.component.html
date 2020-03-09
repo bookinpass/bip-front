@@ -106,22 +106,16 @@
   <div class="ui segment">
     <div class="ui dividing header h4">Choisissez votre méthode de paiement</div>
     <div class="ui small images d-flex flex-row justify-content-around">
-      <a (click)="['mobile', 'tigo', 'om', 'wari'].includes(item.type) ? openPaymentDialog(item.type)
-       : item.type.equalIgnoreCase('cash') ? openCashPaymentDialog() : paymentType = item.type"
-         *ngFor="let item of paymentDisplay" class="ui image cursor-pointer" matTooltip="Payer {{item.alt}}"
-         matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
-        <img [alt]="item.alt" [src]="item.path" style="height: 150px">
-      </a>
-    </div>
-  </div>
-  <div class="ui attached segment">
-    <div *ngIf="paymentType === 'paypal'">
-      <div class="col-12 col-md-8 col-lg-5">
-        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      <div class="ui small images d-flex flex-row justify-content-around">
+        <a (click)="pay()" class="ui image cursor-pointer" matTooltip="Payer avec PayExpress"
+           matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+          <img alt="payexpress" src="../../../assets/images/icons/epayment.png" style="height: 150px">
+        </a>
+        <a (click)="openCashPaymentDialog()" class="ui image cursor-pointer" matTooltip="Payer en point de relai"
+           matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+          <img alt="cash" src="../../../assets/images/icons/cash.jpg" style="height: 150px">
+        </a>
       </div>
-    </div>
-    <div *ngIf="paymentType === 'card'">
-      <app-credit-card></app-credit-card>
     </div>
   </div>
 </div>
@@ -160,7 +154,7 @@
           </div>
           <div class="d-flex flex-column justify-content-start align-items-center logo-container">
             <p>Payé via</p>
-            <img [src]="getLogoPath(paymentType)" alt="logo vendeur">
+            <img alt="Pay Express" src="../../../assets/images/icons/epayment.png">
           </div>
         </div>
         <div class="d-flex flex-row justify-content-end ticket-footer">

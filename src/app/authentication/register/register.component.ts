@@ -132,7 +132,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   setClientInfo() {
     this.client.firstName = RegisterComponent.capitalizeWord(this.info.firstName.value);
     this.client.lastName = RegisterComponent.capitalizeWord(this.info.lastName.value);
-    this.client.email = this.info.email.value;
+    this.client.email = this.info.username.value;
     this.client.password = this.info.password.value;
     if (this.isDisabled) {
       this.client.documents[0] = new DocumentModel();
@@ -173,9 +173,9 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   checkExistingEmail() {
-    if (this.info.email.valid) {
+    if (this.info.username.valid) {
       this.loadingEmail = true;
-      this.authService.checkIdEmailExist(this.info.email.value)
+      this.authService.checkIdEmailExist(this.info.username.value)
         .pipe(this.scavenger.collect(), retry(3))
         .subscribe((data: boolean) => {
           if (data) {
@@ -184,13 +184,13 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (res) {
                   this.loadingEmail = false;
                   this.emailUsed = true;
-                  this.info.email.setErrors({invalid: true});
+                  this.info.username.setErrors({invalid: true});
                 }
               });
           } else {
             this.loadingEmail = false;
             this.emailUsed = false;
-            this.info.email.setErrors(null);
+            this.info.username.setErrors(null);
           }
         }, error => {
           this.loadingEmail = false;
@@ -228,7 +228,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.infoRegistrationForm = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.pattern(new VariableConfig().emailRegex)]],
+      username: ['', [Validators.required, Validators.pattern(new VariableConfig().emailRegex)]],
       password: ['', [Validators.required]],
       passwordConfirmation: ['', [Validators.required]],
       typeDocument: ['', Validators.required],

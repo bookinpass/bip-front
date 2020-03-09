@@ -1,7 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FlightSearchingService} from '../../services/searching/flight/flight-searching.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
 import {Scavenger} from '@wishtack/rx-scavenger';
 import {AirportsJson} from '../../../assets/airports.json';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
@@ -48,13 +46,11 @@ export class FlightSearchingComponent implements OnInit, OnDestroy {
   private scavenger: Scavenger = new Scavenger(this);
   private airports = new AirportsJson();
 
-  constructor(private service: FlightSearchingService,
-              private router: Router,
+  constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               public dialog: MatDialog,
               private errorHandler: GlobalErrorHandlerService,
-              private amadeusService: AmadeusService,
-              private location: Location) {
+              private amadeusService: AmadeusService) {
   }
 
   ngOnInit() {
@@ -179,33 +175,6 @@ export class FlightSearchingComponent implements OnInit, OnDestroy {
         });
 
   }
-
-  // private async sortListByTDuration() {
-  //   await this.listOfFlights.sort((x, y) => {
-  //     const t1 = this.formatTimeForSorting(x.itineraries.map(t => t.duration));
-  //     const t2 = this.formatTimeForSorting(y.itineraries.map(t => t.duration));
-  //     console.log(t1[0], t1[1], t2[0], t2[1]);
-  //     if (t1[0] === t2[0]) {
-  //       return t1[1] > t2[1] ? 1 : t1[1] < t2[1] ? -1 : 0;
-  //     }
-  //     return t1[0] > t2[0] ? 1 : t1[0] < t2[0] ? -1 : 0;
-  //   });
-  // }
-  //
-  // private formatTimeForSorting(item: Array<string>) {
-  //   let hh = 0;
-  //   let mm = 0;
-  //   item.forEach(time => {
-  //     const tx = time.split('H');
-  //     hh = hh + Number(tx[0].replace(/[^0-9]/gi, ''));
-  //     mm = mm + Number(tx[1].replace(/[^0-9]/gi, ''));
-  //   });
-  //   while (mm > 60) {
-  //     hh += 1;
-  //     mm -= 60;
-  //   }
-  //   return {hh, mm};
-  // }
 
   private getConnectingAirports() {
     this.filteredListOfFlights.forEach(flight => {

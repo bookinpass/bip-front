@@ -15,9 +15,8 @@
             <div class="description trip-details">
               <p class="text-capitalize"><span>Date:</span> {{segment.departure.at| date: 'EEEE, dd MMM yyyy'}} </p>
               <p class="text-justify"><span>Départ:</span>
-                {{segment.departure.terminal ? 'Terminal ' + segment.departure.terminal + ' à ' : ''}}{{segment.departure.at | date: 'HH:mm'}}
-                ,
-                {{formatAirport(segment.departure.iataCode)}}
+                {{segment.departure.terminal ? 'Terminal ' + segment.departure.terminal + ' à ' : ''}}
+                {{segment.departure.at | date: 'HH:mm'}}, {{formatAirport(segment.departure.iataCode)}}
               </p>
               <p class="text-justify"><span>Arrivée:</span>
                 {{segment.arrival.terminal ? 'Terminal ' + segment.arrival.terminal + ' à ' : ''}}{{segment.arrival.at | date: 'HH:mm'}},

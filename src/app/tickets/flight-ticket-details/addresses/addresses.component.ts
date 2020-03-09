@@ -82,6 +82,7 @@ export class AddressesComponent implements OnInit, OnDestroy {
   public setPhonePrefix() {
     const country = new AirportsJson().airport.find(x => x.countryName === this.selectedCountry);
     this.countryCode = country.countryCode;
+    this.principal.contact.address.countryCode = country.countryCode;
     const x = new CountryJson().countries.find(y => y.code === country.countryCode);
     this.principal.contact.phones[0].countryCallingCode = x === null || x === undefined ? '' : x.dial_code;
   }

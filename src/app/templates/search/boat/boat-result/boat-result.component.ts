@@ -9,9 +9,9 @@ import {IClientAuthorizeCallbackData} from 'ngx-paypal';
 import Swal from 'sweetalert2';
 import {CurrencyPipe} from '@angular/common';
 import {AppComponent} from '../../../../app.component';
-import html2canvas from "html2canvas";
-import * as jspdf from "jspdf";
-import {EPaymentData} from "../../../../core/core-payment-v2/core-payment-v2.component";
+import html2canvas from 'html2canvas';
+import * as jspdf from 'jspdf';
+import {EPaymentData} from '../../../../core/core-payment-v2/core-payment-v2.component';
 
 const colors: any = {
   red: {

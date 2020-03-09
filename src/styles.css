@@ -1878,8 +1878,6 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 }
 
 /*AdineuePRO*/
-
-
 @font-face {
   font-family: AdiPRO;
   src: url("./assets/fonts/adidas/adineuePRO-Regular.woff2?hash=1RLZb") format("woff2"),
@@ -1959,7 +1957,7 @@ body {
 body,
 :not(.icon),
 :not(.fa-icon) {
-  font-family: Ubuntu, "Open Sans", AdineuePRO, "Roboto Slab", "Helvetica Neue", sans-serif;
+  font-family: Ubuntu, "Open Sans", AdineuePRO, sans-serif;
 }
 
 /* Sweet Alert2 button style */
@@ -1972,13 +1970,13 @@ body,
 
 .swal2-confirm {
   background-color: darkorchid !important;
-  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, "Helvetica Neue", serif !important;
+  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, serif !important;
 }
 
 .swal2-cancel {
   background-color: darkgoldenrod !important;
   margin-left: 20px;
-  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, "Helvetica Neue", serif !important;
+  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, serif !important;
 }
 
 .swal2-icon,
@@ -1994,14 +1992,19 @@ body,
 }
 
 .swal2-content {
-  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, "Helvetica Neue", serif !important;
+  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, serif !important;
 }
 
 .card-header,
 h1,
 h2,
 h3 {
-  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, "Helvetica Neue", serif !important;
+  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, serif !important;
+}
+
+.backdropClass {
+  background-color: #333;
+  opacity: 0.75 !important;
 }
 
 .custom-mat-dialog > mat-dialog-container {
@@ -2009,7 +2012,7 @@ h3 {
   font-size: 14px;
   overflow: hidden;
   max-height: 80vh;
-  font-family: "Roboto Slab", AdineuePRO, Ubuntu, "Open Sans", Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Ubuntu, AdineuePRO, "Open Sans", Roboto, sans-serif !important;
 }
 
 .custom-register-dialog > mat-dialog-container {
@@ -2020,7 +2023,7 @@ h3 {
   height: max-content;
   max-height: 80vh;
   max-width: 90vw;
-  font-family: Ubuntu, "Roboto Slab", AdineuePRO, "Open Sans", "Helvetica Neue", sans-serif !important;
+  font-family: Ubuntu, AdineuePRO, "Open Sans", sans-serif !important;
 }
 
 .custom-itinerary-dialog > mat-dialog-container {
@@ -2132,7 +2135,7 @@ select.dropdown:focus {
   flex-direction: row-reverse;
   justify-content: flex-end;
   font-size: 13px;
-  font-family: Ubuntu, "Open Sans", AdineuePRO, "Roboto Slab", "Helvetica Neue", sans-serif;
+  font-family: Ubuntu, "Open Sans", AdineuePRO, sans-serif;
 }
 
 .ng2-tags-container > form {

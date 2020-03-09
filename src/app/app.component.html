@@ -4,6 +4,7 @@
               (logoutEmitter)="logout()"
               (registrationEmitter)="register()"
               (sidebarEmitter)="sidenav.toggle()"
+              [client]="client"
               id="app-header-container"></app-header>
   <mat-sidenav-container>
     <mat-sidenav #sidenav [fixedInViewport]="true" [fixedTopGap]="0" class="ui inverted huge vertical menu ios m-0" mode="over">

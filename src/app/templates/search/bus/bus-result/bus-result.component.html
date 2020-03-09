@@ -106,17 +106,17 @@
   </div>
   <div *ngIf="currentStep === 2"
        class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around step-2">
-    <app-core-payment (loading)="setLoading($event)"
-                      (transactionDetails)="updatePaymentData($event)"
-                      (transactionDetailsEmitter)="onPaymentSucceed($event)"
-                      (transactionErrorEmitter)="onPaymentError($event)"
-                      (updateStep)="updateStep($event)"
-                      [description]="'Vos tickets de transport ' + from + ' - ' + to + '.'"
-                      [fromCurrency]="'XOF'"
-                      [name]="'Ticket Bus Senegal Dem Dikk'"
-                      [numberOfOtherTravelers]="passengers - 1"
-                      [price]="unitPrice * passengers"
-                      [quantity]="'1'"></app-core-payment>
+<!--    <app-core-payment (loading)="setLoading($event)"-->
+<!--                      (transactionDetails)="updatePaymentData($event)"-->
+<!--                      (transactionDetailsEmitter)="onPaymentSucceed($event)"-->
+<!--                      (transactionErrorEmitter)="onPaymentError($event)"-->
+<!--                      (updateStep)="updateStep($event)"-->
+<!--                      [description]="'Vos tickets de transport ' + from + ' - ' + to + '.'"-->
+<!--                      [fromCurrency]="'XOF'"-->
+<!--                      [name]="'Ticket Bus Senegal Dem Dikk'"-->
+<!--                      [numberOfOtherTravelers]="passengers - 1"-->
+<!--                      [price]="unitPrice * passengers"-->
+<!--                      [quantity]="'1'"></app-core-payment>-->
   </div>
   <div *ngIf="currentStep === 3" class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around step-3">
     <div class="d-flex flex-row justify-content-around w-100">

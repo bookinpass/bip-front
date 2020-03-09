@@ -36,13 +36,13 @@
       <mat-form-field class="ui field fluid mb-0 pr-1 pl-1">
         <input (focusout)="checkExistingEmail()" autocapitalize="words" autocomplete="false" formControlName="email" matInput
                placeholder="Email *" type="email"/>
-        <mat-error *ngIf="info.email.touched && info.email.dirty && info.email.errors?.required">
+        <mat-error *ngIf="info.username.touched && info.username.dirty && info.username.errors?.required">
           Ce champ est requis
         </mat-error>
-        <mat-error *ngIf="info.email.touched && info.email.dirty && info.email.errors?.pattern">
+        <mat-error *ngIf="info.username.touched && info.username.dirty && info.username.errors?.pattern">
           L'email doit être au format abc@cde.yz
         </mat-error>
-        <mat-error *ngIf="info.email.errors && emailUsed">
+        <mat-error *ngIf="info.username.errors && emailUsed">
           Cet email est déjà utilisé
         </mat-error>
       </mat-form-field>
@@ -123,7 +123,8 @@
       </ng-template>
 
       <mat-form-field class="col-12 pr-1 pl-1">
-        <input [autofocus]="step2.state === 'edit'" autocapitalize="words" autocomplete="true" formControlName="line1" matInput placeholder="Adresse *"
+        <input [autofocus]="step2.state === 'edit'" autocapitalize="words" autocomplete="true" formControlName="line1" matInput
+               placeholder="Adresse *"
                type="text"/>
         <div *ngIf="addr.line1.errors && addr.line1.touched && addr.line1.dirty && addr.line1.errors.required">
           <p>Ce champ est requis</p>
@@ -257,7 +258,8 @@
       </div>
 
       <div class="col-12 d-flex flex-row p-0 p-sm-3 justify-content-between mt-2">
-        <div (click)="stepper.previous()" [ngClass]="innerWidth >= 768 ? 'large' : 'small'" class="ui animated purple small button cursor-pointer"
+        <div (click)="stepper.previous()" [ngClass]="innerWidth >= 768 ? 'large' : 'small'"
+             class="ui animated purple small button cursor-pointer"
              tabindex="0">
           <div class="visible content">Modifier</div>
           <div class="hidden content">

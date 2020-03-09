@@ -103,45 +103,6 @@
                   </select>
                 </div>
               </div>
-              <!--<div *ngIf="!element.startsWith('Bébé')" class="five fields">
-                <div class="ten wide field">
-                  <label>Informations sur le titre de voyage</label>
-                  <div class="three fields">
-                    <div class="field">
-                      <select [(ngModel)]="listTravelersInfo[i+1].documents.documentType" class="ui fluid dropdown" name="document_type">
-                        <option value="">Type du document</option>
-                        <option value="IDENTITY_CARD">Carte d'identité</option>
-                        <option value="PASSPORT">Passeport</option>
-                      </select>
-                    </div>
-                    <div class="field">
-                      <input [(ngModel)]="listTravelersInfo[i+1].documents.number" name="document_number" placeholder="Numéro"
-                             type="text"/>
-                    </div>
-                    <div class="field">
-                      <select (change)="setDocumentDeliveryCountry($event.target.value, i + 1)" class="ui fluid search dropdown"
-                              name="birthCountry">
-                        <option value="">Lieu de délivrance</option>
-                        <option *ngFor="let item of countries" [value]="item.countryCode">{{item.countryName | titlecase}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="three wide field">
-                  <label>Délivrer le</label>
-                  <div class="field">
-                    <input (input)="listTravelersInfo[i+1].documents.issuanceDate = parseDate($event.target.value)"
-                           [value]="listTravelersInfo[i+1].documents.issuanceDate | date:'yyyy-MM-dd'" type="date">
-                  </div>
-                </div>
-                <div class="three wide field">
-                  <label>Expire le</label>
-                  <div class="field">
-                    <input (input)="listTravelersInfo[i+1].documents.expiryDate = parseDate($event.target.value)"
-                           [value]="listTravelersInfo[i+1].documents.expiryDate | date:'yyyy-MM-dd'" type="date">
-                  </div>
-                </div>
-              </div>-->
             </div>
           </div>
         </div>
@@ -151,57 +112,25 @@
         <div class="ui form attached segment">
           <div class="required field">
             <div class="ui checkbox">
-              <input (click)="checkNonPrincipalTravelers()" id="condition-checkbox" type="checkbox"/>
-              <label class="hovered-condition" for="condition-checkbox">
-                En cochant cette case, je reconnais avoir lu et accepté sans réserve les
-                <a class="cursor-pointer font-weight-bold">conditions générales suivantes</a></label>
+              <input (click)="openConditionDialog()" id="condition-checkbox" type="checkbox"/>
+              <label class="hovered-condition cursor-pointer" for="condition-checkbox">
+                En cochant cette case, je reconnais avoir lu et accepté sans réserve les conditions générales suivantes</label>
             </div>
           </div>
         </div>
-        <h3 *ngIf="showPayment && principalBoxChecked" class="ui attached header pb-0">
-          <i class="payment icon"></i>
-          <div class="content">
-            Données de paiement
-            <div class="sub header">Choisissez votre méthode de paiement</div>
-          </div>
-          <div class="ui form mt-3">
-            <div class="inline fields">
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input [(ngModel)]="paymentType" checked="checked" id="paypal" type="radio" value="paypal"/>
-                  <label for="paypal"><i class="paypal icon"></i>Paypal</label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input [(ngModel)]="paymentType" id="card" type="radio" value="card"/>
-                  <label for="card"><i class="credit card alternate icon"></i>Carte de Crédit</label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input [(ngModel)]="paymentType" id="mobile" type="radio" value="mobile"/>
-                  <label for="mobile"><i class="mobile icon"></i>Paiement Mobile</label>
-                </div>
-              </div>
-              <div class="field">
-                <div class="ui radio checkbox">
-                  <input [(ngModel)]="paymentType" id="in-cash" type="radio" value="cash"/>
-                  <label for="in-cash"><i class="money bill alternate outline icon"></i>Espéces</label>
-                </div>
-              </div>
+        <div *ngIf="showPayment && principalBoxChecked" class="ui very raised segments">
+          <div class="ui segment">
+            <div class="ui dividing header h4">Choisissez votre méthode de paiement</div>
+            <div class="ui small images d-flex flex-row justify-content-around">
+              <a (click)="pay()" class="ui image cursor-pointer" matTooltip="Payer avec PayExpress"
+                 matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+                <img alt="payexpress" src="../../../assets/images/icons/epayment.png" style="height: 150px">
+              </a>
+              <a (click)="openCashPaymentDialog()" class="ui image cursor-pointer" matTooltip="Payer en point de relai"
+                 matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+                <img alt="cash" src="../../../assets/images/icons/cash.jpg" style="height: 150px">
+              </a>
             </div>
-          </div>
-        </h3>
-        <div *ngIf="showPayment && principalBoxChecked" class="ui attached segment">
-          <div *ngIf="paymentType === 'paypal'">
-            <app-paypal [description]="getDescription()" [price]="ticket.price.total" [travelers]="listTravelersInfo"></app-paypal>
-          </div>
-          <div *ngIf="paymentType==='card'">
-            <app-credit-card></app-credit-card>
-          </div>
-          <div *ngIf="paymentType==='cash'">
-            <app-in-cash></app-in-cash>
           </div>
         </div>
       </section>

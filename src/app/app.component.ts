@@ -1,11 +1,9 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {LoginComponent} from './authentication/login/login.component';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/authentication/auth.service';
 import {ClientModel} from './models/client.model';
-
-declare const PayExpresse: any;
+import {LoginComponent} from './authentication/login/login.component';
 
 @Component({
   selector: 'app-root',
@@ -14,21 +12,9 @@ declare const PayExpresse: any;
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  @ViewChild('loginButton', {static: false}) loginButton: ElementRef;
   public client: ClientModel = null;
   public title = 'bip-front';
   public innerWidth: number;
-
-  params = {
-    item_name: 'Iphone 7',
-    item_price: '560000',
-    currency: 'XOF',
-    ref_command: 'HBZZYZVUiodwd90ZZZV',
-    command_name: 'Paiement Iphone 7 Gold via PayExpresse',
-    env: 'test'
-  };
-
-  private dialogOpened = false;
 
   constructor(private router: Router,
               public dialog: MatDialog,
@@ -53,7 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.client = this.authService.getCurrentUser();
+    this.client = this.authService.getCurrentUser();
     // const footerHeight = $('#app-footer-container > footer').outerHeight(true);
     // $('#main-app-container').css('padding-bottom', footerHeight + 'px');
   }
@@ -61,54 +47,25 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  public pay() {
-    (new PayExpresse({
-      item_id: '231987ddsdad',
-    })).withOption({
-      requestTokenUrl: 'https://bip-event.herokuapp.com/request-payment?name=iphone%206&price=559900.0&order=my%20order',
-      method: 'POST',
-      headers: {
-        Accept: 'application/json'
-      },
-      prensentationMode: PayExpresse.OPEN_IN_POPUP,
-      // tslint:disable-next-line:variable-name
-      didPopupClosed(is_completed, success_url, cancel_url) {
-        window.location.href = is_completed === true ? success_url : cancel_url;
-      },
-      willGetToken() {
-        console.log('Je me prepare a obtenir un token');
-      },
-      didGetToken(token, redirectUrl) {
-        console.log('Mon token est : ' + token + ' et url est ' + redirectUrl);
-      },
-      didReceiveError(error) {
-        console.log(error);
-      },
-      didReceiveNonSuccessResponse(jsonResponse) {
-        console.log('non success response ', jsonResponse);
-        alert(jsonResponse.errors);
-      }
-    }).send();
-  }
-
   public login() {
-    const filterData = {
-      top: this.loginButton.nativeElement.getBoundingClientRect().bottom,
-      left: this.loginButton.nativeElement.getBoundingClientRect().right
-    };
-    if (!this.dialogOpened) {
-      this.dialogOpened = true;
-      const dialog = this.dialog.open(LoginComponent, {
-        panelClass: 'custom-mat-dialog',
-        data: this.innerWidth > 1200 ? filterData : null,
-        width: this.router.url.includes('?registering') ? '0px' : '300px',
-        height: this.router.url.includes('?registering') ? '0px' : '265px'
-      });
-      dialog.afterClosed().subscribe((result: boolean) => {
-        this.dialogOpened = false;
-        this.client = result ? this.authService.getCurrentUser() : null;
-      });
-    }
+    const dialog = this.dialog.open(LoginComponent, {
+      panelClass: 'custom-mat-dialog',
+      width: window.innerWidth > 550 ? '400px' : '95%',
+      height: 'auto',
+      disableClose: true,
+      autoFocus: true,
+      role: 'dialog',
+      hasBackdrop: true,
+      backdropClass: 'backdropClass',
+      closeOnNavigation: true
+    });
+    dialog.afterClosed().subscribe((data: any) => {
+      if (data.openRegistration) {
+        this.register();
+      } else {
+        this.client = data.connected ? this.authService.getCurrentUser() : null;
+      }
+    });
   }
 
   public logout() {
@@ -120,6 +77,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public register() {
+    // const x = window.innerWidth > 768 ? '400px' : '80vw';
+    // const registrationDialog = this.dialog.open(RegisterComponent, {
+    //   panelClass: 'custom-register-dialog',
+    //   width: x,
+    //   height: 'max-content',
+    // });
+    //
+    // registrationDialog.afterClosed()
+    //     .subscribe(dt => {
+    //       const client: ClientModel = dt ? dt.client : null;
+    //       if (client !== null) {
+    //         this.email = client.email.trim();
+    //         this.password = client.password.trim();
+    //         this.f.email.reset(this.email);
+    //         this.f.email.setErrors(null);
+    //         this.f.password.reset(this.password);
+    //         this.f.password.setErrors(null);
+    //         this.onSubmit();
+    //       }
+    //     });
   }
 
 // @ViewChild("FileInput", {static: false}) fileInput: ElementRef;

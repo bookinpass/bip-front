@@ -15,7 +15,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   @Input() ticket: FlightModel;
 
-  faDeparture = faPlaneDeparture;
+  public faDeparture = faPlaneDeparture;
   public company: CompagnieModel;
   private airports = new AirportsJson();
 
@@ -41,9 +41,5 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       .replace('  ', ' ')
       .trim();
     return `Aéroport ${apt.airportName}, ${apt.state}, ${apt.countryName}`.trim();
-  }
-
-  private isNullUndefined(x: any) {
-    return x === null || x === undefined;
   }
 }

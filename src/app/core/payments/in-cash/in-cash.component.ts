@@ -1,13 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {EPaymentData} from "../../core-payment-v2/core-payment-v2.component";
-import {DatePipe} from "@angular/common";
-import {EPaymentComponent} from "../e-payment/e-payment.component";
-import {CountryFRJson} from "../../../../assets/Country-FR.json";
-import {CountryJson} from "../../../../assets/Country.json";
-import Swal from "sweetalert2";
-import {CountryCode, isValidNumberForRegion, NationalNumber} from "libphonenumber-js";
-import {addHours} from "date-fns";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {EPaymentData} from '../../core-payment-v2/core-payment-v2.component';
+import {DatePipe} from '@angular/common';
+import {EPaymentComponent} from '../e-payment/e-payment.component';
+import {CountryFRJson} from '../../../../assets/Country-FR.json';
+import {CountryJson} from '../../../../assets/Country.json';
+import Swal from 'sweetalert2';
+import {CountryCode, isValidNumberForRegion, NationalNumber} from 'libphonenumber-js';
+import {addHours} from 'date-fns';
 
 @Component({
   selector: 'app-in-cash',
@@ -41,7 +41,7 @@ export class InCashComponent implements OnInit {
       setTimeout(() => {
         Swal.fire({
           title: 'Cash payment',
-          html: '<p class="text-center">Votre reservation a été enregistrée. Un message vous sera envoyé avec le code de rérservation' +
+          html: '<p class="text-center">Votre reservation a été enregistrée. Un message vous sera envoyé avec le code de réservation' +
             ' suivant: ' + this.paymentData.ticketId + '<br/><br/>Rendez vous dans le point relais le plus proche pour valider votre ' +
             'reservation avant le ' + this.datePipe.transform(addHours(new Date(), 5), 'EEEE, dd MMMM yyyy à HH:mm') + '</p>',
           type: 'success',

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CookieService} from "ngx-cookie-service";
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +21,10 @@ export class CookiesService {
     const date = new Date();
     date.setDate(date.getDate() + expires);
     const domain = window.location.hostname;
-    if (!secure)
+    if (!secure) {
       secure = false;
-    return this.cookie.set(name, value, date, '/', domain, secure, "Strict");
+    }
+    return this.cookie.set(name, value, date, '/', domain, secure, 'Strict');
   }
 
   delete(name: string) {

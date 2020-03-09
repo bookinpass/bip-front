@@ -5,7 +5,7 @@
   <div class="col-xl-3  col-md-7 col-sm-10 col-10 mt-xl-5 mt-md-0 mt-0 loader-box d-flex flex-column">
     <div class="d-flex">
       <div class="logo-bip">
-        <img alt="BIP LOGO" border="0" src="../../../assets/images/logo/bip-logo.png">
+        <img alt="BIP LOGO" src="../../../assets/images/logo/bip-logo.png" style="border: none">
       </div>
       <div class="plane-gif">
         <img alt="plane loader" src="../../../assets/images/loader/plane.gif">
@@ -111,7 +111,8 @@
                   <fa-icon [icon]="faPlaneDeparture"></fa-icon>
                   <p class="d-flex flex-column">
                     <span>{{formatAirport(ticket.itineraries[0].segments[0].departure)}}</span>
-                    <span>{{ticket.itineraries[0].segments[0].departure.at | date: 'HH:mm'}}{{checkTerminal(ticket.itineraries[0].segments[0].departure)}}</span>
+                    <span>{{ticket.itineraries[0].segments[0].departure.at | date: 'HH:mm'}}{{checkTerminal(
+                      ticket.itineraries[0].segments[0].departure)}}</span>
                   </p>
                 </div>
 
@@ -128,7 +129,9 @@
                   <fa-icon [icon]="faClock"></fa-icon>
                   <p>
                     <span>{{formatFlightDuration(ticket.itineraries[0].duration)}}</span>
-                    <span>{{ticket.itineraries[0].segments.length > 1 ? ticket.itineraries[0].segments.length - 1 + " escale" : "Sans escale"}}</span>
+                    <span>{{ticket.itineraries[0].segments.length > 1 ?
+                      ticket.itineraries[0].segments.length - 1 + " escale" :
+                      "Sans escale"}}</span>
                   </p>
                   <div class="d-flex align-items-center ">
                     <img (click)="openDetailsDialog(ticket.itineraries[0])" alt="Itinerary information"
@@ -160,7 +163,9 @@
                   <fa-icon [icon]="faClock"></fa-icon>
                   <p>
                     <span>{{formatFlightDuration(ticket.itineraries[1].duration)}}</span>
-                    <span>{{ticket.itineraries[1].segments.length > 1 ? ticket.itineraries[1].segments.length - 1 + " escale" : "Sans escale"}}</span>
+                    <span>{{ticket.itineraries[1].segments.length > 1 ?
+                      ticket.itineraries[1].segments.length - 1 + " escale" :
+                      "Sans escale"}}</span>
                   </p>
                   <div class="d-flex align-items-center">
                     <img (click)="openDetailsDialog(ticket.itineraries[1])" alt="Itinerary information"

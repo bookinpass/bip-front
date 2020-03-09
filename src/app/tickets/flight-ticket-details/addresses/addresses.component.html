@@ -73,7 +73,7 @@
             </select>
           </div>
           <div [ngClass]="setError.has('documentNumber') ? 'error' : ''" class="required field">
-            <input [(ngModel)]="principal.documents.number" autocomplete="false" name="docNum" placeholder="Numéro document" type="text"/>
+            <input [(ngModel)]="principal.documents.number" name="docNum" placeholder="Numéro document" type="text"/>
           </div>
           <div class="field">
             <select (change)="setDocumentDeliveryCountry($event.target.value)" class="ui fluid search dropdown" name="documentCountry">
@@ -119,8 +119,7 @@
       </div>
       <div [ngClass]="setError.has('country') ? 'select-error' : ''" class="four wide required field">
         <label>Pays</label>
-        <select (change)="setPhonePrefix()" [(ngModel)]="selectedCountry"
-                class="dropdown editable-addr" name="country">
+        <select (change)="setPhonePrefix()" [(ngModel)]="selectedCountry" class="dropdown editable-addr" name="country">
           <option value="">Séléctionner</option>
           <option *ngFor="let item of listCountries" [value]="item">{{item}}</option>
         </select>

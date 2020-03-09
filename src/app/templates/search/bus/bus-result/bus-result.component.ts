@@ -10,7 +10,7 @@ import {Subject} from 'rxjs';
 import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
-import {EPaymentData} from "../../../../core/core-payment-v2/core-payment-v2.component";
+import {EPaymentData} from '../../../../core/core-payment-v2/core-payment-v2.component';
 
 const colors: any = {
   0: {
