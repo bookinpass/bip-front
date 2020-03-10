@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/authentication/auth.service';
 import {ClientModel} from './models/client.model';
 import {LoginComponent} from './authentication/login/login.component';
+import {RegisterComponent} from "./authentication/register/register.component";
 
 @Component({
   selector: 'app-root',
@@ -77,26 +78,26 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public register() {
-    // const x = window.innerWidth > 768 ? '400px' : '80vw';
-    // const registrationDialog = this.dialog.open(RegisterComponent, {
-    //   panelClass: 'custom-register-dialog',
-    //   width: x,
-    //   height: 'max-content',
-    // });
-    //
-    // registrationDialog.afterClosed()
-    //     .subscribe(dt => {
-    //       const client: ClientModel = dt ? dt.client : null;
-    //       if (client !== null) {
-    //         this.email = client.email.trim();
-    //         this.password = client.password.trim();
-    //         this.f.email.reset(this.email);
-    //         this.f.email.setErrors(null);
-    //         this.f.password.reset(this.password);
-    //         this.f.password.setErrors(null);
-    //         this.onSubmit();
-    //       }
-    //     });
+    const registrationDialog = this.dialog.open(RegisterComponent, {
+      panelClass: 'custom-register-dialog',
+      width: window.innerWidth > 550 ? '400px' : '95%',
+      height: 'auto',
+      maxHeight: '95vh',
+      maxWidth: '95vh',
+      disableClose: true,
+      autoFocus: true,
+      role: 'dialog',
+      hasBackdrop: true,
+      backdropClass: 'backdropClass',
+      closeOnNavigation: true
+    });
+
+    registrationDialog.afterClosed()
+      .subscribe(dt => {
+        if (dt === true) {
+          this.login();
+        }
+      });
   }
 
 // @ViewChild("FileInput", {static: false}) fileInput: ElementRef;

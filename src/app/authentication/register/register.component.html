@@ -1,279 +1,87 @@
-<div class="d-flex flex-row justify-content-center align-items-center main-header mt-2">
-  <p>INSCRIPTION</p>
-  <fa-icon [icon]="faCloseCircle" class="main-header-icon" style="color: #333333"></fa-icon>
-</div>
-<mat-vertical-stepper #stepper linear="true">
-  <mat-step #step1>
-    <form [formGroup]="infoRegistrationForm" [ngClass]="loadingEmail ? 'ui form loading' : ''" class="d-flex flex-column">
-      <ng-template matStepLabel>
-        <p class="stepper-header">
-          Information
-        </p>
-      </ng-template>
+<div class="content-wrapper">
+  <p class="m-0" mat-dialog-title>
+    <mat-card-title matDialogTitle>{{enterCode ? 'Activation du compte' : 'Inscription'}}
+      <fa-icon (click)="dialogRef.close(false)" [icon]="faClose" class="float-right cursor-pointer"></fa-icon>
+    </mat-card-title>
+  </p>
+  <div *ngIf="!enterCode" [ngClass]="loading ? 'loading' : ''" class="ui form">
+    <div [ngClass]="validationError.includes('firstName') ? 'error' : ''" class="ui field required">
+      <label>Prénom</label>
+      <input [(ngModel)]="user.firstName" name="firstName" placeholder="Prénom" type="text"/>
+    </div>
 
-      <div class="mat-field d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
-        <mat-form-field class="col pr-1 pl-1 mr-sm-1">
-          <input autocapitalize="words" autocomplete="false" formControlName="firstName" matInput placeholder="Prenom *" type="text">
-          <mat-error *ngIf="info.firstName.touched && info.firstName.dirty && info.firstName.errors?.required">
-            Ce champ est requis
-          </mat-error>
-          <mat-error *ngIf="info.firstName.touched && info.firstName.dirty && info.firstName.errors?.minlength">
-            Ce champ doit avoir au moins deux caractères
-          </mat-error>
-        </mat-form-field>
+    <div [ngClass]="validationError.includes('lastName') ? 'error' : ''" class="ui field required">
+      <label>Nom</label>
+      <input [(ngModel)]="user.lastName" name="lastName" placeholder="Nom" type="text"/>
+    </div>
 
-        <mat-form-field class="col pr-1 pl-1 ml-sm-1">
-          <input autocapitalize="words" autocomplete="false" formControlName="lastName" matInput placeholder="Nom *" type="text">
-          <mat-error *ngIf="info.lastName.touched && info.lastName.dirty && info.lastName.errors?.required">
-            Ce champ est requis
-          </mat-error>
-          <mat-error *ngIf="info.lastName.touched && info.lastName.dirty && info.lastName.errors?.minlength">
-            Ce champ doit avoir au moins deux caractères
-          </mat-error>
-        </mat-form-field>
+    <div [ngClass]="validationError.includes('email') ? 'error' : ''" class="ui field">
+      <label>Email</label>
+      <input [(ngModel)]="user.email" name="email" placeholder="Email" type="text"/>
+    </div>
+
+    <div [ngClass]="validationError.includes('username') ? 'error' : ''" class="ui field required">
+      <label>Nom d'utilisateur</label>
+      <input [(ngModel)]="user.credential.username" name="username" placeholder="Nom d'utilisateur" type="text"/>
+    </div>
+
+    <div [ngClass]="validationError.includes('password') ? 'error' : ''" class="ui field required">
+      <label>Mot de passe</label>
+      <div class="ui icon input">
+        <input (blur)="verifyPassword()" (focusin)="displayPasswordHint = true" (focusout)="displayPasswordHint = false"
+               (keyup)="setPasswordStatus()" [(ngModel)]="user.credential.password" [type]="showPassword ? 'text' : 'password'"
+               autocomplete="false" name="password" placeholder="*******"/>
+        <i (click)="showPassword = !showPassword" [ngClass]="showPassword ? 'eye slash icon' : 'eye icon'" class="cursor-pointer"
+           style="pointer-events: auto"></i>
       </div>
-
-      <mat-form-field class="ui field fluid mb-0 pr-1 pl-1">
-        <input (focusout)="checkExistingEmail()" autocapitalize="words" autocomplete="false" formControlName="email" matInput
-               placeholder="Email *" type="email"/>
-        <mat-error *ngIf="info.username.touched && info.username.dirty && info.username.errors?.required">
-          Ce champ est requis
-        </mat-error>
-        <mat-error *ngIf="info.username.touched && info.username.dirty && info.username.errors?.pattern">
-          L'email doit être au format abc@cde.yz
-        </mat-error>
-        <mat-error *ngIf="info.username.errors && emailUsed">
-          Cet email est déjà utilisé
-        </mat-error>
-      </mat-form-field>
-
-      <div class="mat-field d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
-        <mat-form-field class="col col-md-6 pr-1 pl-1 mr-sm-1">
-          <input (focusin)="displayPasswordHint = true" (focusout)="displayPasswordHint = false" (keyup)="setPasswordStatus()"
-                 [type]="showPwd1 ? 'text' : 'password'" autocomplete="false" class="password-field"
-                 formControlName="password" matInput placeholder="Mot de passe *"/>
-          <span class="toggle-pwd" matSuffix>
-            <i (click)="showPwd1 = !showPwd1" [ngClass]="showPwd1 ? 'eye slash icon' : 'eye icon' "></i>
-          </span>
-        </mat-form-field>
-        <mat-form-field class="col pr-1 pl-1 ml-sm-1">
-          <input (blur)="passwordConfirmationValidator()" [type]="showPwd1 ? 'text' : 'password'" class="password-field"
-                 formControlName="passwordConfirmation" matInput placeholder="Confirmer le mot de passe *"/>
-          <mat-error *ngIf="info.passwordConfirmation.invalid">
-            Les mot de passe ne sont pas identiques
-          </mat-error>
-        </mat-form-field>
-      </div>
-
       <div *ngIf="displayPasswordHint" class="d-flex flex-column bubble">
         <div>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('min') !== -1" [icon]="faClose"></fa-icon>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('min') === -1" [icon]="faCheck"></fa-icon>
+          <fa-icon [icon]="passwordArrayValidator.includes('min') ? faClose : faCheck"></fa-icon>
           Minimum 8 caractères
         </div>
         <div>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('uppercase') !== -1" [icon]="faClose"></fa-icon>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('uppercase') === -1" [icon]="faCheck"></fa-icon>
+          <fa-icon [icon]="passwordArrayValidator.includes('uppercase') ? faClose : faCheck"></fa-icon>
           Au moins une majuscule
         </div>
         <div>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('lowercase') !== -1" [icon]="faClose"></fa-icon>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('lowercase') === -1" [icon]="faCheck"></fa-icon>
+          <fa-icon [icon]="passwordArrayValidator.includes('lowercase') ? faClose : faCheck"></fa-icon>
           Au moins une minuscule
         </div>
         <div>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('digits') !== -1" [icon]="faClose"></fa-icon>
-          <fa-icon *ngIf="pwdArrayValidator.indexOf('digits') === -1" [icon]="faCheck"></fa-icon>
+          <fa-icon [icon]="passwordArrayValidator.includes('digits') ? faClose : faCheck"></fa-icon>
           Au moins un chiffre
         </div>
       </div>
+    </div>
 
-      <div class="mat-field d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
-        <mat-form-field class="col pr-1 pl-1 mr-sm-1">
-          <mat-label>Type du document</mat-label>
-          <mat-select (selectionChange)="selectedTypeDocument()" formControlName="typeDocument">
-            <mat-option>Sélectionner</mat-option>
-            <mat-option value="1">Carte Nationale d'Identité</mat-option>
-            <mat-option value="2">Passeport</mat-option>
-          </mat-select>
-          <mat-error *ngIf="info.typeDocument.invalid">
-          </mat-error>
-        </mat-form-field>
+    <div class="ui field required">
+      <label>Séléctionner votre pays</label>
+      <select (change)="updateDialCode()" [(ngModel)]="user.country" class="ui selection dropdown" name="countrySelect">
+        <option *ngFor="let ctr of countries" [selected]="ctr.code === user.country" [value]="ctr.code">{{ctr.name}}</option>
+      </select>
+    </div>
 
-        <mat-form-field class="col pr-1 pl-1 ml-sm-1">
-          <input autocomplete="false" formControlName="idDocument" matInput placeholder="ID document" type="tel">
-          <mat-error *ngIf="info.idDocument.invalid">
-            Ce champ est requis
-          </mat-error>
-        </mat-form-field>
+    <div [ngClass]="validationError.includes('telephone') ? 'error' : ''" class="ui field required">
+      <label>Téléphone</label>
+      <div class="ui labeled input">
+        <div class="ui basic label">{{dialCode}}</div>
+        <input (blur)="verifyPhoneNumber()" (keyup)="formatNumber()" [(ngModel)]="user.telephone" name="telephone" placeholder="Téléphone"
+               type="tel">
       </div>
-
-      <button (click)="setClientInfo()" [disabled]="infoRegistrationForm.invalid" class="btn btn-outline-primary" matStepperNext>
-        Suivant
-      </button>
-    </form>
-  </mat-step>
-
-  <mat-step #step2>
-    <form [formGroup]="addressRegistrationForm" class="d-flex flex-column">
-      <ng-template matStepLabel>
-        <p class="stepper-header">
-          Addresse
-        </p>
-      </ng-template>
-
-      <mat-form-field class="col-12 pr-1 pl-1">
-        <input [autofocus]="step2.state === 'edit'" autocapitalize="words" autocomplete="true" formControlName="line1" matInput
-               placeholder="Adresse *"
-               type="text"/>
-        <div *ngIf="addr.line1.errors && addr.line1.touched && addr.line1.dirty && addr.line1.errors.required">
-          <p>Ce champ est requis</p>
-        </div>
-      </mat-form-field>
-
-      <div class="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
-        <mat-form-field class="col pr-1 pl-1 mr-sm-1">
-          <input autocapitalize="words" autocomplete="false" formControlName="city" matInput placeholder="Département " type="text"/>
-        </mat-form-field>
-        <mat-form-field class="col pr-1 pl-1 ml-sm-1">
-          <input autocomplete="false" formControlName="postalCode" matInput placeholder="Code postal" type="text"/>
-        </mat-form-field>
+      <div *ngIf="!isPhoneNumberValid" class="mat-error">
+        Ce numéro de téléphone n'est pas valide pour le pays séléctionnné.
       </div>
-
-      <div class="d-flex flex-column flex-sm-row justify-content-start justify-content-sm-between">
-        <mat-form-field class="col pr-1 pl-1 mr-sm-1">
-          <input autocapitalize="words" formControlName="state" matInput placeholder="Ville *" type="text"/>
-          <div *ngIf="addr.state.errors && addr.state.touched && addr.state.dirty && addr.state.errors.required">
-            <p>Ce champ est requis</p>
-          </div>
-        </mat-form-field>
-        <mat-form-field class="col pr-1 pl-1 ml-sm-1">
-          <mat-label>Pays *</mat-label>
-          <mat-select (selectionChange)="setPhonePrefix()" formControlName="country">
-            <mat-option *ngFor="let countries of listCountries" [value]="countries">{{countries}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <mat-form-field class="pr-1 pl-1 col-sm-7">
-        <span *ngIf="countryCode" class="mr-1" matPrefix>
-          <i class="{{countryCode | lowercase}} flag"></i>{{client.addresses[0].phonePrefix}}
-        </span>
-        <input (blur)="checkNumber()" (keydown)="format_number()" formControlName="phone" matInput placeholder="Téléphone *"
-               type="tel"/>
-        <div *ngIf="addr.phone.errors && addr.phone.touched && addr.phone.dirty && addr.phone.errors.required">
-          <p>Ce champ est requis</p>
-        </div>
-        <div *ngIf="addr.phone.errors && addr.phone.touched && addr.phone.dirty && addr.phone.errors.incorrect">
-          Le format du numéro de téléphone est invalide pour le pays choisi
-        </div>
-      </mat-form-field>
-
-      <div class="d-flex flex-row justify-content-around align-items-center">
-        <button class="btn btn-outline-secondary" matStepperPrevious>Précédent</button>
-        <button (click)="setClientAddress()" [disabled]="addressRegistrationForm.invalid" class="btn btn-outline-primary" matStepperNext>
-          Suivant
-        </button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>
-      <p class="stepper-header">
-        Récapitulatif
-      </p>
-    </ng-template>
-
-    <form *ngIf="doFormRecap" [ngClass]="isRegistering ? 'loading' : ''"
-          class="ui form d-flex flex-column flex-sm-row flex-wrap recap-form">
-      <div class="field col col-sm-6">
-        <label>Prenom</label>
-        <input [value]="client.firstName" readonly type="text">
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Nom</label>
-        <input [value]="client.lastName" readonly type="text">
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Email</label>
-        <input [value]="client.email" readonly type="text"/>
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Mot de Passe</label>
-        <div class="ui icon input col p-0">
-          <input [type]="showPwd ? 'text' : 'password'" [value]="client.password" readonly/>
-          <i (click)="showPwd = !showPwd" [ngClass]="showPwd ? 'large eye slash icon' : 'large eye icon'" class="pwd-icon"></i>
-        </div>
-      </div>
-
-      <div *ngIf="!isDisabled" class="field col col-sm-6">
-        <label>Type Document</label>
-        <input [value]="info.typeDocument.value === '1' ? 'Carte Nationale d\'Identité' :
-        info.typeDocument.value === '2' ? 'Passeport' : ''" readonly type="text"/>
-      </div>
-
-      <div *ngIf="!isDisabled" class="field col col-sm-6">
-        <label>Id document</label>
-        <input [value]="client.documents[0].identifier?.length > 0 ? client.documents[0].identifier : ''" readonly type="text"/>
-      </div>
-
-      <div class="field col-12 ">
-        <label>Addresse</label>
-        <input [value]="client.addresses[0].line1" readonly type="text"/>
-      </div>
-
-      <div *ngIf="client.addresses[0].city?.length > 0" class="field col col-sm-6">
-        <label>Département</label>
-        <input [value]="client.addresses[0].city" readonly type="text"/>
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Ville</label>
-        <input [value]="client.addresses[0].state" readonly type="text"/>
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Pays</label>
-        <input [value]="client.addresses[0].country" readonly type="text"/>
-      </div>
-
-      <div *ngIf="client.addresses[0].postalCode?.toString(10).length > 0"
-           class="field col col-sm-6">
-        <label>Code Postal</label>
-        <input [value]="client.addresses[0].postalCode?.toString(10)" readonly type="text"/>
-      </div>
-
-      <div class="field col col-sm-6">
-        <label>Téléphone</label>
-        <div class="ui icon input">
-          <i class="icon d-flex justify-content-center align-items-center" style="opacity: 1;">
-            <i class="{{countryCode | lowercase}} flag mr-0"></i>
-          </i>
-          <input [value]="client.addresses[0].phonePrefix + ' ' +client.addresses[0].telephone" readonly type="text"/>
-        </div>
-      </div>
-
-      <div class="col-12 d-flex flex-row p-0 p-sm-3 justify-content-between mt-2">
-        <div (click)="stepper.previous()" [ngClass]="innerWidth >= 768 ? 'large' : 'small'"
-             class="ui animated purple small button cursor-pointer"
-             tabindex="0">
-          <div class="visible content">Modifier</div>
-          <div class="hidden content">
-            <i class="icon edit"></i>
-          </div>
-        </div>
-        <div (click)="submit()" [ngClass]="innerWidth >= 768 ? 'large' : 'small'" class="ui animated green button cursor-pointer"
-             tabindex="0">
-          <div class="visible content">Enregistrer</div>
-          <div class="hidden content">
-            <i class="icon save"></i>
-          </div>
-        </div>
-      </div>
-    </form>
-  </mat-step>
-</mat-vertical-stepper>
+    </div>
+    <div matDialogActions>
+      <div class="ui grey button" matDialogClose>Annuler</div>
+      <div (click)="save()" class="ui green button">Enregistrer</div>
+    </div>
+  </div>
+  <div *ngIf="enterCode" [ngClass]="loading ? 'loading' : ''" class="ui form">
+    <div class="field">
+      <label>Entrer le code de verification</label>
+      <input [(ngModel)]="code" placeholder="Code de verification" type="text"/>
+    </div>
+    <div (click)="loading = true; validateAccount()" class="ui green button mb-2">Valider</div>
+  </div>
+</div>

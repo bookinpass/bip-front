@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public dialCode = '+221';
   public telephone: string;
   public enterCode = false;
-  public countries;
+  public countries = [];
   public code: string;
   public isCodeValid = false;
   public newPwd = '';
@@ -63,16 +63,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.countries = new CountryFRJson().countries.filter(x => this.dialsCodes.find(y => y.code === x.code) !== undefined);
     this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
   ngOnDestroy(): void {
-    this.dialogRef.close({
-      connected: this.connected,
-      openRegistration: false
-    });
   }
 
   public getDialCode() {
@@ -159,19 +155,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public register() {
     this.dialogRef.close({
-      connected: this.connected,
-      openRegistration: true
+      openRegistration: true,
+      connected: false
     });
   }
 
   public onSubmit() {
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService.login(this.f.email.value, this.f.password.value)
       .pipe(this.scavenger.collect(),
         retry(2))
       .subscribe(res => {
         localStorage.setItem('access_token', res.headers.get('Authorization'));
-        this.cookieService.setCookie('last_email', this.f.username.value, 10, null);
+        this.cookieService.setCookie('last_email', this.f.email.value, 10, null);
         this.storeUser();
       }, error => {
         this.f.password.reset();
@@ -182,7 +178,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private storeUser() {
-    this.authService.getUserByUsername(this.f.username.value)
+    this.authService.getUserByUsername(this.f.email.value)
       .subscribe(result => {
         this.status = 1;
         this.client = result;

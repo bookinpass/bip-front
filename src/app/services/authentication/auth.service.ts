@@ -5,6 +5,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {ClientModel} from '../../models/client.model';
 import {Router} from '@angular/router';
 import {CookiesService} from '../cookie/cookies.service';
+import {UserModel} from "../../models/User.model";
 
 @Injectable({
   providedIn: 'root'
@@ -74,12 +75,32 @@ export class AuthService {
         .then(_ => window.location.reload());
   }
 
-  public register(client: ClientModel) {
-    return this.http.post<string>(`${this.urlRepo.eventHost}${this.urlRepo.registerUrl}`, client);
+  public register(user: UserModel, dial: string) {
+    const param = new HttpParams({fromObject: {dial}});
+    return this.http.post(`${this.urlRepo.eventHost}${this.urlRepo.registerUrl}`, user, {params: param});
   }
 
-  public checkIdEmailExist(email: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.doesEmailExist}${email}`);
+  public validateAccount(username: string, code: string) {
+    const param = new HttpParams({
+      fromObject: {
+        username,
+        code
+      }
+    });
+    console.log(`${this.urlRepo.eventHost}${this.urlRepo.activateAccount}`);
+    return this.http.get(`${this.urlRepo.eventHost}${this.urlRepo.activateAccount}`, {params: param});
+  }
+
+  public checkUsername(username: string) {
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkUsername}${username}`);
+  }
+
+  public checkTelephone(telephone: string) {
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkTelephone}${telephone}`);
+  }
+
+  public checkEmail(email: string) {
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkEmail}${email}`);
   }
 
   public getUserByUsername(username: string) {

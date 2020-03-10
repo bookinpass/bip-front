@@ -10,8 +10,11 @@ export class UrlConfig {
   readonly resetPassword = '/password/reset';
   readonly imageUrl = '/public/image';
   readonly loginUrl = '/login';
-  readonly registerUrl = '/public/clients/register';
-  readonly doesEmailExist = '/public/clients/exist/';
+  readonly registerUrl = '/register';
+  readonly activateAccount = '/register/activate';
+  readonly checkEmail = '/valid/email/';
+  readonly checkTelephone = '/valid/telephone/';
+  readonly checkUsername = '/valid/username/';
   readonly clients = '/user/search';
   readonly getPlaces = '/public/places';
   readonly eventById = '/public/events/';

@@ -7,8 +7,8 @@
   <mat-dialog-content>
     <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="d-flex flex-column" style="height: 125px">
       <mat-form-field>
-        <input formControlName="username" matInput placeholder="Nom d'utilisateur" type="text"/>
-        <mat-error *ngIf="f.username.errors && f.username.touched && f.username.dirty && f.username.errors.required">Ce champ est requis
+        <input formControlName="email" matInput placeholder="Nom d'utilisateur" type="text"/>
+        <mat-error *ngIf="f.email.errors && f.email.touched && f.email.dirty && f.email.errors.required">Ce champ est requis
         </mat-error>
       </mat-form-field>
       <mat-form-field>
