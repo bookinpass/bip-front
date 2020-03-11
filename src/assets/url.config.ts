@@ -3,8 +3,8 @@ export class UrlConfig {
    * Set all url as HTTPS to avoid "Blocked loading mixed active content” issue
    */
   readonly host = 'https://booking.j.layershift.co.uk';
-  // readonly eventHost = 'https://bip-event.herokuapp.com';
-  readonly eventHost = 'http://localhost:8081';
+  readonly eventHost = 'https://bip-event.herokuapp.com';
+  // readonly eventHost = 'http://localhost:8081';
   readonly generateCode = '/forgotten/password';
   readonly checkCode = '/forgotten/password/check';
   readonly resetPassword = '/password/reset';
