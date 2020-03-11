@@ -32,8 +32,8 @@ import {EventSportDetailsComponent} from './templates/search/event-sport/event-s
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
-import {LoginComponent} from './authentication/login/login.component';
-import {RegisterComponent} from './authentication/register/register.component';
+import {LoginComponent} from './users/login/login.component';
+import {RegisterComponent} from './users/register/register.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CookieService} from 'ngx-cookie-service';
 import {JwtModule} from '@auth0/angular-jwt';

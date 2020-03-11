@@ -21,7 +21,7 @@
 
       <div class="ui dividing header">Votre compte</div>
       <div *ngIf="client" class="item">Bienvenue, {{client.lastName}} {{client.firstName}}</div>
-      <div *ngIf="client" class="item" routerLink="">Mon Compte</div>
+      <div *ngIf="client" [routerLink]="['/myaccount']" class="item">Mon Compte</div>
       <div (click)="logout()" *ngIf="client" class="item">Deconnexion</div>
       <div (click)="login()" *ngIf="!client" class="item">Se connecter</div>
       <div (click)="register()" *ngIf="!client" class="item" id="login-register">Creer un compte</div>

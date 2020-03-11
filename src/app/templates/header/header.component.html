@@ -49,7 +49,8 @@
               Bienvenue, {{client.lastName}} {{client.firstName}}
             </a>
             <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
-              <a class="dropdown-item" routerLink="/">Mon compte</a>
+              <a [routerLink]="['/account/mytickets']" class="dropdown-item">Mes Billets</a>
+              <a [routerLink]="['/account/myaccount']" class="dropdown-item">Details du compte</a>
               <a class="dropdown-divider"></a>
               <a (click)="logoutEmitter.emit()" class="dropdown-item">Déconnexion</a>
             </div>

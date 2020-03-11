@@ -8,6 +8,7 @@ import {EventSportDetailsComponent} from './templates/search/event-sport/event-s
 import {PrintFlightTicketComponent} from './templates/print-flight-ticket/print-flight-ticket.component';
 import {BoatResultComponent} from './templates/search/boat/boat-result/boat-result.component';
 import {BusResultComponent} from './templates/search/bus/bus-result/bus-result.component';
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -51,6 +52,12 @@ const routes: Routes = [
   {
     path: 'print/flight',
     component: PrintFlightTicketComponent
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./modules/account/account.module')
+      .then(module => module.AccountModule),
+    canActivate: [AuthGuard]
   },
   {
     path: '',

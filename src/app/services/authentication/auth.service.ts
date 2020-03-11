@@ -92,15 +92,15 @@ export class AuthService {
   }
 
   public checkUsername(username: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkUsername}${username}`);
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkUsername}${username}`).toPromise();
   }
 
   public checkTelephone(telephone: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkTelephone}${telephone}`);
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkTelephone}${telephone}`).toPromise();
   }
 
   public checkEmail(email: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkEmail}${email}`);
+    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkEmail}${email}`).toPromise();
   }
 
   public getUserByUsername(username: string) {
