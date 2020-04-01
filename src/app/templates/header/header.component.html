@@ -46,7 +46,7 @@
           <li *ngIf="client" class="nav-item dropdown user-dropdown">
             <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-capitalize" data-toggle="dropdown"
                id="navbarDropdownMenuLink" role="button">
-              Bienvenue, {{client.lastName}} {{client.firstName}}
+              Bienvenue, {{client.firstName}}
             </a>
             <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
               <a [routerLink]="['/account/mytickets']" class="dropdown-item">Mes Billets</a>

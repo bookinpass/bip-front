@@ -2,31 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca8241b0-1446-4074-a5b8-4b981b48add2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/guards/auth.guard.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/modules/account/account-routing.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/modules/account/account.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/users/my-account/my-account.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/users/my-account/my-account.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/users/my-account/my-account.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/login/login.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/login/login.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/login/login.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/register/register.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/register/register.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/register/register.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/authentication/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/register/register.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/guards/app.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/guards/auth.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/flight-searching/flight-searching.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/core-payment-v2/core-payment-v2.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/templates/header/header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/header/header.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/js/payexpresse.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/js/payexpresse.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/polyfills.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/polyfills.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/header/header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/header/header.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,7 +209,13 @@
       <workItem from="1583793824460" duration="818000" />
       <workItem from="1583799347121" duration="16026000" />
       <workItem from="1583838200722" duration="575000" />
-      <workItem from="1583855543700" duration="18702000" />
+      <workItem from="1583855543700" duration="19716000" />
+      <workItem from="1583974208534" duration="559000" />
+      <workItem from="1583978287988" duration="1411000" />
+      <workItem from="1584142505310" duration="646000" />
+      <workItem from="1584143705621" duration="1535000" />
+      <workItem from="1584147727302" duration="1393000" />
+      <workItem from="1585698289981" duration="640000" />
     </task>
     <servers />
   </component>
@@ -294,11 +279,11 @@
     </state>
     <state x="772" y="244" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1044@0.0.1920.1044" timestamp="1578016231847" />
     <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1583696341360" />
-    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1583886460816">
+    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1584143664885">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="643" y="252" width="634" height="541" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1044@0.0.1920.1044" timestamp="1577443415026" />
-    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1583886460816" />
+    <state x="643" y="282" width="626" height="537" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1584143664885" />
     <state x="697" y="305" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1581462192244">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -311,11 +296,11 @@
       <screen x="0" y="0" width="1920" height="1044" />
     </state>
     <state x="99" y="100" width="1722" height="845" maximized="true" key="DiffContextDialog/0.0.1920.1044@0.0.1920.1044" timestamp="1577963265728" />
-    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl" timestamp="1583406775057">
+    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl" timestamp="1584143995049">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="747" y="283" key="FileChooserDialogImpl/0.0.1920.1044@0.0.1920.1044" timestamp="1578156739916" />
-    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1583406775057" />
+    <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1584143995049" />
     <state x="0" y="28" key="FileDocumentManager.FileCacheConflict" timestamp="1579629061664">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>

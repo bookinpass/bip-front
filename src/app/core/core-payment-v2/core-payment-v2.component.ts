@@ -208,6 +208,7 @@ export class CorePaymentV2Component implements OnInit, OnDestroy {
       didPopupClosed(is_completed, success_url, cancel_url) {
         console.log("done");
         if (is_completed) {
+          // passer de l'etape 2 a l'etape 3
           this.currentStep = 3;
         }
       },

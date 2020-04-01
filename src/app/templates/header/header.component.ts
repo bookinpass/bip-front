@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() registrationEmitter = new EventEmitter();
   @Output() sidebarEmitter = new EventEmitter();
   @Output() innerWidth = new EventEmitter<number>();
-  z
   private scavenger: Scavenger = new Scavenger(this);
 
   constructor(private router: Router) {
