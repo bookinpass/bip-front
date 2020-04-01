@@ -10,7 +10,7 @@ import {ClientModel} from '../../models/client.model';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  @ViewChild('loginButton', {static: false}) loginButton: ElementRef;
+  @ViewChild('loginButton') loginButton: ElementRef;
   @Input() client: ClientModel | null;
 
   @Output() loginEmitter = new EventEmitter();
