@@ -26,20 +26,9 @@
       <div (click)="login()" *ngIf="!client" class="item">Se connecter</div>
       <div (click)="register()" *ngIf="!client" class="item" id="login-register">Creer un compte</div>
     </mat-sidenav>
-    <mat-sidenav-content>
-      <router-outlet></router-outlet>
+    <mat-sidenav-content id="sidenavContent">
+      <router-outlet id="routerOutlet"></router-outlet>
       <app-footer id="app-footer-container"></app-footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-
-<!--<input #fileInput type="file" ng2FileSelect [uploader]="uploader"/>-->
-<!--    <div class="drop-box" ng2FileDrop-->
-<!--         [ngClass]="{'dragover': isDropOver}"-->
-<!--         [uploader]="uploader"-->
-<!--         (fileOver)="fileOverAnother($event)"-->
-<!--         (click)="fileClicked()">-->
-<!--      <span class="drag-in-title">Import or drag file here</span>-->
-<!--      <span class="drag-over-title">Drop the file</span>-->
-<!--    </div>-->
-<!--<img *ngIf="this.img" [src]="img" alt="me"/>-->

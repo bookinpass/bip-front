@@ -1,0 +1,16 @@
+.ui[class*="very basic"].table td:first-child {
+  font-weight: 600;
+  font-size: 15px;
+  padding-right: 15px !important;
+}
+
+.ui[class*="very basic"].table td {
+  color: #444;
+  padding: 7px 0 !important;
+}
+
+.share-tel {
+  min-width: auto !important;
+  width: 100px !important;
+  padding-right: 0 !important;
+}

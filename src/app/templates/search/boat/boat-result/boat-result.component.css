@@ -1,9 +1,49 @@
-.step-1 > div:nth-of-type(1) {
-  width: 500px;
+.step-1 > div:nth-of-type(1),
+.step-1 > div:nth-of-type(2) {
+  width: 48%;
 }
 
-.step-1 > div:nth-of-type(2) {
-  width: 350px;
+.cal-month-view .cal-day-cell {
+  min-height: 78px;
+}
+
+#boat-travelers-table > thead > tr:last-child > th,
+#boat-travelers-table2 > thead > tr:last-child > th {
+  width: 100px;
+}
+
+#boat-travelers-table th,
+#boat-travelers-table2 th {
+  padding: 4px;
+  text-align: center;
+}
+
+#boat-travelers-table td,
+#boat-travelers-table2 td {
+  text-align: center;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#boat-travelers-table td input,
+#boat-travelers-table2 td input {
+  border: none !important;
+}
+
+#boat-travelers-table .stated-row,
+#boat-travelers-table2 .stated-row {
+  padding: 10px !important;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.boat-soute-fee {
+  background-color: #333 !important;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .darkBlueLabel {
@@ -37,16 +77,15 @@
 }
 
 @media screen and (max-width: 768px) {
-  .step-1 {
-    width: 100%;
-  }
 
-  .step-1 > div {
-    width: 100% !important;
+  #boat-travelers-table,
+  .step-1,
+  .step-1 > div,
+  .baggage-soute {
+    width: 100%;
   }
 
   .step-1 {
     margin-bottom: 10px;
   }
-
 }

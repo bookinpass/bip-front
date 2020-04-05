@@ -5,12 +5,8 @@
   margin-bottom: 10px;
 }
 
-.step1 > div:first-child {
-  width: 50%;
-}
-
-.step1 > div:last-child {
-  width: 25%;
+.step-1 > div {
+  width: 48%;
 }
 
 @media screen and (max-width: 768px) {

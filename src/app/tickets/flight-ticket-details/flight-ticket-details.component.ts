@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AirportsJson} from '../../../assets/airports.json';
 import {MatDialog} from '@angular/material/dialog';
@@ -6,15 +6,15 @@ import {ClientModel} from '../../models/client.model';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {DatePipe} from '@angular/common';
 import {FlightModel} from '../../models/amadeus/flight.model';
-import {TravelerTypeEnum} from '../../models/TravelerType.enum';
+import {TravelerTypeEnum} from '../../models/traveler-type.enum';
 import {TravelerModel} from '../../models/amadeus/Traveler.model';
 import {AirportModel} from '../../models/airport.model';
 import {CountryJson} from '../../../assets/Country.json';
 import {UrlConfig} from '../../../assets/url.config';
 import {InCashComponent} from '../../core/payments/in-cash/in-cash.component';
-import {EPaymentData} from '../../core/core-payment-v2/core-payment-v2.component';
 import {EventNominationModel} from '../../models/event-nomination.model';
 import {GeneralConditionComponent} from '../../core/modal/general-condition/general-condition.component';
+import {EPaymentData} from '../../templates/search/boat/boat-result/boat-result.component';
 
 declare const PayExpresse: any;
 
@@ -23,7 +23,7 @@ declare const PayExpresse: any;
   templateUrl: './flight-ticket-details.component.html',
   styleUrls: ['./flight-ticket-details.component.css']
 })
-export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
+export class FlightTicketDetailsComponent implements OnInit {
 
   public error: any = null;
   public innerWidth = window.innerWidth;
@@ -70,9 +70,6 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
       .segments[this.ticket.itineraries[this.ticket.itineraries.length - 1].segments.length - 1].arrival.iataCode).state;
     this.getTravelers();
     setTimeout(() => this.loading = false, 1500);
-  }
-
-  ngOnDestroy() {
   }
 
   public getDescription() {

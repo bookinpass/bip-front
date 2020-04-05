@@ -2026,14 +2026,15 @@ h3 {
 .custom-itinerary-dialog > mat-dialog-container {
   padding: 0;
   font-size: 12px;
-  /*overflow-x: hidden;*/
-  /*overflow-y: scroll;*/
-  /*height: max-content;*/
 }
 
 .custom-register-dialog .mat-dialog-container {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+#user-details-ticket-dialog {
+  padding: 0 !important;
 }
 
 .mat-step-header[aria-selected=true] ~ .mat-stepper-vertical-line::before {

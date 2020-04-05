@@ -1,15 +1,108 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {UserService} from '../../services/user/user.service';
+import {Scavenger} from '@wishtack/rx-scavenger';
+import {GlobalErrorHandlerService} from '../../core/error/global-error-handler.service';
+import {TransportTicketModel} from '../../models/transport-ticket.model';
+import {differenceInHours, isAfter, parseISO} from 'date-fns';
+import {now} from 'moment';
+import {EventTicketModel} from '../../models/event-ticket.model';
+import {EventModel} from '../../models/event.model';
+import {EventService} from '../../services/event/event.service';
+import * as _ from 'underscore';
+import {MatDialog} from '@angular/material/dialog';
+import {DetailsTicketComponent} from './details-ticket/details-ticket.component';
 
 @Component({
   selector: 'app-my-tickets',
   templateUrl: './my-tickets.component.html',
   styleUrls: ['./my-tickets.component.css']
 })
-export class MyTicketsComponent implements OnInit {
+export class MyTicketsComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  public transportTickets: Array<TransportTicketModel>;
+  public eventTickets: Array<EventTicketModel>;
+  private events: Array<EventModel>;
+  private scavenger = new Scavenger(this);
 
-  ngOnInit() {
+  constructor(private userService: UserService,
+              private eventService: EventService,
+              private errorHandler: GlobalErrorHandlerService,
+              private dialog: MatDialog) {
   }
 
+  ngOnInit() {
+    this.getTransportTickets();
+    this.getEventTickets();
+  }
+
+  ngOnDestroy(): void {
+  }
+
+  public ticketDetails(item: any, type: string) {
+    const dlg = this.dialog.open(DetailsTicketComponent, {
+      width: window.innerWidth > 400 ? '550px' : '380px',
+      height: 'max-content',
+      id: 'user-details-ticket-dialog',
+      hasBackdrop: true,
+      disableClose: true,
+      closeOnNavigation: true,
+      data: {
+        type,
+        item
+      }
+    });
+    dlg.afterClosed()
+      .subscribe(data => {
+      });
+  }
+
+  public pipeDate(dt: Date) {
+    return new Date(dt);
+  }
+
+  public getLinkedEvent(item: EventTicketModel) {
+    return this.events.find(x => x.eventId === item.eventId);
+  }
+
+  // noinspection JSMethodCanBeStatic
+  private checkExpiry(item: TransportTicketModel) {
+    const date = new Date(item.departDate);
+    const times = item.departTime.toString().split(':');
+    date.setHours(Number(times[0]));
+    date.setMinutes(Number(times[1]));
+    return differenceInHours(parseISO(date.toISOString()), new Date(now())) < 1;
+  }
+
+  private getTransportTickets() {
+    this.userService.getTransportTickets()
+      .pipe(this.scavenger.collect())
+      .subscribe(res => {
+          res.forEach(x => {
+            if (this.checkExpiry(x)) x.idTicket = 'EXPIRER';
+            else if (x.isShared) x.idTicket = 'PARTAGER'
+          });
+          this.transportTickets = res;
+        },
+        err => this.errorHandler.handleError(err));
+  }
+
+  private getEventTickets() {
+    this.userService.getEventTickets()
+      .pipe(this.scavenger.collect())
+      .subscribe(res => {
+        const ids = _.uniq(res.map(x => {
+          return x.eventId;
+        }));
+        this.eventService.getListedEvents(ids)
+          .pipe(this.scavenger.collect())
+          .subscribe(ele => {
+              this.events = ele;
+              ele.forEach(item => {
+                if (!isAfter(parseISO(item.startingDate.toString()), new Date(now())))
+                  res.find(x => x.eventId === item.eventId).codeTicket = 'EXPIRER';
+              });
+            }, err => this.errorHandler.handleError(err),
+            () => this.eventTickets = res);
+      }, err => this.errorHandler.handleError(err));
+  }
 }

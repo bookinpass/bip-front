@@ -1,0 +1,117 @@
+<div class="ui very raised segments">
+  <div [ngClass]="loading ? 'active' : ''" class="ui inverted dimmer">
+    <div class="ui text loader">Chargement</div>
+  </div>
+  <div class="ui segment" mat-dialog-title>
+    <p class="ui header">{{sharing ? 'Partage de ticket' : 'Details Billet'}}</p>
+  </div>
+
+  <div *ngIf="!sharing" class="ui segment fluid pt-1 pb-2">
+    <table class="ui very basic table">
+      <tbody>
+      <tr>
+        <td class="right aligned">Code billet:</td>
+        <td>{{type === 'event' ? item.codeTicket : item.idTicket}}</td>
+      </tr>
+      <tr *ngIf="type === 'event' && event !== undefined">
+        <td class="right aligned">Classe:</td>
+        <td>{{item.type}}</td>
+      </tr>
+      <tr *ngIf="type === 'event' && event !== undefined">
+        <td class="right aligned">Type d'evenement:</td>
+        <td>{{event.eventType | titlecase}}</td>
+      </tr>
+      <tr *ngIf="type === 'event' && event !== undefined">
+        <td class="right aligned">Designation:</td>
+        <td>{{event.designation}}</td>
+      </tr>
+
+      <tr *ngIf="type == 'event' && event !== undefined">
+        <td class="right aligned">Debut:</td>
+        <td>{{item.startingDate | date:'dd MMMM yyyy': 'UTC'}} á {{event.startingTime}}</td>
+      </tr>
+      <tr *ngIf="type === 'event' && event !== undefined">
+        <td class="right aligned">Fin:</td>
+        <td>{{item.endingDate | date:'dd MMMM yyyy': 'UTC'}} á {{event.endingTime}}</td>
+      </tr>
+
+      <tr *ngIf="type === 'transport'">
+        <td class="right aligned">Type transport:</td>
+        <td>{{item.transportType + ': '}}{{item.transportName | titlecase}}</td>
+      </tr>
+      <tr *ngIf="type === 'transport'">
+        <td class="right aligned">Date:</td>
+        <td>{{item.departDate | date : 'dd MMMM yyyy' : 'UTC'}} á {{item.departTime}}</td>
+      </tr>
+      <tr *ngIf="type === 'transport'">
+        <td class="right aligned">Depart:</td>
+        <td>{{item.departLocation | titlecase}}</td>
+      </tr>
+      <tr *ngIf="type === 'transport'">
+        <td class="right aligned">Destination:</td>
+        <td>{{item.arrivalLocation | titlecase}}</td>
+      </tr>
+      <tr *ngIf="type === 'event' && event !== undefined">
+        <td class="right aligned">Lieu:</td>
+        <td>{{event.place.designation | titlecase}}</td>
+      </tr>
+      <tr>
+        <td class="right aligned">ID transaction:</td>
+        <td>{{type === 'event' ? item.transactionNumber : item.orderId}}</td>
+      </tr>
+      <tr>
+        <td class="right aligned">Date transaction:</td>
+        <td>{{item.updatedAt | date:'dd MMMM yyyy': 'UTC' | titlecase}}
+          {{item.updatedAt | date:'á HH:MM': 'UTC'}}</td>
+      </tr>
+      <tr>
+        <td class="right aligned">Prix:</td>
+        <td *ngIf="type === 'event'">{{item.price | currency: 'XOF' : 'symbol' : '1.1-2'}}</td>
+        <td *ngIf="type === 'transport'">{{item.totalPrice | currency: 'XOF' : 'symbol' : '1.1-2'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="sharing" class="ui segment form fluid pt-1 pb-2">
+    <div class="required field" [ngClass]="fieldValidity.has('firstName') ? 'error' : ''">
+      <label>Prenom</label>
+      <input (focusout)="checkFields('firstName')" (focusin)="fieldValidity.delete('firstName')"
+             [(ngModel)]="sharedTo.firstName" name="fName" type="text"/>
+      <div *ngIf="fieldValidity.has('firstName')">
+        <p class="error">Ce champ est requis</p>
+      </div>
+    </div>
+    <div class="required field" [ngClass]="fieldValidity.has('lastName') ? 'error' : ''">
+      <label>Nom</label>
+      <input (focusout)="checkFields('lastName')" (focusin)="fieldValidity.delete('lastName')"
+             [(ngModel)]="sharedTo.lastName" name="lName" type="text"/>
+      <div *ngIf="fieldValidity.has('firstName')">
+        <p class="error">Ce champ est requis</p>
+      </div>
+    </div>
+    <div class="required field" [ngClass]="fieldValidity.has('telephone') ? 'error' : ''">
+      <label>Telephone</label>
+      <div class="ui left labeled input">
+        <select [(ngModel)]="sharedTo.countryCode" class="ui dropdown selection share-tel mr-2  mb-0 h6" name="code">
+          <option *ngFor="let item of countries" [value]="item.code">{{item.dial_code}}</option>
+        </select>
+        <input (focusout)="checkFields('telephone')" [(ngModel)]="sharedTo.telephone" name="telephone" placeholder="Telephone"/>
+      </div>
+      <div *ngIf="fieldValidity.has('telephone')">
+        <p class="error" *ngIf="fieldValidity.get('telephone').includes('required')">Ce champ est requis</p>
+        <p class="error" *ngIf="fieldValidity.get('telephone').includes('badFormat')">Ce champ est requis</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui segment d-flex flex-row justify-content-end fluid">
+    <button *ngIf="!sharing" class="ui orange large button right floated mr-3" mat-dialog-close>Fermer</button>
+    <button (click)="sharing = true" *ngIf="!sharing" [ngClass]="item.isShared ? 'disabled' : ''"
+            class="ui green large button right floated">Partager
+    </button>
+
+    <button (click)="cancelSharing()" *ngIf="sharing" class="ui teal large button right floated">Annuler</button>
+    <button (click)="doSharing()" *ngIf="sharing" class="ui green large button right floated">Valider</button>
+  </div>
+</div>

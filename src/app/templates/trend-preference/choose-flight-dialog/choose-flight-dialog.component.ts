@@ -23,7 +23,7 @@ export class ChooseFlightDialogComponent implements OnInit {
     this.img = this.data.img;
   }
 
-  onNoClick(): void {
+  public onNoClick(): void {
     this.dialogRef.close();
   }
 

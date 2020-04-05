@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SenegalDDJson} from '../../../../../assets/SenegalDD.json';
-import {CurrencyPipe, DatePipe} from '@angular/common';
+import {DatePipe} from '@angular/common';
 import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {addDays, isSameDay, isSameMonth, startOfDay} from 'date-fns';
-import {IClientAuthorizeCallbackData} from 'ngx-paypal';
 import {AppComponent} from '../../../../app.component';
 import {Subject} from 'rxjs';
-import Swal from 'sweetalert2';
 import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
-import {EPaymentData} from '../../../../core/core-payment-v2/core-payment-v2.component';
+import {EPaymentData} from '../../boat/boat-result/boat-result.component';
+import {EventNominationModel} from '../../../../models/event-nomination.model';
+import {PaymentRequest} from '../../../../core/payment/payment.component';
 
 const colors: any = {
   0: {
@@ -66,11 +66,9 @@ export class BusResultComponent implements OnInit {
   public activeDayIsOpen = true;
   public events: CalendarEvent[] = [];
   public paymentData = new EPaymentData();
-  public paypalDetails: IClientAuthorizeCallbackData;
 
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
-              public currencyPipe: CurrencyPipe,
               public datePipe: DatePipe) {
   }
 
@@ -97,12 +95,15 @@ export class BusResultComponent implements OnInit {
     }
   }
 
+  public saveData() {
+
+  }
+
   public closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
 
-  public eventClicked($event: { event: CalendarEvent<any>; sourceEvent: MouseEvent | KeyboardEvent }) {
-    console.log($event);
+  public eventClicked($event: { event: CalendarEvent; sourceEvent: MouseEvent | KeyboardEvent }) {
     this.selectedDate = $event.event.start;
   }
 
@@ -112,41 +113,18 @@ export class BusResultComponent implements OnInit {
     }
   }
 
-  public setLoading($event: boolean) {
-    this.loading = $event as boolean;
+  public getPaymentData() {
+    const data = new PaymentRequest();
+    data.command_name = `Ticket Bus Senegal Dem Dikk`;
+    data.item_name = `Vos tickets de transport ${this.from} - ${this.to}.`;
+    data.item_price = this.unitPrice * this.passengers;
+    data.success_url = '';
+    data.cancel_url = '';
+    return data;
   }
 
-  public updatePaymentData(data: EPaymentData) {
-    this.paymentData = data;
-  }
-
-  public updateStep($event: number) {
-    this.currentStep = $event;
-  }
-
-  public onPaymentError($event: any) {
-  }
-
-  public onPaymentSucceed($event: IClientAuthorizeCallbackData) {
-    this.paypalDetails = $event;
-    Swal.fire({
-      title: 'Done',
-      html: 'Votre paiement a été approuvé! <br/>' +
-        'Numéro de la transaction: ' + this.paypalDetails.id + '<br/>' +
-        'Montant net payer: ' + this.currencyPipe.transform(this.unitPrice * this.passengers, 'XOF', 'symbol-narrow', '1.1-2'),
-      type: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'OK',
-      allowEnterKey: true,
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      position: 'center'
-    }).then(res => {
-      if (res) {
-        this.currentStep = 3;
-      }
-    });
+  public getPayer() {
+    return new EventNominationModel();
   }
 
   public captureScreen() {

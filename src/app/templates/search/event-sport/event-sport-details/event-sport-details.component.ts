@@ -113,7 +113,7 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Suppression',
       text: 'Êtes vous sûr de vouloir supprimer cette élément ?',
-      type: 'question',
+      icon: 'question',
       showCancelButton: true,
       showCloseButton: true,
       cancelButtonText: 'Non',
@@ -153,6 +153,10 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getImage() {
+    this.eventImage = this.sanitizer.bypassSecurityTrustUrl(`../../../assets/images/event/${this.id}.jpg`);
+  }
+
+  private getImages() {
     this.imageService.getImage('event', this.id)
       .pipe(this.scavenger.collect(), retry(3))
       .subscribe(data => {

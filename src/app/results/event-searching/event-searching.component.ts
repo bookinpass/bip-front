@@ -120,15 +120,16 @@ export class EventSearchingComponent implements OnInit, OnDestroy {
   private getImages() {
     this.listOfEvents
       .map(x => x.eventId)
-      .forEach(id => {
-        this.imageService.getImage('event', id)
-          .pipe(this.scavenger.collect(), retry(3))
-          .subscribe(data => {
-            const x: any = data.body;
-            this.images.set(id, this.sanitizer.bypassSecurityTrustUrl(x.content.toString()));
-          }, _ => this.images.set(id, this.sanitizer.bypassSecurityTrustUrl(this.noImage)));
-      });
+      .forEach(ids => this.images.set(ids, this.sanitizer.bypassSecurityTrustUrl(`../../../assets/images/event/${ids}.jpg`)));
   }
+
+  // this.imageService.getImage('event', ids)
+  //   .pipe(this.scavenger.collect(),
+  //     retry(1))
+  //   .subscribe(data => {
+  //     const d: any = data.body;
+  //     this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(d.content.toString()));
+  //   }, _ => this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(this.noImage)));
 
   private setMarkedAndUnmarkedList() {
     let selectedList = (this.option.equalIgnoreCase('event') ?

@@ -55,16 +55,31 @@
     </div>
   </div>
 
-  <slideshow [autoPlayWaitForLazyLoad]="true"
-             [autoPlay]="true"
-             [imageUrls]="selectedOption === 1 ? variableConfig.flightSlider : selectedOption === 2 ?
-                variableConfig.eventSlider : variableConfig.sportSlider"
-             [lazyLoad]="true"
-             [minHeight]="'100%'"
-             [showArrows]="false"
-             [showCaptions]="false"
-             [showDots]="false"
-             id="slideShow" style="width: 100%; height: 100%">
-  </slideshow>
-
+  <ngb-carousel *ngIf="selectedOption===1"
+                [keyboard]="false"
+                [pauseOnHover]="false"
+                [showNavigationArrows]="false"
+                [showNavigationIndicators]="false" interval="5000">
+    <ng-template *ngFor="let item of variableConfig.flightSlider" ngbSlide>
+      <img [src]="item" alt="">
+    </ng-template>
+  </ngb-carousel>
+  <ngb-carousel *ngIf="selectedOption===2"
+                [keyboard]="false"
+                [pauseOnHover]="false"
+                [showNavigationArrows]="false"
+                [showNavigationIndicators]="false" interval="5000">
+    <ng-template *ngFor="let item of variableConfig.eventSlider" ngbSlide>
+      <img [src]="item" alt="">
+    </ng-template>
+  </ngb-carousel>
+  <ngb-carousel *ngIf="selectedOption===3"
+                [keyboard]="false"
+                [pauseOnHover]="false"
+                [showNavigationArrows]="false"
+                [showNavigationIndicators]="false" interval="5000">
+    <ng-template *ngFor="let item of variableConfig.sportSlider" ngbSlide>
+      <img [src]="item" alt="">
+    </ng-template>
+  </ngb-carousel>
 </div>

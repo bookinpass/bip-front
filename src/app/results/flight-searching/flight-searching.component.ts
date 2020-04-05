@@ -13,7 +13,7 @@ import {retry} from 'rxjs/operators';
 import {FlightItineraryComponent} from './flight-itinerary/flight-itinerary.component';
 import {CompanyJson} from '../../../assets/compagnies.json';
 import {faClock, faPlaneArrival, faPlaneDeparture} from '@fortawesome/free-solid-svg-icons';
-import {TravelerTypeEnum} from '../../models/TravelerType.enum';
+import {TravelerTypeEnum} from '../../models/traveler-type.enum';
 import {FlightFilterModel} from '../../models/flight-filter.model';
 
 @Component({

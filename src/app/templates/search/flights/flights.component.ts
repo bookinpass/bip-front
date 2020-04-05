@@ -4,18 +4,17 @@ import {AirportsJson} from '../../../../assets/airports.json';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
-import {CookiesService} from '../../../services/cookie/cookies.service';
 import {FlightSearchModel} from '../../../models/flight-search.model';
 import {SwalConfig} from '../../../../assets/SwalConfig/Swal.config';
-import * as Fuse from 'fuse.js';
 import {addDays, isBefore, parseISO} from 'date-fns';
+import * as Fuse from 'fuse.js/dist/fuse';
 
-const fuseOptions: Fuse.FuseOptions<AirportModel> = {
+const fuseOptions: Fuse.IFuseOptions<AirportModel> = {
   shouldSort: true,
   threshold: 0.1,
   location: 0,
   distance: 100,
-  maxPatternLength: 32,
+  // maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
     'iata',
@@ -50,8 +49,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private http: HttpClient,
-              private datePipe: DatePipe,
-              private cookieService: CookiesService) {
+              private datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -61,38 +59,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
   }
-
-  // public useCurrentLocation() {
-  //   // this.loading = true;
-  //   window.navigator.geolocation.getCurrentPosition(
-  //     position => this.getCurrentUserPosition(position)
-  //     , error => this.handleLocationError(error)
-  //     , {timeout: 20000, maximumAge: 86400000, enableHighAccuracy: true}); // time are set in milliseconds. 30 seconds and 12H
-  // }
-
-  // private getCurrentUserPosition(data: Position) {
-  //   this.http.get(`https://us1.locationiq.com/v1/reverse.php?key=${this.variableConfig.apiTokenKey}
-  //       &lat=${data.coords.latitude}&lon=${data.coords.longitude}&format=json
-  //       &accept-language=${this.variableConfig.locationDefaultLanguage}`)
-  //     .pipe(this.scavenger.collect())
-  //     .subscribe(result => {
-  //         const arg: any = result;
-  //         this.cookieService.setCookie('current_location', JSON.stringify(arg.address), 2, false);
-  //         this.selectedCountryOnList = new AirportModel();
-  //         this.selectedCountryOnList.countryName = arg.address.country;
-  //         this.selectedCountryOnList.state = arg.address.state;
-  //         this.airportSelectionStep = 2;
-  //         this.loading = false;
-  //         this.locationSelectionMethodCaller();
-  //       }, () => {
-  //         this.loading = false;
-  //         this.swal.ErrorSwalWithNoReturn('Erreur',
-  //           `Une erreur s'est produite lors de la tentative de récupération de votre position actuelle. Veuillez réessayer plus tard!`);
-  //       }
-  //     );
-  // }
 
   public searchFlight() {
     if (this.areAirportsValidAndDifferent() && this.areDatesValid()) {
@@ -122,6 +89,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
       this.fuseOnDepart = isDepart;
       this.fuseResultList.splice(0);
       this.fuse.search(isDepart ? this.fuseKeySearchDepart : this.fuseKeySearchReturn).forEach(airport => {
+        // @ts-ignore
         this.fuseResultList.push(airport);
       });
     } else {

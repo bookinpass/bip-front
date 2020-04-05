@@ -111,6 +111,12 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
   private getImage() {
     const list = this.listOfEvents.map(x => x.eventId);
     this.listOfSports.map(x => x.eventId).forEach(x => list.push(x));
+    list.forEach(ids => this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(`../../../assets/images/event/${ids}.jpg`)));
+  }
+
+  private getImag() {
+    const list = this.listOfEvents.map(x => x.eventId);
+    this.listOfSports.map(x => x.eventId).forEach(x => list.push(x));
     list.forEach(ids => {
       this.imageService.getImage('event', ids)
         .pipe(this.scavenger.collect(),

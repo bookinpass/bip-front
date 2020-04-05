@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bip-front": {
+    "bip": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bip-front",
+            "outputPath": "dist/bip",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -36,9 +36,9 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/hammerjs/hammer.min.js",
+              //              "node_modules/hammerjs/hammer.min.js",
               "node_modules/semantic-ui-css/semantic.min.js",
               "src/assets/js/payexpresse.min.js"
             ]
@@ -77,18 +77,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "bip-front:build"
+            "browserTarget": "bip:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "bip-front:build:production"
+              "browserTarget": "bip:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bip-front:build"
+            "browserTarget": "bip:build"
           }
         },
         "test": {
@@ -128,16 +128,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "bip-front:serve"
+            "devServerTarget": "bip:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "bip-front:serve:production"
+              "devServerTarget": "bip:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "bip-front"
+  "defaultProject": "bip"
 }

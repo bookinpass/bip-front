@@ -5,13 +5,11 @@ import {addDays, isBefore, isDate, isSameDay, isSameMonth, startOfDay} from 'dat
 import {ActivatedRoute} from '@angular/router';
 import {DakarZiguinchorJson} from '../../../../../assets/dakar-ziguinchor.json';
 import {SwalConfig} from '../../../../../assets/SwalConfig/Swal.config';
-import {IClientAuthorizeCallbackData} from 'ngx-paypal';
-import Swal from 'sweetalert2';
-import {CurrencyPipe} from '@angular/common';
 import {AppComponent} from '../../../../app.component';
 import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
-import {EPaymentData} from '../../../../core/core-payment-v2/core-payment-v2.component';
+import {PaymentRequest} from '../../../../core/payment/payment.component';
+import {EventNominationModel} from '../../../../models/event-nomination.model';
 
 const colors: any = {
   red: {
@@ -28,6 +26,14 @@ const colors: any = {
   }
 };
 
+export class EPaymentData {
+  orderId: string;
+  ticketId: string;
+  status: string;
+  type: string;
+  price: number;
+  payer: EventNominationModel;
+}
 
 @Component({
   selector: 'app-boat-result',
@@ -56,21 +62,51 @@ export class BoatResultComponent implements OnInit {
   public refresh: Subject<any> = new Subject();
   public activeDayIsOpen = true;
   public events: CalendarEvent[] = [];
-  public car = 0;
-  public bike = 0;
+  public cars = 0;
+  public bikes = 0;
   public idClass = '';
   public cabine = 1;
   public generatedID = AppComponent.makeId(15);
-  public paypalDetails: IClientAuthorizeCallbackData;
   public selectedBoat: string;
   public paymentData = new EPaymentData();
+  public sitoeResidentTravelers = new Map<number, Map<boolean, number>>();
+  public sitoeNonResidentTravelers = new Map<number, Map<boolean, number>>();
+  public otherBoatTravelers = new Map<string, Map<boolean, number>>();
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private currencyPipe: CurrencyPipe) {
+  constructor(private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.getBoats();
+  }
+
+  public updateMapTravelers(isResident: boolean, type: number, isAdult: boolean) {
+    const id = (isAdult ? 'adult' : 'child').concat(isResident ? '-resident' : '-non-resident').concat(`-cabine-${type}`);
+    // @ts-ignore
+    const value = Number($(`#${id}`)[0].value);
+    let arr;
+    if (isResident) {
+      arr = this.sitoeResidentTravelers.has(type) ? this.sitoeResidentTravelers.get(type) : new Map<boolean, number>();
+    } else {
+      arr = this.sitoeNonResidentTravelers.has(type) ? this.sitoeNonResidentTravelers.get(type) : new Map<boolean, number>();
+    }
+    arr.set(isAdult, value);
+    if (isResident) this.sitoeResidentTravelers.set(type, arr);
+    else this.sitoeNonResidentTravelers.set(type, arr);
+  }
+
+  public updateOtherTravelers(isResident: boolean, isAdult: boolean) {
+    const id = (isAdult ? 'adult' : 'child').concat(isResident ? '-resident' : '-non-resident');
+    // @ts-ignore
+    const value = Number($(`#${id}`)[0].value);
+    let arr;
+    if (isResident) {
+      arr = this.otherBoatTravelers.has('resident') ? this.otherBoatTravelers.get('resident') : new Map<boolean, number>();
+    } else {
+      arr = this.otherBoatTravelers.has('non-resident') ? this.otherBoatTravelers.get('non-resident') : new Map<boolean, number>();
+    }
+    arr.set(isAdult, value);
+    this.otherBoatTravelers.set(isResident ? 'resident' : 'non-resident', arr);
   }
 
   public dayClicked({date, events}: { date: Date; events: CalendarEvent[] }): void {
@@ -81,6 +117,16 @@ export class BoatResultComponent implements OnInit {
     }
   }
 
+  public eventClicked($event: { event: CalendarEvent<any>; sourceEvent: MouseEvent | KeyboardEvent }) {
+    this.selectedEvent = $event.event;
+    this.selectedDate = $event.event.start;
+    this.selectedBoat = '';
+    this.sitoeResidentTravelers.clear();
+    this.sitoeNonResidentTravelers.clear();
+    this.otherBoatTravelers.clear();
+    this.selectedBoat = ['Aline Sitoé Diatta', 'Diambogne', 'Aguene'][this.selectedEvent.meta];
+  }
+
   public closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
@@ -89,14 +135,14 @@ export class BoatResultComponent implements OnInit {
     return this.selectedDate ? this.selectedDate : this.viewDate;
   }
 
-  public eventClicked($event: { event: CalendarEvent<any>; sourceEvent: MouseEvent | KeyboardEvent }) {
-    this.selectedEvent = $event.event;
-    this.selectedDate = $event.event.start;
-    this.selectedBoat = ['Aline Sitoé Diatta', 'Diambogne', 'Aguene'][this.selectedEvent.meta];
-  }
+  public ok() {
+    console.log(this.sitoeResidentTravelers);
+    console.log(this.sitoeNonResidentTravelers);
+    console.log(this.otherBoatTravelers);
 
-  public updatePaymentData(data: EPaymentData) {
-    this.paymentData = data;
+    if (!this.proceedToPayment()) {
+      this.currentStep = 2;
+    }
   }
 
   public proceedToPayment() {
@@ -108,16 +154,14 @@ export class BoatResultComponent implements OnInit {
     } else if (this.selectedBoat === null || this.selectedBoat === '') {
       flag = true;
       swal.ErrorSwalWithNoReturn('Erreur', 'Veuillez choisir un bateau sur le calendrier SVP');
-    } else if (this.selectedClass === null || this.selectedClass === undefined) {
+    }
+    return flag;
+    /*else if (isNaN(this.adult) || isNaN(this.child)) {
       flag = true;
-      swal.ErrorSwalWithNoReturn('Erreur', 'Veuillez choisir une classe de voyage SVP');
-    } else if (isNaN(this.adult)) {
-      flag = true;
-      swal.ErrorSwalWithNoReturn('Erreur', 'Veuillez choisir ou entrer un nombre valide de voyageur adulte SVP');
-    } else if (isNaN(this.child)) {
-      flag = true;
+      const x = isNaN(this.adult)
       swal.ErrorSwalWithNoReturn('Erreur', 'Veuillez choisir ou entrer un nombre valide de voyageur enfant SVP');
-    } else if (this.adult < 1 || this.adult > 5) {
+    }
+     else if (this.adult < 1 || this.adult > 5) {
       flag = true;
       swal.ErrorSwalWithNoReturn('Erreur', 'Le nombre minimum d\'adultes ne doit pas être inférieur à zéro (0) et ne peut excéder' +
         ' cinq (5) adultes par réservation');
@@ -125,58 +169,34 @@ export class BoatResultComponent implements OnInit {
       flag = true;
       swal.ErrorSwalWithNoReturn('Erreur', 'Le nombre minimum d\'enfants ne doit pas être inférieur à zéro (0) et ne peut excéder' +
         ' cinq (5) enfants par réservation');
-    }
-    if (this.checkSeats()) {
-      flag = true;
-      swal.ErrorSwalWithNoReturn('Erreur', 'Vous avez enregistré ' + (this.adult + this.child) + ' voyageurs alors que la cabine' +
-        ' sélectionner ne peut contenir que ' + this.selectedClass.seats + ' passagers a la fois. Veuillez modifier le nombre de cabine' +
-        ' ou la catégorie choisie afin de faire bénéficié les autres passagers de cabine!');
-    }
-    if (!flag) {
-      this.currentStep = 2;
-    }
-  }
-
-  public onPaymentError($event: any) {
+    }*/
 
   }
 
-  public onPaymentSucceed($event: IClientAuthorizeCallbackData) {
-    this.paypalDetails = $event;
-    Swal.fire({
-      title: 'Done',
-      html: 'Votre paiement a été approuvé! <br/>' +
-        'Numéro de la transaction: ' + this.paypalDetails.id + '<br/>' +
-        'Montant net payer: ' + this.currencyPipe.transform(this.setPrice(), this.dkrZig.currency, 'symbol-narrow', '1.1-2'),
-      type: 'success',
-      showCancelButton: false,
-      confirmButtonText: 'OK',
-      allowEnterKey: true,
-      allowEscapeKey: false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      position: 'center'
-    }).then(res => {
-      if (res) {
-        this.currentStep = 3;
-      }
-    });
+  public getPaymentData() {
+    const data = new PaymentRequest();
+    data.command_name = `Vos tickets de transport maritime, ${this.selectedClass.description}`;
+    data.item_name = `Billet de transport ${this.departure} - ${this.arrival}`;
+    data.item_price = this.getPrice();
+    data.success_url = '';
+    data.cancel_url = '';
+    return data;
   }
 
-  public setPrice(): number {
+  public getPayer() {
+    return new EventNominationModel();
+  }
+
+  public getPrice(): number {
     const cabinePrice = this.cabine * this.selectedClass.price;
-    const car = this.car * this.dkrZig.soute.find(x => x.description.equalIgnoreCase('car')).price;
-    const bike = this.bike * this.dkrZig.soute.find(x => x.description.equalIgnoreCase('bike')).price;
+    const car = this.cars * this.dkrZig.soute.find(x => x.description.equalIgnoreCase('car')).price;
+    const bike = this.bikes * this.dkrZig.soute.find(x => x.description.equalIgnoreCase('bike')).price;
     return cabinePrice + car + bike;
   }
 
   public setSelectedPrice() {
     this.selectedClass = this.isResident ? this.dkrZig.resident.find(x => x.type.equalIgnoreCase(this.idClass)) :
       this.dkrZig['non-resident'].find(x => x.type.equalIgnoreCase(this.idClass));
-  }
-
-  public setLoading($event: boolean) {
-    this.loading = $event;
   }
 
   public captureScreen() {
@@ -190,18 +210,6 @@ export class BoatResultComponent implements OnInit {
       pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
       pdf.save(`${this.departure} - ${this.arrival}, ${this.selectedDate}.pdf`); // Generated PDF
     });
-  }
-
-  public updateStep($event: number) {
-    this.currentStep = $event;
-  }
-
-  private checkSeats() {
-    if (this.selectedClass.type === '4') {
-      return false;
-    }
-    const travelers = this.adult + this.child;
-    return this.selectedClass.seats * this.cabine < travelers;
   }
 
   private getBoats() {
@@ -250,4 +258,5 @@ export class BoatResultComponent implements OnInit {
     }
     return null;
   }
+
 }
