@@ -7,7 +7,7 @@ import {CountryJson} from '../../../../assets/Country.json';
 import Swal from 'sweetalert2';
 import {CountryCode, isValidNumberForRegion, NationalNumber} from 'libphonenumber-js';
 import {addHours} from 'date-fns';
-import {EPaymentData} from '../../../templates/search/boat/boat-result/boat-result.component';
+import {EPaymentData} from '../../../results/boat/boat-result.component';
 
 @Component({
   selector: 'app-in-cash',
@@ -75,6 +75,6 @@ export class InCashComponent implements OnInit {
   }
 
   private checkPhoneNumber() {
-    return isValidNumberForRegion(this.paymentData.payer.phone as NationalNumber, this.paymentData.payer.countryCode as CountryCode);
+    return isValidNumberForRegion(this.paymentData.payer.telephone as NationalNumber, this.paymentData.payer.countryCode as CountryCode);
   }
 }

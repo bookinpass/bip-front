@@ -1,7 +1,7 @@
 import {Time} from '@angular/common';
 
 export class TransportTicketModel {
-  idTicket: string;
+  codeTicket: string;
   description: string;
   departDate: Date;
   departTime: Time;
@@ -9,13 +9,16 @@ export class TransportTicketModel {
   arrivalLocation: string;
   ticketProviderCode: string;
   transportType: string;
-  orderId: string;
+  transactionNumber: string;
   transportName: string;
+  transactionType: string;
   totalPrice: number;
   createdAt: Date;
+  updatedAt: Date;
   isScanned: boolean;
   scannedOn: Date;
   scannedAt: Time;
   isShared: false;
   sharingId: string;
+  ownerId: number;
 }

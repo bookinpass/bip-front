@@ -85,8 +85,8 @@
 
     <div class="ui field required">
       <label>Séléctionner votre pays</label>
-      <select (change)="updateDialCode()" [(ngModel)]="user.country" class="ui selection dropdown" name="countrySelect">
-        <option *ngFor="let ctr of countries" [selected]="ctr.code === user.country" [value]="ctr.code">{{ctr.name}}</option>
+      <select (change)="updateDialCode()" [(ngModel)]="user.countryCode" class="ui selection dropdown" name="countrySelect">
+        <option *ngFor="let ctr of countries" [selected]="ctr.code === user.countryCode" [value]="ctr.code">{{ctr.name}}</option>
       </select>
     </div>
 

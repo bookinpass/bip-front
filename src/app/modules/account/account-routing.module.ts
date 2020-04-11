@@ -11,11 +11,6 @@ const routes: Routes = [
   {
     path: 'myaccount',
     component: MyAccountComponent
-  },
-  {
-    path: '**',
-    redirectTo: 'mytickets',
-    pathMatch: 'full'
   }
 ];
 

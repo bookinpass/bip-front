@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/authentication/auth.service';
-import {ClientModel} from './models/client.model';
 import {LoginComponent} from './users/login/login.component';
 import {RegisterComponent} from './users/register/register.component';
+import {UserModel} from "./models/User.model";
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,11 @@ import {RegisterComponent} from './users/register/register.component';
 })
 export class AppComponent implements OnInit {
 
-  public client: ClientModel = null;
+  public client: UserModel = null;
   public title = 'bip-front';
   public innerWidth: number;
+
+  // todo: remove this deps and use form validator on registration and password forgotten
 
   constructor(private router: Router,
               public dialog: MatDialog,

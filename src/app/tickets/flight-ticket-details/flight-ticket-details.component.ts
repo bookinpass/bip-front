@@ -14,7 +14,7 @@ import {UrlConfig} from '../../../assets/url.config';
 import {InCashComponent} from '../../core/payments/in-cash/in-cash.component';
 import {EventNominationModel} from '../../models/event-nomination.model';
 import {GeneralConditionComponent} from '../../core/modal/general-condition/general-condition.component';
-import {EPaymentData} from '../../templates/search/boat/boat-result/boat-result.component';
+import {EPaymentData} from '../../results/boat/boat-result.component';
 
 declare const PayExpresse: any;
 
@@ -142,7 +142,7 @@ export class FlightTicketDetailsComponent implements OnInit {
     ePaymentData.payer.firstName = principal.name.firstName;
     ePaymentData.payer.lastName = principal.name.lastName;
     ePaymentData.payer.countryCode = principal.contact.address.countryCode;
-    ePaymentData.payer.phone = principal.contact.phones[0].number;
+    ePaymentData.payer.telephone = principal.contact.phones[0].number;
     ePaymentData.type = 'cash';
     ePaymentData.orderId = null;
     ePaymentData.status = null;

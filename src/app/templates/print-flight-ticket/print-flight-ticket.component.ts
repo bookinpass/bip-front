@@ -43,7 +43,7 @@ export class PrintFlightTicketComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.captureScreen(), 3000);
+    setTimeout(() => this.captureScreen(), 1000);
   }
 
   public captureScreen() {

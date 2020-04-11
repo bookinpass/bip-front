@@ -9,7 +9,7 @@ import {CountryJson} from '../../../assets/Country.json';
 import {CountryCode, formatIncompletePhoneNumber, isValidNumberForRegion} from 'libphonenumber-js';
 import {retry} from 'rxjs/operators';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
-import {VariableConfig} from "../../../assets/variable.config";
+import {VariableConfig} from '../../../assets/variable.config';
 
 const passwordValidator = require('password-validator');
 
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.user.credential = new Credential();
-    this.user.country = 'SN';
+    this.user.countryCode = 'SN';
     this.countries = new CountryFRJson().countries.filter(x => this.dialCodes.find(y => y.code === x.code) !== undefined);
     this.setPasswordValidator();
   }
@@ -62,7 +62,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public updateDialCode() {
-    this.dialCode = this.dialCodes.find(dial => dial.code === this.user.country).dial_code;
+    this.dialCode = this.dialCodes.find(dial => dial.code === this.user.countryCode).dial_code;
   }
 
   public setPasswordStatus() {
@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   public formatNumber() {
     if (this.user.telephone.length > 0) {
-      this.user.telephone = formatIncompletePhoneNumber(this.user.telephone, this.user.country as CountryCode);
+      this.user.telephone = formatIncompletePhoneNumber(this.user.telephone, this.user.countryCode as CountryCode);
     }
   }
 
@@ -110,7 +110,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const telephone = this.user.telephone;
     this.checkRequiredField(telephone, 'telephone');
     if (!this.error.includes('telephone')) {
-      this.isPhoneNumberValid = isValidNumberForRegion(this.user.telephone, this.user.country as CountryCode);
+      this.isPhoneNumberValid = isValidNumberForRegion(this.user.telephone, this.user.countryCode as CountryCode);
       if (this.isPhoneNumberValid) {
         this.usedAttribute.telephone = (await this.authService.checkTelephone(telephone) as boolean);
       }

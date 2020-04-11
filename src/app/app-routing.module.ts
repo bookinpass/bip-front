@@ -1,57 +1,29 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {FlightSearchingComponent} from './results/flight-searching/flight-searching.component';
-import {EventSearchingComponent} from './results/event-searching/event-searching.component';
-import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
-import {EventSportDetailsComponent} from './templates/search/event-sport/event-sport-details/event-sport-details.component';
-import {PrintFlightTicketComponent} from './templates/print-flight-ticket/print-flight-ticket.component';
-import {BoatResultComponent} from './templates/search/boat/boat-result/boat-result.component';
-import {BusResultComponent} from './templates/search/bus/bus-result/bus-result.component';
 import {AuthGuard} from './guards/auth.guard';
+import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {
     path: 'search',
-    children: [
-      {
-        path: 'flights',
-        component: FlightSearchingComponent
-      },
-      {
-        path: 'events',
-        component: EventSearchingComponent
-      },
-      {
-        path: 'cruise',
-        component: BoatResultComponent
-      },
-      {
-        path: 'bus',
-        component: BusResultComponent
-      }
-    ]
+    loadChildren: () => import('./modules/search-result/search-result.module').then(module => module.SearchResultModule)
   },
   {
-    path: 'details',
-    children: [
-      {
-        path: 'flight',
-        component: FlightTicketDetailsComponent
-      },
-      {
-        path: 'event/:id',
-        component: EventSportDetailsComponent
-      }
-    ]
+    path: 'details/event',
+    loadChildren: () => import('./modules/event-sport-details/event-sport-details.module').then(module => module.EventSportDetailsModule)
   },
   {
-    path: 'print/flight',
-    component: PrintFlightTicketComponent
+    path: 'details/flight',
+    component: FlightTicketDetailsComponent
+  },
+  {
+    path: 'print',
+    loadChildren: () => import('./modules/printing/printing.module').then(module => module.PrintingModule)
   },
   {
     path: 'account',
@@ -63,8 +35,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/payment/payment.module').then(module => module.PaymentModule)
   },
   {
-    path: '',
-    redirectTo: '/home',
+    path: '**',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

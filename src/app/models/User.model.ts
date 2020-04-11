@@ -17,7 +17,7 @@ export class UserModel {
   city = '';
   state = '';
   postalCode = '';
-  country = '';
+  countryCode = '';
   idType = '';
   idNumber = '';
   credential: Credential;

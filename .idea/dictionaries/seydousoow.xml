@@ -2,20 +2,26 @@
   <dictionary name="seydousoow">
     <words>
       <w>bateau</w>
+      <w>bcrypt</w>
       <w>bookinpass</w>
       <w>cabine</w>
+      <w>captacha</w>
       <w>expirer</w>
       <w>expresse</w>
       <w>fusionner</w>
       <w>iata</w>
       <w>indicatif</w>
       <w>jspdf</w>
+      <w>keyvalue</w>
       <w>lutte</w>
       <w>myaccount</w>
       <w>mytickets</w>
+      <w>partage</w>
+      <w>passeport</w>
       <w>payexpress</w>
       <w>payexpresse</w>
       <w>paypal</w>
+      <w>popperjs</w>
       <w>prensentation</w>
       <w>requis</w>
       <w>retour</w>
@@ -25,6 +31,7 @@
       <w>séléctionner</w>
       <w>tarification</w>
       <w>telephonique</w>
+      <w>titlecase</w>
       <w>unstackable</w>
       <w>ziguinchor</w>
     </words>

@@ -5,7 +5,7 @@ import {GlobalErrorHandlerService} from '../../core/error/global-error-handler.s
 import {TransportTicketModel} from '../../models/transport-ticket.model';
 import {differenceInHours, isAfter, parseISO} from 'date-fns';
 import {now} from 'moment';
-import {EventTicketModel} from '../../models/event-ticket.model';
+import {TicketEventModel} from '../../models/ticket-event.model';
 import {EventModel} from '../../models/event.model';
 import {EventService} from '../../services/event/event.service';
 import * as _ from 'underscore';
@@ -20,7 +20,7 @@ import {DetailsTicketComponent} from './details-ticket/details-ticket.component'
 export class MyTicketsComponent implements OnInit, OnDestroy {
 
   public transportTickets: Array<TransportTicketModel>;
-  public eventTickets: Array<EventTicketModel>;
+  public eventTickets: Array<TicketEventModel>;
   private events: Array<EventModel>;
   private scavenger = new Scavenger(this);
 
@@ -60,7 +60,7 @@ export class MyTicketsComponent implements OnInit, OnDestroy {
     return new Date(dt);
   }
 
-  public getLinkedEvent(item: EventTicketModel) {
+  public getLinkedEvent(item: TicketEventModel) {
     return this.events.find(x => x.eventId === item.eventId);
   }
 
@@ -78,8 +78,7 @@ export class MyTicketsComponent implements OnInit, OnDestroy {
       .pipe(this.scavenger.collect())
       .subscribe(res => {
           res.forEach(x => {
-            if (this.checkExpiry(x)) x.idTicket = 'EXPIRER';
-            else if (x.isShared) x.idTicket = 'PARTAGER'
+            if (this.checkExpiry(x)) x.codeTicket = 'EXPIRER';
           });
           this.transportTickets = res;
         },

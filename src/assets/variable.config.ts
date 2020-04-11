@@ -50,4 +50,7 @@ export class VariableConfig {
   readonly locationApiId = 'bookinpass';
   readonly locationApiKey = 'JxiU0T57z7OaJAH0Z4ga33ZKqKQpRTalTx9XrmqFHHdW8RRK';
 
+  readonly captachaKey = '6Ld2j84UAAAAAJkyoD4lsZIF2oy4iO1JJOiXh3Fj';
+  readonly captachaSecret = '6Ld2j84UAAAAAGcak5tSx5SdWj4d3BYN-wD58of7';
+
 }

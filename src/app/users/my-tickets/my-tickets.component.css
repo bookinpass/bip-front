@@ -12,3 +12,9 @@ tr.clear {
 .strikeout {
   text-decoration-line: line-through;
 }
+
+.ticket-shared {
+  background-color: green;
+  color: white;
+  font-weight: 700;
+}

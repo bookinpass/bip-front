@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {UrlConfig} from '../../../assets/url.config';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {ClientModel} from '../../models/client.model';
 import {Router} from '@angular/router';
 import {CookiesService} from '../cookie/cookies.service';
-import {UserModel} from "../../models/User.model";
+import {UserModel} from '../../models/User.model';
+import {VariableConfig} from "../../../assets/variable.config";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ import {UserModel} from "../../models/User.model";
 export class AuthService {
 
   private urlRepo = new UrlConfig();
+  private secret = new VariableConfig().captachaSecret;
 
   constructor(private http: HttpClient,
               private jwtHelper: JwtHelperService,
@@ -25,7 +26,7 @@ export class AuthService {
       {username, password}, {observe: 'response'});
   }
 
-  public getCurrentUser(): ClientModel {
+  public getCurrentUser(): UserModel {
     if (!this.isLoggedIn()) {
       localStorage.removeItem('access_token');
       if (this.cookieService.check('current_user')) {
@@ -87,7 +88,6 @@ export class AuthService {
         code
       }
     });
-    console.log(`${this.urlRepo.eventHost}${this.urlRepo.activateAccount}`);
     return this.http.get(`${this.urlRepo.eventHost}${this.urlRepo.activateAccount}`, {params: param});
   }
 
@@ -107,7 +107,14 @@ export class AuthService {
     const param: HttpParams = new HttpParams({
       fromObject: {username}
     });
-    return this.http.get<ClientModel>(`${this.urlRepo.eventHost}${this.urlRepo.clients}`, {params: param});
+    return this.http.get<UserModel>(`${this.urlRepo.eventHost}${this.urlRepo.clients}`, {params: param});
+  }
+
+  public async validateCaptacha(response: string) {
+    return this.http.post<any>(`${this.urlRepo.eventHost}/captcha/siteVerify`, null, {
+      params: {response},
+      observe: 'response'
+    });
   }
 
 }

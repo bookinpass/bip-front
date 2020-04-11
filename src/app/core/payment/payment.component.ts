@@ -6,20 +6,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {CashPaymentComponent} from '../cash-payment/cash-payment.component';
 import {EventNominationModel} from '../../models/event-nomination.model';
 import {Router} from '@angular/router';
+import {PaymentRequest} from '../../models/payment-request';
 
 declare const PayExpresse: any;
-
-export class PaymentRequest {
-  item_name: string; // order title
-  item_price: number; // order price
-  command_name: string; // order description
-  ref_command = null;
-  env = null;
-  ipn_url = null;
-  success_url: string;
-  cancel_url: string;
-  currency = 'XOF';
-}
 
 @Component({
   selector: 'app-payment',

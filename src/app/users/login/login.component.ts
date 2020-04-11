@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AuthService} from '../../services/authentication/auth.service';
-import {ClientModel} from '../../models/client.model';
 import {CookiesService} from '../../services/cookie/cookies.service';
 import {GlobalErrorHandlerService} from '../../core/error/global-error-handler.service';
 import {faShieldAlt, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +11,7 @@ import {CountryFRJson} from '../../../assets/Country-FR.json';
 import {CountryJson} from '../../../assets/Country.json';
 import {CountryCode, isValidNumberForRegion} from 'libphonenumber-js';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
+import {UserModel} from '../../models/User.model';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public pwdConfirmation = '';
   public showPwd2 = false;
   private connected = false;
-  private client: ClientModel;
+  private client: UserModel;
   private dialsCodes = new CountryJson().countries;
   private scavenger = new Scavenger(this);
 

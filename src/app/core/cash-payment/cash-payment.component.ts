@@ -79,7 +79,7 @@ export class CashPaymentComponent implements OnInit, OnDestroy {
             const tel = new CountryJson().countries.find(x => x.code === this.payer.countryCode)
               .dial_code
               .replace('+', '')
-              .concat(this.payer.phone);
+              .concat(this.payer.telephone);
             this.currency.sendNotificationSMS(tel, sms)
               .pipe(this.scavenger.collect(), retry(2))
               .subscribe(() => this.dialogRef.close(this.status));
@@ -93,7 +93,7 @@ export class CashPaymentComponent implements OnInit, OnDestroy {
   }
 
   private checkPhoneNumber() {
-    return isValidNumberForRegion(this.payer.phone as NationalNumber, this.payer.countryCode as CountryCode);
+    return isValidNumberForRegion(this.payer.telephone as NationalNumber, this.payer.countryCode as CountryCode);
   }
 
 }

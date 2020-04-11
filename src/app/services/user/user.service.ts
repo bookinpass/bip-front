@@ -3,7 +3,8 @@ import {UrlConfig} from '../../../assets/url.config';
 import {CookiesService} from '../cookie/cookies.service';
 import {HttpClient} from '@angular/common/http';
 import {TransportTicketModel} from '../../models/transport-ticket.model';
-import {EventTicketModel} from '../../models/event-ticket.model';
+import {TicketEventModel} from '../../models/ticket-event.model';
+import {UserModel} from '../../models/User.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,29 @@ export class UserService {
               private http: HttpClient) {
   }
 
+  public getUser() {
+    return this.http.get<UserModel>(`${this.urls.eventHost}/user/search`, {params: {username: this.getUsername()}});
+  }
+
   public getTransportTickets() {
-    const currentUser = this.cookiesService.getCookie('last_email') as string;
-    return this.http.get<Array<TransportTicketModel>>(`${this.urls.eventHost}/user/${currentUser}/tickets/transport`);
+    return this.http.get<Array<TransportTicketModel>>(`${this.urls.eventHost}/user/${this.getUsername()}/tickets/transport`);
   }
 
   public getEventTickets() {
-    const currentUser = this.cookiesService.getCookie('last_email') as string;
-    return this.http.get<Array<EventTicketModel>>(`${this.urls.eventHost}/user/${currentUser}/tickets/event`);
+    return this.http.get<Array<TicketEventModel>>(`${this.urls.eventHost}/user/${this.getUsername()}/tickets/event`);
   }
+
+  public updatePassword(oldPassword: string, newPassword: string) {
+    return this.http.post(`${this.urls.eventHost}/password`,
+      JSON.stringify({username: this.getUsername(), oldPassword, newPassword}), {observe: 'response'});
+  }
+
+  public updateUser(user: UserModel) {
+    return this.http.post(`${this.urls.eventHost}/user/${this.getUsername()}/profile`, JSON.stringify(user), {observe: 'response'});
+  }
+
+  private getUsername() {
+    return this.cookiesService.getCookie('last_email');
+  }
+
 }

@@ -2097,6 +2097,14 @@ select.dropdown:focus {
   box-shadow: none !important;
 }
 
+/****************************** form validation ************************/
+.invalid-message {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: gray !important;
   opacity: 0.7 !important; /* Firefox */
