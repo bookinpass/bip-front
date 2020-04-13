@@ -17,3 +17,37 @@
   float: right;
   margin-bottom: 15px;
 }
+
+/*
+
+tag-input-form {
+  margin-right: 5px;
+}
+
+tag {
+  background-color: #f60;
+}
+
+.tag__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: 0.07rem !important;
+  line-height: 31px !important;
+  cursor: pointer !important;
+  font-size: 13px !important;
+  color: #fff !important;
+  font-family: "open sans", ubuntu, sans-serif !important;
+  text-transform: capitalize !important;
+  font-weight: 600 !important;
+}
+
+delete-icon svg {
+  vertical-align: middle !important;
+  height: 100% !important;
+}
+
+delete-icon path {
+  fill: white;
+}
+*/

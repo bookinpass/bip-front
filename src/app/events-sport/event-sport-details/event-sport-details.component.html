@@ -70,16 +70,17 @@
         <div class="field">
           <label>Prix unitaire</label>
           <input [value]="cartTicket.unitPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'"
-                 placeholder="Prix unitaire" readonly type="text">
+                 placeholder="Prix unitaire" readonly tabindex="-1" type="text">
         </div>
         <div class="field">
           <label>Prix total</label>
           <input [value]="cartTicket.totalPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'"
-                 readonly type="text">
+                 readonly tabindex="-1" type="text">
         </div>
-        <div (click)="addToCart()" [ngClass]="cartTicket.amount > 0 && cartTicket.type.length > 0 ? '' : 'disabled'"
-             class="ui violet button">Ajouter
-        </div>
+        <button (click)="addToCart()" [ngClass]="cartTicket.amount > 0 && cartTicket.type.length > 0 ? '' : 'disabled'"
+                class="ui violet button"
+                type="button">Ajouter
+        </button>
       </div>
     </div>
     <!-- End of Adding to cart-->
@@ -186,9 +187,9 @@
         </div>
       </div>
     </form>
-    <app-payment *ngIf="currentStep === 3" class="mt-2"></app-payment>
-    <div *ngIf="currentStep === 3" class="h-100 d-flex justify-content-end w-available">
-      <div (click)="previousStep()" class="ui left floated orange button ml-3">Precedent</div>
+    <app-payment *ngIf="currentStep === 3" [paymentRequest]="payExpressParam" class="mt-2"></app-payment>
+    <div *ngIf="currentStep === 3" class="h-100 w-available">
+      <div (click)="previousStep()" class="ui right aligned orange button ml-3">Precedent</div>
     </div>
   </div>
 </div>

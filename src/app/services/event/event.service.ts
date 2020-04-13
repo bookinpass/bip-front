@@ -11,7 +11,7 @@ import {CookiesService} from "../cookie/cookies.service";
 export class EventService {
 
   private urlConfig = new UrlConfig();
-  private host = this.urlConfig.eventHost;
+  private host = this.urlConfig.mainHost;
   private getPlacesUrl = this.urlConfig.getPlaces;
   private comingEventsUrl = this.urlConfig.comingEvents;
   private eventById = this.urlConfig.eventById;

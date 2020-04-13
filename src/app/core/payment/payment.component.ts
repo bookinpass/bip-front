@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {CashPaymentComponent} from '../cash-payment/cash-payment.component';
 import {EventNominationModel} from '../../models/event-nomination.model';
 import {Router} from '@angular/router';
-import {PaymentRequest} from '../../models/payment-request';
+import {PayExpressParams} from '../../models/pay-express-params';
 
 declare const PayExpresse: any;
 
@@ -17,7 +17,7 @@ declare const PayExpresse: any;
 })
 export class PaymentComponent {
   @Input() payer: EventNominationModel;
-  @Input() paymentRequest: PaymentRequest;
+  @Input() paymentRequest: PayExpressParams;
   @Output() loader = new EventEmitter<boolean>();
 
   constructor(public cashMatDialog: MatDialog,
@@ -45,11 +45,12 @@ export class PaymentComponent {
   }
 
   public pay() {
+    const url = new UrlConfig();
     this.loader.emit(true);
     (new PayExpresse({
       body: JSON.stringify(this.paymentRequest)
     })).withOption({
-      requestTokenUrl: `${new UrlConfig().eventHost}/request-payment`,
+      requestTokenUrl: `${url.mainHost}${url.payExpressPaymentRequest}`,
       method: 'POST',
       headers: {
         Accept: 'application/json',

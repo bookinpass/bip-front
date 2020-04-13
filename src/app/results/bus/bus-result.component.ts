@@ -10,7 +10,7 @@ import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
 import {EPaymentData} from '../boat/boat-result.component';
 import {EventNominationModel} from '../../models/event-nomination.model';
-import {PaymentRequest} from '../../models/payment-request';
+import {PayExpressParams} from '../../models/pay-express-params';
 
 const colors: any = {
   0: {
@@ -114,7 +114,7 @@ export class BusResultComponent implements OnInit {
   }
 
   public getPaymentData() {
-    const data = new PaymentRequest();
+    const data = new PayExpressParams();
     data.command_name = `Ticket Bus Senegal Dem Dikk`;
     data.item_name = `Vos tickets de transport ${this.from} - ${this.to}.`;
     data.item_price = this.unitPrice * this.passengers;

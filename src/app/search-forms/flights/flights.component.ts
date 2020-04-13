@@ -14,7 +14,6 @@ const fuseOptions: Fuse.IFuseOptions<AirportModel> = {
   threshold: 0.1,
   location: 0,
   distance: 100,
-  // maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
     'iata',
@@ -33,7 +32,6 @@ const fuseOptions: Fuse.IFuseOptions<AirportModel> = {
 })
 export class FlightsComponent implements OnInit, OnDestroy {
 
-  public listOfAirports: AirportModel[] = new AirportsJson().airport; // getting airport from json file in assets folder
   public fuseKeySearchDepart: string;
   public fuseKeySearchReturn: string;
   public fuseResultList = Array<AirportModel>();
@@ -41,6 +39,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
   public ticketSearch = new FlightSearchModel();
   // directFlight checkBox
   public loading = false;
+  private listOfAirports: AirportModel[] = new AirportsJson().airport; // getting airport from json file in assets folder
   public fuse = new Fuse(this.listOfAirports, fuseOptions);
 
   // Class for Sweet Alert default config
@@ -91,7 +90,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
       this.fuseResultList.splice(0);
       this.fuse.search(isDepart ? this.fuseKeySearchDepart : this.fuseKeySearchReturn).forEach(airport => {
         // @ts-ignore
-        this.fuseResultList.push(airport);
+        this.fuseResultList.push(airport.item);
       });
     } else {
       this.closeSuggestion();

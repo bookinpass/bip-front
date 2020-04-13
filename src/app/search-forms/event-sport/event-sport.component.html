@@ -1,4 +1,5 @@
 <div [ngClass]="loading ? 'loading' : ''" class="ui form fluid">
+
   <div class="two fields">
     <div *ngIf="option.equalIgnoreCase('event')" class="required field">
       <label>{{'type événement' | titlecase}}</label>
@@ -7,18 +8,9 @@
         <option *ngFor="let item of variableConfig.eventType.sort()" [value]="item.toLowerCase()">{{item | titlecase}}</option>
       </select>
     </div>
-    <div [ngClass]="option.equalIgnoreCase('sport') ? 'mt-2' : ''" class="required field">
+    <div [ngClass]="option.equalIgnoreCase('sport') ? 'mt-2' : ''" class="field">
       <label>{{'Date' | titlecase}}</label>
-      <input (pickerSelectedDateChange)="validateEventDate()"
-             [(ngModel)]="eventSearch.date"
-             [pickerFirstDayOfWeek]="0"
-             [pickerInitialDate]="today"
-             [pickerMinDate]="today"
-             [pickerMode]="'date'"
-             [pickerUseNativeOnMobile]="true"
-             class="cursor-pointer"
-             fuiDatepicker
-             placeholder="Date"/>
+      <input (change)="validateEventDate()" [(ngModel)]="eventSearch.date" name="date" type="date">
     </div>
   </div>
 
@@ -33,36 +25,29 @@
                [modelAsStrings]="true"
                [removable]="true"
                [trimTags]="true"
+               inputClass="tag__input__class"
                placeholder="Mot clés"></tag-input>
   </div>
 
   <div class="field">
     <label>Lieu</label>
-    <select class="ui selection multiple dropdown" multiple name="">
-      <option *ngFor="let item of allPlaces" [value]="item.placeId">{{item.designation}}</option>
-    </select>
-    <!--    <fui-multi-select #multiSelect-->
-    <!--                      (selectedOptionsChange)="eventPlacesSelection($event)"-->
-    <!--                      [hasLabels]="true"-->
-    <!--                      [isClearable]="true"-->
-    <!--                      [isDisabled]="false"-->
-    <!--                      [isSearchable]="false"-->
-    <!--                      [maxSelected]="3"-->
-    <!--                      [options]="allPlaces"-->
-    <!--                      [placeholder]="'Sélectionnez un ou plusieurs lieu (s)'"-->
-    <!--                      [showCountText]="'Select'"-->
-    <!--                      class="selection"-->
-    <!--                      labelField="designation"-->
-    <!--                      valueField="placeId">-->
-    <!--      <div class="scrolling menu">-->
-    <!--        <fui-select-option *ngFor="let o of multiSelect.filteredOptions" [value]="o"></fui-select-option>-->
-    <!--      </div>-->
-    <!--    </fui-multi-select>-->
+    <angular2-multiselect (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          [(ngModel)]="selectedItems"
+                          [data]="dropdownList"
+                          [settings]="dropdownSettings">
+    </angular2-multiselect>
+
+
+    <!--    <select class="ui search dropdown" multiple name="name">-->
+    <!--      <option selected value="">Séléctionnez un ou plusieurs lieu (s)</option>-->
+    <!--      <option *ngFor="let item of allPlaces" [value]="item.placeId">{{item.designation}}</option>-->
+    <!--    </select>-->
   </div>
 
   <div>
-    <button (click)="searchEvent()" class="plane-search-button" type="button">Rechercher
-    </button>
+    <button (click)="searchEvent()" class="plane-search-button" type="button">Rechercher</button>
   </div>
 
 </div>

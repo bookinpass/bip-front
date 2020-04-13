@@ -7,7 +7,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 })
 export class ImageService {
   private urlRepository = new UrlConfig();
-  readonly host = this.urlRepository.host;
+  readonly host = this.urlRepository.bookingHost;
   readonly imageUrl = this.urlRepository.imageUrl;
 
   constructor(private http: HttpClient) {

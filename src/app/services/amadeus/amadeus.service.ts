@@ -11,7 +11,7 @@ import {DatePipe} from '@angular/common';
 export class AmadeusService {
 
   private urlConfig = new UrlConfig();
-  private host = this.urlConfig.host;
+  private host = this.urlConfig.bookingHost;
   private search = this.urlConfig.searchFlights;
 
   constructor(private http: HttpClient,

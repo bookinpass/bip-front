@@ -77,19 +77,20 @@
           <!--          </div>-->
           <div class="d-flex flex-row justify-content-between align-items-center">
             <p class="mb-0 h6 mr-2">Trier par:</p>
-            <fui-select #sort
-                        (selectedOptionChange)="sortFlights()"
-                        [(ngModel)]="sortBy"
-                        [isDisabled]="false"
-                        [isSearchable]="false"
-                        [options]="sortList"
-                        class="selection h7"
-                        labelField="name"
-                        valueField="id">
-              <fui-select-option *ngFor="let option of sort.filteredOptions"
-                                 [value]="option">
-              </fui-select-option>
-            </fui-select>
+            <!--            todo: select-->
+            <!--            <fui-select #sort-->
+            <!--                        (selectedOptionChange)="sortFlights()"-->
+            <!--                        [(ngModel)]="sortBy"-->
+            <!--                        [isDisabled]="false"-->
+            <!--                        [isSearchable]="false"-->
+            <!--                        [options]="sortList"-->
+            <!--                        class="selection h7"-->
+            <!--                        labelField="name"-->
+            <!--                        valueField="id">-->
+            <!--              <fui-select-option *ngFor="let option of sort.filteredOptions"-->
+            <!--                                 [value]="option">-->
+            <!--              </fui-select-option>-->
+            <!--            </fui-select>-->
           </div>
         </div>
         <div *ngFor="let ticket of filteredListOfFlights" class="d-flex flex-row w-100 ui segment raised mb-3 p-2 mt-0">

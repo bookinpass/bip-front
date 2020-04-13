@@ -15,7 +15,6 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {QRCodeModule} from 'angularx-qrcode';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {FomanticUIModule} from 'ngx-fomantic-ui';
 
 
 @NgModule({
@@ -35,8 +34,7 @@ import {FomanticUIModule} from 'ngx-fomantic-ui';
     MatDialogModule,
     MatButtonToggleModule,
     QRCodeModule,
-    CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
-    FomanticUIModule
+    CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory})
   ]
 })
 export class SearchResultModule {

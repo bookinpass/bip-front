@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
-import localeFr from '@angular/common/locales/fr-SN';
+import localeFr from '@angular/common/locales/fr';
 import '../assets/prototypes/string-prototypes';
 import '../assets/prototypes/array-prototypes';
 
@@ -12,7 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './templates/header/header.component';
 import {FooterComponent} from './templates/footer/footer.component';
 import {TicketSearchingComponent} from './search-forms/ticket-searching/ticket-searching.component';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './search-forms/home/home.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
@@ -35,7 +35,6 @@ import {TicketDetailsComponent} from './templates/ticket-details/ticket-details.
 // make jquery to be available globally
 import * as $ from 'jquery';
 import {AddressesComponent} from './tickets/flight-ticket-details/addresses/addresses.component';
-import {FomanticUIModule} from 'ngx-fomantic-ui';
 import {TagInputModule} from 'ngx-chips';
 import {TrendPreferenceComponent} from './templates/trend-preference/trend-preference.component';
 import {TravelAsideComponent} from './tickets/travel-aside/travel-aside.component';
@@ -50,7 +49,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {ChooseFlightDialogComponent} from './templates/trend-preference/choose-flight-dialog/choose-flight-dialog.component';
 import {TokenInterceptor} from './core/Interceptors/token-interceptor.service';
 import {MatCardModule} from '@angular/material/card';
-import {NgbCarouselModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 
 registerLocaleData(localeFr);
 
@@ -84,7 +84,7 @@ window['jQuery'] = $;
     AddressesComponent,
     TravelAsideComponent,
     EventSportComponent,
-    GeneralConditionComponent
+    GeneralConditionComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,7 +104,7 @@ window['jQuery'] = $;
     }),
     MatTooltipModule,
     MatSidenavModule,
-    NgbCarouselModule, //
+    NgbCarouselModule,
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
@@ -116,13 +116,13 @@ window['jQuery'] = $;
     MatButtonModule,
     MatSelectModule,
     TagInputModule,
-    FomanticUIModule
+    AngularMultiSelectModule
   ],
   providers: [
     CurrencyPipe,
     DatePipe,
     CookieService,
-    {provide: LOCALE_ID, useValue: 'fr-SN'},
+    {provide: LOCALE_ID, useValue: 'fr'},
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],

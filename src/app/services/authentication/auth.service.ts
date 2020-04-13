@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public login(username: string, password: string) {
-    return this.http.post(`${this.urlRepo.eventHost}${this.urlRepo.loginUrl}`,
+    return this.http.post(`${this.urlRepo.mainHost}${this.urlRepo.loginUrl}`,
       {username, password}, {observe: 'response'});
   }
 
@@ -45,7 +45,7 @@ export class AuthService {
         telephone
       }
     });
-    return this.http.get(`${this.urlRepo.eventHost}${this.urlRepo.generateCode}`, {params: param});
+    return this.http.get(`${this.urlRepo.mainHost}${this.urlRepo.generateCode}`, {params: param});
   }
 
   public verifyCodeEntered(code: string, telephone: string) {
@@ -55,12 +55,12 @@ export class AuthService {
         telephone
       }
     });
-    return this.http.get(`${this.urlRepo.eventHost}${this.urlRepo.checkCode}`, {params: param});
+    return this.http.get(`${this.urlRepo.mainHost}${this.urlRepo.checkCode}`, {params: param});
   }
 
   public resetPassword(telephone: string, password) {
     const param = new HttpParams({fromObject: {telephone}});
-    return this.http.post(`${this.urlRepo.eventHost}${this.urlRepo.resetPassword}`, password, {params: param});
+    return this.http.post(`${this.urlRepo.mainHost}${this.urlRepo.resetPassword}`, password, {params: param});
   }
 
   public isLoggedIn() {
@@ -78,7 +78,7 @@ export class AuthService {
 
   public register(user: UserModel, dial: string) {
     const param = new HttpParams({fromObject: {dial}});
-    return this.http.post(`${this.urlRepo.eventHost}${this.urlRepo.registerUrl}`, user, {params: param});
+    return this.http.post(`${this.urlRepo.mainHost}${this.urlRepo.registerUrl}`, user, {params: param});
   }
 
   public validateAccount(username: string, code: string) {
@@ -88,30 +88,30 @@ export class AuthService {
         code
       }
     });
-    return this.http.get(`${this.urlRepo.eventHost}${this.urlRepo.activateAccount}`, {params: param});
+    return this.http.get(`${this.urlRepo.mainHost}${this.urlRepo.activateAccount}`, {params: param});
   }
 
   public checkUsername(username: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkUsername}${username}`).toPromise();
+    return this.http.get<boolean>(`${this.urlRepo.mainHost}${this.urlRepo.checkUsername}${username}`).toPromise();
   }
 
   public checkTelephone(telephone: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkTelephone}${telephone}`).toPromise();
+    return this.http.get<boolean>(`${this.urlRepo.mainHost}${this.urlRepo.checkTelephone}${telephone}`).toPromise();
   }
 
   public checkEmail(email: string) {
-    return this.http.get<boolean>(`${this.urlRepo.eventHost}${this.urlRepo.checkEmail}${email}`).toPromise();
+    return this.http.get<boolean>(`${this.urlRepo.mainHost}${this.urlRepo.checkEmail}${email}`).toPromise();
   }
 
   public getUserByUsername(username: string) {
     const param: HttpParams = new HttpParams({
       fromObject: {username}
     });
-    return this.http.get<UserModel>(`${this.urlRepo.eventHost}${this.urlRepo.clients}`, {params: param});
+    return this.http.get<UserModel>(`${this.urlRepo.mainHost}${this.urlRepo.clients}`, {params: param});
   }
 
   public async validateCaptacha(response: string) {
-    return this.http.post<any>(`${this.urlRepo.eventHost}/captcha/siteVerify`, null, {
+    return this.http.post<any>(`${this.urlRepo.mainHost}/captcha/siteVerify`, null, {
       params: {response},
       observe: 'response'
     });

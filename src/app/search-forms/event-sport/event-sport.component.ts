@@ -9,6 +9,7 @@ import {EventSearchModel} from '../../models/event-search.model';
 import {EventService} from '../../services/event/event.service';
 import {Scavenger} from '@wishtack/rx-scavenger';
 import {retry} from 'rxjs/operators';
+import {DropdownSettings} from 'angular2-multiselect-dropdown/lib/multiselect.interface';
 
 @Component({
   selector: 'app-event-sport',
@@ -20,12 +21,38 @@ export class EventSportComponent implements OnInit, OnDestroy {
   @Input() option: string;
   @Input() sportType: number; // [1: football, 2: basketball, 3: lutte]
 
+  public dropdownList = [];
+  public selectedItems = [];
+  public dropdownSettings: DropdownSettings = {
+    badgeShowLimit: 10,
+    escapeToClose: true,
+    loading: true,
+    showCheckbox: true,
+    limitSelection: 5,
+    labelKey: 'designation',
+    primaryKey: 'id',
+    position: 'bottom',
+    classes: 'multiSelectDropdown',
+    enableCheckAll: true,
+    enableFilterSelectAll: true,
+    enableSearchFilter: true,
+    filterSelectAllText: 'Tout séléctionné',
+    filterUnSelectAllText: 'Tout déséléctionné',
+    maxHeight: 300,
+    noDataLabel: 'La liste des lieux n\'est pas disponible pour le moment',
+    searchBy: ['designation'],
+    searchPlaceholderText: 'Recherché',
+    selectAllText: 'Tout séléctionné',
+    singleSelection: false,
+    text: 'Séléctionnez un ou plusieurs lieu (s)',
+    unSelectAllText: 'Tout déséléctionné'
+  };
   public loading = false;
   public eventSearch = new EventSearchModel();
   public variableConfig = new VariableConfig();
   public eventType = 'tout';
-  public allPlaces: Array<PlaceModel>;
-  public today = new Date();
+
+  private allPlaces: Array<PlaceModel>;
   private scavenger = new Scavenger(this);
 
   constructor(private router: Router,
@@ -41,8 +68,27 @@ export class EventSportComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
+  onItemSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+
+  OnItemDeSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+
+  onDeSelectAll(items: any) {
+    console.log(items);
+  }
+
   public validateEventDate() {
     this.eventSearch.formattedDate = this.datePipe.transform(this.eventSearch.date, 'yyyy-MM-dd');
+    console.log(this.eventSearch.date);
   }
 
   public eventPlacesSelection($event: Array<number>) {
@@ -84,8 +130,10 @@ export class EventSportComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.eventService.getPlaces()
       .pipe(this.scavenger.collect(), retry(3))
-      .subscribe(data => this.allPlaces = data,
-        _ => _,
+      .subscribe(data => {
+          data.forEach(x => this.dropdownList.push({id: x.placeId, designation: x.designation}));
+          this.allPlaces = data;
+        }, _ => _,
         () => this.loading = false);
   }
 }

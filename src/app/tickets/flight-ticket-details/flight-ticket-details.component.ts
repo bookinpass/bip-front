@@ -41,7 +41,7 @@ export class FlightTicketDetailsComponent implements OnInit {
   public mapError = new Map<number, Set<string>>();
   public principalBoxChecked = false;
   public paymentData: EPaymentData;
-  private url = new UrlConfig().eventHost;
+  private url = new UrlConfig().mainHost;
   private countriesJson = new CountryJson();
   private travelerEnum = TravelerTypeEnum;
   private airports = new AirportsJson();

@@ -1,8 +1,8 @@
 export class UrlConfig {
 
-  readonly host = 'https://bip-booking.herokuapp.com';
-  readonly eventHost = 'https://bip-event.herokuapp.com';
-  // readonly eventHost = 'http://localhost:8081';
+  readonly bookingHost = 'https://bip-booking.herokuapp.com';
+  readonly mainHost = 'https://bip-event.herokuapp.com';
+  // readonly mainHost = 'http://localhost:8081';
   readonly generateCode = '/forgotten/password';
   readonly checkCode = '/forgotten/password/check';
   readonly resetPassword = '/password/reset';
@@ -20,5 +20,7 @@ export class UrlConfig {
   readonly comingEvents = '/public/events/coming';
   readonly searchFlights = '/public/search';
   readonly nextEvents = '/public/events/next-event';
+  readonly payExpressPaymentRequest = '/request-payment';
+  readonly payExpressIpn = '/ipn';
 
 }

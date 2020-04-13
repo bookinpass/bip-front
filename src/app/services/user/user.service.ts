@@ -18,24 +18,24 @@ export class UserService {
   }
 
   public getUser() {
-    return this.http.get<UserModel>(`${this.urls.eventHost}/user/search`, {params: {username: this.getUsername()}});
+    return this.http.get<UserModel>(`${this.urls.mainHost}/user/search`, {params: {username: this.getUsername()}});
   }
 
   public getTransportTickets() {
-    return this.http.get<Array<TransportTicketModel>>(`${this.urls.eventHost}/user/${this.getUsername()}/tickets/transport`);
+    return this.http.get<Array<TransportTicketModel>>(`${this.urls.mainHost}/user/${this.getUsername()}/tickets/transport`);
   }
 
   public getEventTickets() {
-    return this.http.get<Array<TicketEventModel>>(`${this.urls.eventHost}/user/${this.getUsername()}/tickets/event`);
+    return this.http.get<Array<TicketEventModel>>(`${this.urls.mainHost}/user/${this.getUsername()}/tickets/event`);
   }
 
   public updatePassword(oldPassword: string, newPassword: string) {
-    return this.http.post(`${this.urls.eventHost}/password`,
+    return this.http.post(`${this.urls.mainHost}/password`,
       JSON.stringify({username: this.getUsername(), oldPassword, newPassword}), {observe: 'response'});
   }
 
   public updateUser(user: UserModel) {
-    return this.http.post(`${this.urls.eventHost}/user/${this.getUsername()}/profile`, JSON.stringify(user), {observe: 'response'});
+    return this.http.post(`${this.urls.mainHost}/user/${this.getUsername()}/profile`, JSON.stringify(user), {observe: 'response'});
   }
 
   private getUsername() {

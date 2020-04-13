@@ -9,7 +9,6 @@ import {Location} from '@angular/common';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {ImageService} from '../../services/images/image.service';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ImageBase64} from '../../../assets/images/base64/image.base64';
 import {PricingModel} from '../../models/pricing.model';
 import Swal from 'sweetalert2';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,6 +20,8 @@ import {CountryCode, formatIncompletePhoneNumber} from 'libphonenumber-js';
 import {VariableConfig} from '../../../assets/variable.config';
 import {MatDialog} from '@angular/material/dialog';
 import {GeneralConditionComponent} from '../../core/modal/general-condition/general-condition.component';
+import {PayExpressParams} from '../../models/pay-express-params';
+import {UrlConfig} from '../../../assets/url.config';
 
 export class CartTicket {
   type = '';
@@ -39,7 +40,6 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   public loading = true;
   public event: EventModel;
   public currentStep = 0;
-  public eventImage;
   public cartTicket = new CartTicket();
   public cart = new Array<CartTicket>();
   public id: string;
@@ -47,6 +47,8 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   public submitted = false;
   public countries = new CountryJson().countries;
   public captachaKey = new VariableConfig().captachaKey;
+  public payExpressParam: PayExpressParams;
+  private urlConfig = new UrlConfig();
   private scavenger = new Scavenger(this);
 
   constructor(private eventService: EventService,
@@ -71,6 +73,23 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+  }
+
+  public getPayExpressParam(): PayExpressParams {
+    const req = new PayExpressParams();
+    req.item_name = 'Ticket '.concat(this.event.designation);
+    req.command_name = this.event.description === null || this.event.description === undefined ? '' : this.event.description;
+    req.ipn_url = this.urlConfig.mainHost.concat(this.urlConfig.payExpressIpn);
+    req.item_price = this.cartTotalPrice();
+    req.cancel_url = location.origin + '/transaction?type=event_sport';
+    req.success_url = location.origin + '/transaction?type=event_sport';
+    const tik = new Array<string>();
+    this.cart.forEach(item => tik.push(item.type.toLowerCase() + '#' + item.amount.toString(10)));
+    req.custom_field = JSON.stringify({
+      id: this.id, type: 'event', tickets: tik.join('@').toString(),
+      firstName: this.f.firstName.value, lastName: this.f.lastName.value
+    });
+    return req;
   }
 
   public getDialCode() {
@@ -136,6 +155,7 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
     this.submitted = true;
     if (this.formGroup.invalid) return;
     this.openConditionModal();
+    this.payExpressParam = this.getPayExpressParam();
   }
 
   public deleteItem(item: CartTicket) {
@@ -201,14 +221,14 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getImages() {
-    this.imageService.getImage('event', this.id)
-      .pipe(this.scavenger.collect(), retry(3))
-      .subscribe(data => {
-        const x: any = data.body;
-        this.eventImage = this.sanitizer.bypassSecurityTrustUrl(x.content.toString());
-      }, _ => this.eventImage = this.sanitizer.bypassSecurityTrustUrl(new ImageBase64().noImageFR));
-  }
+  // private getImages() {
+  //   this.imageService.getImage('event', this.id)
+  //     .pipe(this.scavenger.collect(), retry(3))
+  //     .subscribe(data => {
+  //       const x: any = data.body;
+  //       this.eventImage = this.sanitizer.bypassSecurityTrustUrl(x.content.toString());
+  //     }, _ => this.eventImage = this.sanitizer.bypassSecurityTrustUrl(new ImageBase64().noImageFR));
+  // }
 
   private getEvent() {
     this.eventService.getAnEvent(this.id)

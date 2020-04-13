@@ -30,6 +30,6 @@ export class CurrencyService {
 
   public sendNotificationSMS(tel: string, msg: string) {
     tel = tel.replace('+', '');
-    return this.http.post(`${this.config.eventHost}${this.config.sendSmsNotification}?telephone=${tel}`, JSON.stringify(msg));
+    return this.http.post(`${this.config.mainHost}${this.config.sendSmsNotification}?telephone=${tel}`, JSON.stringify(msg));
   }
 }

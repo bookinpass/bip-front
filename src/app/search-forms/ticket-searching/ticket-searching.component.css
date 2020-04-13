@@ -94,12 +94,14 @@ ngb-carousel img {
 @media screen and (min-width: 768px) {
   .searching-block {
     min-width: 650px;
+    max-width: 650px;
   }
 }
 
 @media screen and (max-width: 767px) {
   .searching-block {
     min-width: 100%;
+    max-width: 100%;
     position: relative;
   }
 

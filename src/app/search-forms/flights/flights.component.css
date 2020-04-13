@@ -125,27 +125,54 @@
   font-size: 15px;
   font-weight: 500;
   color: #FF6600;
+  height: 28px;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
 }
 
-.passenger_selection:not(:last-child) {
-  padding-bottom: 3px;
-}
-
-.passenger_selection > p {
+.passenger_selection p:first-child {
   width: 120px;
+  margin-bottom: 0;
+  text-decoration: underline;
 }
 
-.passenger_selection > fui-select > div {
-  margin-top: 1px;
+.passenger_selection > p:nth-of-type(2) {
+  cursor: pointer;
+  width: 41px;
+  height: 100%;
+  margin-bottom: 0;
+  text-align: right;
 }
 
-.passenger_selection > fui-select > div > span {
-  color: white;
-  font-size: 15px;
+.passenger_selection .dropdown {
+  width: auto;
 }
 
-.passenger_selection > fui-select > i {
-  font-size: 15px;
+.passenger_selection .dropdown > .dropdownBtn {
+  cursor: pointer;
+  width: 41px;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 2px;
+}
+
+.passenger_selection .dropdown:hover .dropdown-content {
+  display: flex;
+  flex-flow: row;
+  background-color: white;
+  top: 0;
+  left: 40px;
+  height: 25px;
+}
+
+.passenger_selection .dropdown:hover .dropdown-content > .item {
+  padding: 3px 10px;
+}
+
+.passenger_selection .dropdown:hover .dropdown-content > .item:hover {
+  background-color: wheat;
 }
 
 .search-btn {

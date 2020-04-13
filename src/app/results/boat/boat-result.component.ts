@@ -8,7 +8,7 @@ import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {AppComponent} from '../../app.component';
 import html2canvas from 'html2canvas';
 import * as jspdf from 'jspdf';
-import {PaymentRequest} from '../../models/payment-request';
+import {PayExpressParams} from '../../models/pay-express-params';
 import {EventNominationModel} from '../../models/event-nomination.model';
 
 const colors: any = {
@@ -174,7 +174,7 @@ export class BoatResultComponent implements OnInit {
   }
 
   public getPaymentData() {
-    const data = new PaymentRequest();
+    const data = new PayExpressParams();
     data.command_name = `Vos tickets de transport maritime, ${this.selectedClass.description}`;
     data.item_name = `Billet de transport ${this.departure} - ${this.arrival}`;
     data.item_price = this.getPrice();

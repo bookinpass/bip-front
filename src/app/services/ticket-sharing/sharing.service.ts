@@ -16,22 +16,22 @@ export class SharingService {
   }
 
   public doSharing(item: string, type: string, dialCode: string) {
-    return this.http.post(`${this.url.eventHost}/tickets/${type}/sharing`, item,
+    return this.http.post(`${this.url.mainHost}/tickets/${type}/sharing`, item,
       {params: {username: this.getUsername(), dial: dialCode}, observe: 'response'});
   }
 
   public getSharing(id: string, type: string) {
-    return this.http.get<TicketSharing>(`${this.url.eventHost}/tickets/${type}/sharing/${id}`,
+    return this.http.get<TicketSharing>(`${this.url.mainHost}/tickets/${type}/sharing/${id}`,
       {params: {username: this.getUsername()}});
   }
 
   public revokeTicket(id: string, type: string) {
-    return this.http.get(`${this.url.eventHost}/tickets/${type}/sharing/${id}/revoke`,
+    return this.http.get(`${this.url.mainHost}/tickets/${type}/sharing/${id}/revoke`,
       {params: {username: this.getUsername()}, observe: 'response'});
   }
 
   public attributeTicket(type, id) {
-    return this.http.post(`${this.url.eventHost}/tickets/${type}/sharing/${id}/attribute`, null,
+    return this.http.post(`${this.url.mainHost}/tickets/${type}/sharing/${id}/attribute`, null,
       {params: {username: this.getUsername()}, observe: 'response'});
   }
 

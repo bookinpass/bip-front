@@ -26,8 +26,8 @@
           <span>{{item.iata.toUpperCase()}}</span>
         </div>
       </div>
-      <div *ngIf="this.fuseResultList.length === 0" style="color: #004e93; text-align: center">
-        Nous n'avons pas trouve de correspondance pour cette recherche!
+      <div *ngIf="this.fuseResultList.length === 0" class="text-center mt-2 mb-2" style="color: #004e93">
+        Aucune correspondance trouve!
       </div>
       <div class="item fuse__close">
         <button>fermer</button>
@@ -52,59 +52,62 @@
 
   <div class="d-flex flex-md-row justify-content-between text-white last-row">
     <div class="ui fields mb-0 flex-column justify-content-start half-width">
-      <div class="field d-flex flex-row flex-nowrap passenger_selection">
-        <p class="mb-0 text-underline">Adulte (+12ans):</p>
-        <select [(ngModel)]="ticketSearch.adults" class="ui selection dropdown" name="adult">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <!--        <fui-select [(ngModel)]="ticketSearch.adults">-->
-        <!--          <fui-select-option [value]="1">1</fui-select-option>-->
-        <!--          <fui-select-option [value]="2">2</fui-select-option>-->
-        <!--          <fui-select-option [value]="3">3</fui-select-option>-->
-        <!--          <fui-select-option [value]="4">4</fui-select-option>-->
-        <!--          <fui-select-option [value]="5">5</fui-select-option>-->
-        <!--        </fui-select>-->
+      <div class="field passenger_selection">
+        <p>Adulte (+12ans):</p>
+        <!--        <p>{{ticketSearch.adults}}<i class="dropdown icon"></i></p>-->
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{ticketSearch.adults}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="ticketSearch.adults = 1" class="cursor-pointer item">1</div>
+            <div (click)="ticketSearch.adults = 2" class="cursor-pointer item">2</div>
+            <div (click)="ticketSearch.adults = 3" class="cursor-pointer item">3</div>
+            <div (click)="ticketSearch.adults = 4" class="cursor-pointer item">4</div>
+            <div (click)="ticketSearch.adults = 5" class="cursor-pointer item">5</div>
+          </div>
+        </div>
       </div>
-      <div class="field d-flex flex-row flex-nowrap passenger_selection">
-        <p class="mb-0 text-underline">Enfant (-12ans):</p>
-        <select [(ngModel)]="ticketSearch.children" class="ui selection dropdown" name="children">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <!--        <fui-select [(ngModel)]="ticketSearch.children">-->
-        <!--          <fui-select-option [value]="0">0</fui-select-option>-->
-        <!--          <fui-select-option [value]="1">1</fui-select-option>-->
-        <!--          <fui-select-option [value]="2">2</fui-select-option>-->
-        <!--          <fui-select-option [value]="3">3</fui-select-option>-->
-        <!--          <fui-select-option [value]="4">4</fui-select-option>-->
-        <!--        </fui-select>-->
+
+      <div class="field passenger_selection">
+        <p>Enfant (-12ans):</p>
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{ticketSearch.children}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="ticketSearch.children = 0" class="cursor-pointer item">0</div>
+            <div (click)="ticketSearch.children = 1" class="cursor-pointer item">1</div>
+            <div (click)="ticketSearch.children = 2" *ngIf="ticketSearch.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="ticketSearch.children = 3" *ngIf="ticketSearch.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="ticketSearch.children = 4" *ngIf="ticketSearch.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="ticketSearch.children = 5" *ngIf="ticketSearch.adults > 4" class="cursor-pointer item">5</div>
+          </div>
+        </div>
       </div>
-      <div class="field d-flex flex-row flex-nowrap passenger_selection">
-        <p class="mb-0 text-underline">Bébé (-2ans):</p>
-        <select (ngModelChange)="selectPassenger()" [(ngModel)]="ticketSearch.infants" class="ui selection dropdown" name="adult">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        <!--        <fui-select (selectedOptionChange)="selectPassenger()" [(ngModel)]="ticketSearch.infants">-->
-        <!--          <fui-select-option [value]="0">0</fui-select-option>-->
-        <!--          <fui-select-option [value]="1">1</fui-select-option>-->
-        <!--          <fui-select-option [value]="2">2</fui-select-option>-->
-        <!--          <fui-select-option [value]="3">3</fui-select-option>-->
-        <!--          <fui-select-option [value]="4">4</fui-select-option>-->
-        <!--        </fui-select>-->
+
+      <div class="field passenger_selection">
+        <p>Bébé (-2ans):</p>
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{ticketSearch.infants}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="ticketSearch.infants = 0" class="cursor-pointer item">0</div>
+            <div (click)="ticketSearch.infants = 1" class="cursor-pointer item">1</div>
+            <div (click)="ticketSearch.infants = 2" *ngIf="ticketSearch.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="ticketSearch.infants = 3" *ngIf="ticketSearch.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="ticketSearch.infants = 4" *ngIf="ticketSearch.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="ticketSearch.infants = 5" *ngIf="ticketSearch.adults > 4" class="cursor-pointer item">5</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="d-flex flex-column justify-content-around half-width">
+
+    <div class="d-flex flex-column justify-content-between half-width">
       <div class="dropdown dropdown-class">
         <button class="dropdownBtn">
           Classe: {{ticketSearch.travelClass === 'ECONOMY' ? 'Économique' :

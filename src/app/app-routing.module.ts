@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
+import {HomeComponent} from './search-forms/home/home.component';
 import {AuthGuard} from './guards/auth.guard';
 import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
 
