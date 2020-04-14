@@ -7,13 +7,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {PaymentModule} from '../payment/payment.module';
-import {BusDetailsComponent} from '../../ticket-details/bus-details/bus-details.component';
 
 
 @NgModule({
   declarations: [
     EventSportDetailsComponent,
-    BusDetailsComponent
   ],
   imports: [
     CommonModule,

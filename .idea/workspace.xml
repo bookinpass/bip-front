@@ -2,31 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca8241b0-1446-4074-a5b8-4b981b48add2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/modules/transaction/transaction-routing.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/modules/transaction/transaction.module.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/tickets/ticket.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/error/global-error-handler.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/error/global-error-handler.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/events-sport/event-sport-details/event-sport-details.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/events-sport/event-sport-details/event-sport-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/events-sport/event-sport-details/event-sport-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/ticket-event.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/ticket-event.model.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/event-sport-details/event-sport-details-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/result-details/result-details-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/event-sport-details/event-sport-details.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/result-details/result-details.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/modules/search-result/search-result.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/search-result/search-result.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/payment/payment.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/payment/payment.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/modules/result-details/result-details.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/result-details/result-details.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/my-tickets/details-ticket/details-ticket.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/my-tickets/details-ticket/details-ticket.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/url.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/url.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/ticket-details/bus-details/bus-details.component.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +233,7 @@
       <workItem from="1586577708070" duration="12064000" />
       <workItem from="1586615306651" duration="69683000" />
       <workItem from="1586783956927" duration="15738000" />
-      <workItem from="1586800908149" duration="13766000" />
+      <workItem from="1586800908149" duration="14653000" />
     </task>
     <servers />
   </component>

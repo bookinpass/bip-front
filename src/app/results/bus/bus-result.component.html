@@ -128,61 +128,62 @@
         </div>
       </form>
       <app-payment *ngIf="currentStep === 3" [paymentRequest]="payExpressParam" class="mt-2"></app-payment>
-      <div *ngIf="currentStep === 3" class="h-100 w-available">
+      <div *ngIf="currentStep === 3" class="h-100 w-available mt-3">
         <div (click)="previousStep()" class="ui right aligned orange button ml-3">Precedent</div>
       </div>
     </div>
   </div>
+</div>
 
-  <!--
-    <div *ngIf="currentStep === 3" class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around step-3">
-      <div class="d-flex flex-row justify-content-around w-100">
-        <div>
-          <h3 class="ui dividing header underlined mt-2">Récapitulatif</h3>
-          <div class="field">
-            <p class="h5 mb-2 mt-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">ID Transaction</span>:
-              {{paymentData.orderId}}</p>
-          </div>
-          <div class="field">
-            <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Itineraire</span>:
-              {{from}} - {{to}}</p>
-          </div>
-          <div class="field">
-            <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Départ</span>:
-              {{selectedDate | date: 'EEEE, dd MMMM yyyy à HH:mm'}}
-            </p>
-          </div>
-          <div class="field">
-            <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix unitaire</span>:
-              {{unitPrice | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
-          </div>
-          <div class="field">
-            <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Nombre de passager</span>:
-              {{passengers}}</p>
-          </div>
-          <div class="field">
-            <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix total</span>:
-              {{unitPrice * passengers | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
-          </div>
+
+<!--
+  <div *ngIf="currentStep === 3" class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around step-3">
+    <div class="d-flex flex-row justify-content-around w-100">
+      <div>
+        <h3 class="ui dividing header underlined mt-2">Récapitulatif</h3>
+        <div class="field">
+          <p class="h5 mb-2 mt-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">ID Transaction</span>:
+            {{paymentData.orderId}}</p>
         </div>
-
-        <div class="d-flex flex-column">
-          <div class="d-flex flex-column justify-content-center align-items-center mb-2" id="ticket-container">
-            <div>
-              <img alt="sen-dd bus img" src="../../../assets/images/icons/sen-dd.jpg" width="200px"/>
-            </div>
-            <p class="h6 mb-1"><span class="underlined">Date</span>: {{selectedDate | date : 'dd/MM/yy à HH:mm'}}</p>
-            <p class="h6 mb-1"><span class="underlined">Prix</span>:
-              {{unitPrice * passengers | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
-            <p class="font-weight-bolder h7 mb-1">Ce ticket est non remboursable.</p>
-            <div class="d-flex justify-content-center align-item center">
-              <qrcode [allowEmptyString]="false" [elementType]="'url'" [errorCorrectionLevel]="'H'"
-                      [qrdata]="generatedID" [version]="10" [width]="150"></qrcode>
-            </div>
-            <p class="text-right h7 underlined w-100">Vendu par BookinPass</p>
-          </div>
-          <div (click)="captureScreen()" class="ui button floating right orange aligned h4">Télécharger</div>
+        <div class="field">
+          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Itineraire</span>:
+            {{from}} - {{to}}</p>
+        </div>
+        <div class="field">
+          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Départ</span>:
+            {{selectedDate | date: 'EEEE, dd MMMM yyyy à HH:mm'}}
+          </p>
+        </div>
+        <div class="field">
+          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix unitaire</span>:
+            {{unitPrice | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
+        </div>
+        <div class="field">
+          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Nombre de passager</span>:
+            {{passengers}}</p>
+        </div>
+        <div class="field">
+          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix total</span>:
+            {{unitPrice * passengers | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
         </div>
       </div>
-    </div>-->
-</div>
+
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-column justify-content-center align-items-center mb-2" id="ticket-container">
+          <div>
+            <img alt="sen-dd bus img" src="../../../assets/images/icons/sen-dd.jpg" width="200px"/>
+          </div>
+          <p class="h6 mb-1"><span class="underlined">Date</span>: {{selectedDate | date : 'dd/MM/yy à HH:mm'}}</p>
+          <p class="h6 mb-1"><span class="underlined">Prix</span>:
+            {{unitPrice * passengers | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
+          <p class="font-weight-bolder h7 mb-1">Ce ticket est non remboursable.</p>
+          <div class="d-flex justify-content-center align-item center">
+            <qrcode [allowEmptyString]="false" [elementType]="'url'" [errorCorrectionLevel]="'H'"
+                    [qrdata]="generatedID" [version]="10" [width]="150"></qrcode>
+          </div>
+          <p class="text-right h7 underlined w-100">Vendu par BookinPass</p>
+        </div>
+        <div (click)="captureScreen()" class="ui button floating right orange aligned h4">Télécharger</div>
+      </div>
+    </div>
+  </div>-->
