@@ -81,8 +81,8 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
     req.command_name = this.event.description === null || this.event.description === undefined ? '' : this.event.description;
     req.ipn_url = this.urlConfig.mainHost.concat(this.urlConfig.payExpressIpn);
     req.item_price = this.cartTotalPrice();
-    req.cancel_url = location.origin + '/transaction?type=event_sport';
-    req.success_url = location.origin + '/transaction?type=event_sport';
+    req.cancel_url = `${location.origin}/transaction?type=event_sport&id=${this.id}&items=${this.cartTotalTicket}`;
+    req.success_url = `${location.origin}/transaction?type=event_sport&id=${this.id}&items=${this.cartTotalTicket()}`;
     const tik = new Array<string>();
     this.cart.forEach(item => tik.push(item.type.toLowerCase() + '#' + item.amount.toString(10)));
     req.custom_field = JSON.stringify({

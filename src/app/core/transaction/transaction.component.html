@@ -1,0 +1,70 @@
+<div *ngIf="loading" class="ui active dimmer h-100 w-100">
+  <div class="ui active huge text inverted loader">Chargement</div>
+</div>
+<div *ngIf="!loading" class="ui main container segments mb-4 mt-4">
+  <div *ngIf="type === 'event_sport'" class="ui raised segment">
+    <h2 class="ui dividing header">Info de l'evenement</h2>
+    <div class="ui items">
+      <div class="item">
+        <div class="ui small rectangle image">
+          <img alt="" src="../../../assets/images/event/{{idEvent}}.jpg">
+        </div>
+        <div class="content">
+          <a class="header event-title">{{event.designation}}</a>
+          <div class="description d-flex flex-column">
+            <div><h6>Type</h6>: {{event.eventType}}</div>
+            <div><h6>Lieu</h6>: {{event.place.designation}}</div>
+            <div><h6>Début</h6>: {{event.startingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.startingTime}}</div>
+            <div><h6>Fin</h6>: {{event.endingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.endingTime}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="item d-flex flex-column">
+        <!--        <h5 class="font-weight-bold underlined h5">Description:</h5>-->
+        <h6 class="font-weight-normal">{{event.description}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="ui raised segment">
+    <div>
+      <h2 class="ui dividing header">Mes billets</h2>
+      <div (click)="download()" class="ui right floated button download-button">Telecharger</div>
+    </div>
+
+    <div *ngIf="type === 'event_sport'" class="my-tickets-container">
+      <div *ngFor="let item of eventTickets" class="ticket-container" id="ticket-container{{eventTickets.indexOf(item) + 1}}">
+        <div class="ticket-header">
+          <img alt="event image" src="../../../assets/images/event/{{idEvent}}.jpg">
+          <qrcode [allowEmptyString]="false" [elementType]="'url'" [errorCorrectionLevel]="'H'" [margin]="2"
+                  [qrdata]="item.codeTicket" [version]="6" [width]="100"></qrcode>
+        </div>
+        <div class="ticket-body">
+          <span class="text-uppercase">{{event.designation}}</span>
+          <span>{{event.place.designation}}</span>
+          <span>Le {{event.startingDate | date: 'dd MMM yyyy'}} a partir de {{event.startingTime}}</span>
+          <!--          <span class="text-uppercase">{{item.firstName}} {{item.lastName}}</span>-->
+          <span class="text-uppercase">Ticket {{item.type.toLowerCase()}},
+            {{item.totalPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'}}
+          </span>
+        </div>
+        <hr class="w-100">
+        <div class="d-flex flex-row justify-content-around">
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Réserve sur</p>
+            <img alt="logo bip" src="../../../assets/images/logo/bip-logo.png">
+          </div>
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Payé via</p>
+            <img [src]="getLogoPath(item.transactionType)" alt="logo vendeur">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-end ticket-footer">
+          www.bookinpass.com
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

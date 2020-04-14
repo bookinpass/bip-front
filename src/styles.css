@@ -266,12 +266,12 @@ delete-icon path {
   }
 }
 
-@media print {
-  app-root > * {
-    display: none
-  }
+/*@media print {*/
+/*  app-root > * {*/
+/*    display: none*/
+/*  }*/
 
-  app-root > app-print-flight-ticket {
-    display: block
-  }
-}
+/*  app-root > app-print-flight-ticket {*/
+/*    display: block*/
+/*  }*/
+/*}*/

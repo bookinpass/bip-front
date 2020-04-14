@@ -32,7 +32,7 @@
         <h5 class="ui horizontal divider header"><i class="ticket icon"></i>{{item.description | titlecase}}</h5>
         <p class="d-flex flex-row w-100 justify-content-between">
           <span>Prix</span>
-          <span>{{item.price}}</span>
+          <span>{{item.price | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</span>
         </p>
         <p class="d-flex flex-row w-100 justify-content-between">
           <span>Ticket Restant</span>

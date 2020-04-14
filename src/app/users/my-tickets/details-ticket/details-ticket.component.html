@@ -72,6 +72,10 @@
         <td>{{item.transactionNumber}}</td>
       </tr>
       <tr>
+        <td class="right aligned">Payé avec:</td>
+        <td>{{item.transactionType == null ? 'Indéfini' : item.transactionType | titlecase }}</td>
+      </tr>
+      <tr>
         <td class="right aligned">Date transaction:</td>
         <td>{{item.updatedAt | date:'dd MMMM yyyy': 'UTC' | titlecase}}
           {{item.updatedAt | date:'á HH:MM': 'UTC'}}</td>

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EventSportDetailsComponent} from '../../events-sport/event-sport-details/event-sport-details.component';
+import {EventSportDetailsComponent} from '../../ticket-details/event-sport-details/event-sport-details.component';
 
 
 const routes: Routes = [
@@ -14,5 +14,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EventSportDetailsRoutingModule {
+export class ResultDetailsRoutingModule {
 }

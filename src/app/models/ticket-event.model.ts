@@ -4,6 +4,7 @@ export class TicketEventModel {
   type: string;
   totalPrice: number;
   transactionNumber: string;
+  transactionType: string;
   isShared = false;
   eventId: string;
   ownerId: string;

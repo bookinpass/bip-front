@@ -54,7 +54,18 @@ export class GlobalErrorHandlerService implements ErrorHandler {
 
   public handleError(error: any): void {
     if (error instanceof HttpErrorResponse) {
-      if (!navigator.onLine) Swal.fire('Erreur', 'Vous êtes pas connecté à internet. Veuillez vérifier votre connexion');
+      if (!navigator.onLine)
+        Swal.fire({
+          title: 'Erreur',
+          html: 'Vous êtes pas connecté à internet. Veuillez vérifier votre connexion',
+          icon: 'error',
+          focusConfirm: true,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          showCloseButton: false
+        }).then(res => {
+          if (res) location.reload();
+        });
       else GlobalErrorHandlerService.errorMessageSwitching(error);
 
       console.error('################################## ERROR ####################################');

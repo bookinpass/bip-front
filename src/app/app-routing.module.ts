@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'details/event',
-    loadChildren: () => import('./modules/event-sport-details/event-sport-details.module').then(module => module.EventSportDetailsModule)
+    loadChildren: () => import('./modules/result-details/result-details.module').then(module => module.ResultDetailsModule)
   },
   {
     path: 'details/flight',
@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'payment',
     loadChildren: () => import('./modules/payment/payment.module').then(module => module.PaymentModule)
+  },
+  {
+    path: 'transaction',
+    loadChildren: () => import('./modules/transaction/transaction.module').then(m => m.TransactionModule)
   },
   {
     path: '**',

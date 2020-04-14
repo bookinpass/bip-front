@@ -9,17 +9,22 @@
   width: 48%;
 }
 
+.step-buttons {
+  padding: 11px;
+}
+
+.field > .h5.mb-3 {
+
+}
+
 @media screen and (max-width: 768px) {
   .step-1 {
     width: 100%;
+    flex-direction: column !important;
   }
 
   .step-1 > div {
     width: 100% !important;
-  }
-
-  .step-1 {
-    margin-bottom: 10px;
   }
 
 }

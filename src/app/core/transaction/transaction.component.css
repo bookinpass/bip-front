@@ -1,0 +1,222 @@
+.event-title,
+.content > .description > div {
+  font-family: "Font Awesome 5 Free Solid", "Open Sans", Ubuntu, Roboto, "Helvetica Neue", sans-serif !important;
+}
+
+.content > .description > div {
+  font-size: 14px;
+  font-weight: normal;
+  display: flex;
+  flex-flow: row;
+  margin-bottom: 3px;
+}
+
+.content > .description > div > h6 {
+  font-weight: 500;
+  text-decoration: underline;
+  margin-bottom: 0;
+}
+
+.download-button {
+  background-color: #FF6600;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+.my-tickets-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  min-width: 100%;
+}
+
+.ticket-container {
+  margin-left: 20px;
+  margin-right: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: max-content;
+  height: max-content;
+}
+
+.ticket-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 175px;
+}
+
+.ticket-header > img {
+  z-index: 1;
+  width: 220px;
+  height: 100px;
+}
+
+.ticket-header > qrcode {
+  z-index: 2;
+  position: relative;
+  bottom: 30px;
+}
+
+hr {
+  margin: 0 2px;
+  border-color: black;
+}
+
+.ticket-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ticket-body > span:first-child {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ticket-body > span {
+  margin-bottom: 1px;
+  width: 100%;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.ticket-body > span:last-child {
+  color: #FF6600;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.logo-container > p {
+  margin-bottom: 1px;
+  font-size: 12px;
+}
+
+.logo-container:first-child > img {
+  width: 100px;
+  height: 45px;
+}
+
+.logo-container:last-child > img {
+  width: 40px;
+  height: 45px;
+}
+
+.ticket-footer {
+  background-color: black;
+  height: 22px;
+  color: white;
+  font-size: 13px;
+  margin-top: 2px;
+  padding-right: 10px;
+  font-family: ubuntu, "open sans", sans-serif;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 768px) {
+  .my-tickets-container {
+    justify-content: space-evenly;
+  }
+}
+
+@media print {
+  .ticket-container {
+    /*margin: 0 !important;*/
+    page-break-after: always
+  }
+}
+
+/*
+  .ticket-container {
+    width: 7.4cm;
+    height: 10.5cm;
+    margin: 0;
+    page-break-after: always;
+  }
+
+  .ticket-container:last-child {
+    page-break-after: avoid;
+  }
+
+  * {
+    font-size: 11px;
+    font-family: Ubuntu, "Open Sans", roboto, sans-serif;
+    font-weight: 600;
+  }
+
+  .ticket-container {
+    margin: 50px;
+    width: 210px;
+    height: 298px;
+  }
+
+  .ticket-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 140px;
+  }
+
+  hr {
+    margin: 0;
+    border-color: black;
+  }
+
+  .ticket-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .ticket-body > span {
+    margin-bottom: 0;
+    width: 100%;
+    line-height: 13px;
+    text-align: center;
+  }
+
+  .ticket-body > span:last-child {
+    color: #FF6600;
+  }
+
+  .ticket-header > img {
+    z-index: 2;
+    width: 100%;
+    height: 80px;
+  }
+
+  .ticket-header > qrcode {
+    z-index: 3;
+    position: relative;
+    bottom: 15px;
+  }
+
+  .logo-container > p {
+    margin-bottom: 0;
+  }
+
+  .logo-container > img {
+    width: 50px;
+    height: 40px;
+  }
+
+  .ticket-footer {
+    background-color: black;
+    height: 22px;
+    color: white;
+    font-size: 14px;
+    margin-top: 3px;
+    padding-right: 5px;
+    font-family: ubuntu, "open sans", sans-serif;
+    font-weight: 900;
+  }
+}
+*/
