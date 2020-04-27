@@ -8,9 +8,9 @@ import {now} from 'moment';
 import {TicketEventModel} from '../../models/ticket-event.model';
 import {EventModel} from '../../models/event.model';
 import {EventService} from '../../services/event/event.service';
-import * as _ from 'underscore';
 import {MatDialog} from '@angular/material/dialog';
 import {DetailsTicketComponent} from './details-ticket/details-ticket.component';
+import * as _ from 'underscore';
 
 @Component({
   selector: 'app-my-tickets',
@@ -82,7 +82,10 @@ export class MyTicketsComponent implements OnInit, OnDestroy {
           });
           this.transportTickets = res;
         },
-        err => this.errorHandler.handleError(err));
+        err => {
+          this.errorHandler.handleError(err);
+          location.reload();
+        });
   }
 
   private getEventTickets() {
@@ -92,16 +95,26 @@ export class MyTicketsComponent implements OnInit, OnDestroy {
         const ids = _.uniq(res.map(x => {
           return x.eventId;
         }));
-        this.eventService.getListedEvents(ids)
-          .pipe(this.scavenger.collect())
-          .subscribe(ele => {
-              this.events = ele;
-              ele.forEach(item => {
-                if (!isAfter(parseISO(item.startingDate.toString()), new Date(now())))
-                  res.find(x => x.eventId === item.eventId).codeTicket = 'EXPIRER';
-              });
-            }, err => this.errorHandler.handleError(err),
-            () => this.eventTickets = res);
-      }, err => this.errorHandler.handleError(err));
+        this.getEvents(ids, res);
+      }, err => {
+        this.errorHandler.handleError(err);
+        location.reload();
+      });
+  }
+
+  private getEvents(ids: Array<string>, res) {
+    this.eventService.getListedEvents(ids)
+      .pipe(this.scavenger.collect())
+      .subscribe(ele => {
+          this.events = ele;
+          ele.forEach(item => {
+            if (!isAfter(parseISO(item.startingDate.toString()), new Date(now())))
+              res.find(x => x.eventId === item.eventId).codeTicket = 'EXPIRER';
+          });
+        }, err => {
+          this.errorHandler.handleError(err);
+          location.reload();
+        },
+        () => this.eventTickets = res);
   }
 }

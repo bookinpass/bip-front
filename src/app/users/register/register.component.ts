@@ -72,18 +72,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public formatNumber() {
-    if (this.user.telephone.length > 0) {
+    if (this.user.telephone.length > 0)
       this.user.telephone = formatIncompletePhoneNumber(this.user.telephone, this.user.countryCode as CountryCode);
-    }
   }
 
   public checkRequiredField(value: string, field) {
-    if (value === null || value === undefined || value.length === 0) {
-      this.error.push(field);
-    } else {
-      if (this.error.indexOf(field) !== -1) {
-        this.error.splice(this.error.indexOf(field), 1);
-      }
+    if (value === null || value === undefined || value.length === 0) this.error.push(field);
+    else {
+      if (this.error.indexOf(field) !== -1) this.error.splice(this.error.indexOf(field), 1);
     }
   }
 
@@ -91,9 +87,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const email = this.user.email;
     if (email.length > 0) {
       this.isEmailValid = new RegExp(new VariableConfig().emailRegex).test(email);
-      if (this.isEmailValid) {
-        this.usedAttribute.email = (await this.authService.checkUsername(email) as boolean);
-      }
+      if (this.isEmailValid) this.usedAttribute.email = (await this.authService.checkUsername(email) as boolean);
     }
   }
 
@@ -101,9 +95,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     const username = this.user.credential.username;
     this.checkRequiredField(username, 'username');
     this.usernameLength = username.length > 3;
-    if (!this.error.includes('username')) {
-      this.usedAttribute.username = (await this.authService.checkUsername(username) as boolean);
-    }
+    if (!this.error.includes('username')) this.usedAttribute.username = (await this.authService.checkUsername(username) as boolean);
   }
 
   public async checkTelephone() {
@@ -111,9 +103,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.checkRequiredField(telephone, 'telephone');
     if (!this.error.includes('telephone')) {
       this.isPhoneNumberValid = isValidNumberForRegion(this.user.telephone, this.user.countryCode as CountryCode);
-      if (this.isPhoneNumberValid) {
-        this.usedAttribute.telephone = (await this.authService.checkTelephone(telephone) as boolean);
-      }
+      if (this.isPhoneNumberValid) this.usedAttribute.telephone = (await this.authService.checkTelephone(telephone) as boolean);
     }
   }
 
@@ -127,9 +117,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         } else {
           new SwalConfig().Fire('Success', 'Votre compte a ete active avec succes. Veuillez vous connecter a present!', 'success', false, 'ok')
             .then(result => {
-              if (result) {
-                this.dialogRef.close(true);
-              }
+              if (result) this.dialogRef.close(true);
             });
         }
       });
@@ -141,29 +129,31 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.error.length > 0 || !this.isEmailValid || !this.isPasswordValid || !this.isPhoneNumberValid && !bool) {
       new SwalConfig().ErrorSwalWithNoReturn('Erreur', 'Veuillez corriger les champs en rouge!');
       this.loading = false;
-    } else {
-      this.user.credential.username = this.user.credential.username.toLowerCase().trim();
-      if (this.user.email !== undefined && this.user.email !== null && this.user.email.length > 0) {
-        this.user.email = this.user.email.toLowerCase().trim();
-      }
-      this.authService.register(this.user, this.dialCode)
-        .pipe(this.scavenger.collect(), retry(2))
-        .subscribe(res => {
-          if (res === 'CREATED') {
-            new SwalConfig().Fire('Success', 'Enregistrement reussi. Veuillez entrez le code recu par sms afin d\'activer votre compte'
-              , 'success', false, 'ok')
-              .then(val => {
-                if (val) {
-                  this.enterCode = true;
-                  this.loading = false;
-                }
-              });
-          } else {
-            new SwalConfig().ErrorSwalWithNoReturn('Erreur', 'Une erreure s\'est produite. Veuillez reessayer SVP!');
-            this.loading = false;
-          }
-        });
-    }
+    } else this.doRegistration();
+  }
+
+  private doRegistration() {
+    this.user.credential.username = this.user.credential.username.toLowerCase().trim();
+    if (this.user.email !== undefined && this.user.email !== null && this.user.email.length > 0)
+      this.user.email = this.user.email.toLowerCase().trim();
+
+    this.authService.register(this.user, this.dialCode)
+      .pipe(this.scavenger.collect(), retry(2))
+      .subscribe(res => {
+        if (res === 'CREATED') {
+          new SwalConfig().Fire('Success', 'Enregistrement reussi. Veuillez entrez le code recu par sms afin d\'activer votre compte'
+            , 'success', false, 'ok')
+            .then(val => {
+              if (val) {
+                this.enterCode = true;
+                this.loading = false;
+              }
+            });
+        } else {
+          new SwalConfig().ErrorSwalWithNoReturn('Erreur', 'Une erreure s\'est produite. Veuillez reessayer SVP!');
+          this.loading = false;
+        }
+      });
   }
 
   private setPasswordValidator() {

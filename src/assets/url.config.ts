@@ -21,6 +21,7 @@ export class UrlConfig {
   readonly searchFlights = '/public/search';
   readonly nextEvents = '/public/events/next-event';
   readonly searchEventByRef = '/public/events/ref';
+  readonly searchTransportByRef = '/public/transports/ref';
   readonly payExpressPaymentRequest = '/request-payment';
   readonly payExpressIpn = '/ipn';
 

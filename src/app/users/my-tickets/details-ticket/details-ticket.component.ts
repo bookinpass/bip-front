@@ -11,7 +11,6 @@ import {CountryCode, formatIncompletePhoneNumber, isValidNumberForRegion} from '
 import Swal, {SweetAlertIcon} from 'sweetalert2';
 import {SharingService} from '../../../services/ticket-sharing/sharing.service';
 import {retry} from 'rxjs/operators';
-
 import * as _ from 'underscore.string/humanize'
 
 export class TicketSharing {
@@ -133,23 +132,31 @@ export class DetailsTicketComponent implements OnInit, OnDestroy {
       allowEscapeKey: false, allowEnterKey: false, allowOutsideClick: false, showCloseButton: false, showCancelButton: true,
       cancelButtonText: 'Non', confirmButtonText: 'Oui', focusConfirm: true, cancelButtonColor: 'red', confirmButtonColor: 'green'
     }).then(res => {
-      if (res.value) {
-        this.sharingService.attributeTicket(this.type, this.item.sharingId)
-          .pipe(retry(2), this.scavenger.collect())
-          .subscribe(data => {
-            if (data.ok) this.messageDialog('Attribution', 'Le ticket a été attribué avec succès.', 'success');
-            else this.messageDialog('Attribution', 'L\'attribution du ticket a échoué. Veuillez réessayer SVP.', 'error');
-          });
-      } else if (res.dismiss) Swal.fire('Attribution', 'L\'attribution du ticket a été annulé!', 'info');
+      if (res.value) this.doAttribution();
+      else if (res.dismiss) Swal.fire('Attribution', 'L\'attribution du ticket a été annulé!', 'info');
     });
+  }
+
+  private doAttribution() {
+    this.sharingService.attributeTicket(this.type, this.item.sharingId)
+      .pipe(retry(2), this.scavenger.collect())
+      .subscribe(data => {
+        if (data.ok) this.messageDialog('Attribution', 'Le ticket a été attribué avec succès.', 'success');
+        else this.messageDialog('Attribution', 'L\'attribution du ticket a échoué. Veuillez réessayer SVP.', 'error');
+      }, err => {
+        this.errorHandler.handleError(err);
+        this.loading = false;
+      });
   }
 
   private getEvent(id: string) {
     this.eventService.getAnEvent(id)
       .pipe(this.scavenger.collect(), retry(2))
       .subscribe(res => this.event = res,
-        error => this.errorHandler.handleError(error),
-        () => {
+        error => {
+          this.errorHandler.handleError(error);
+          this.loading = false;
+        }, () => {
           if (this.item.isShared) this.getSharing();
           else this.loading = false
         });
@@ -159,10 +166,12 @@ export class DetailsTicketComponent implements OnInit, OnDestroy {
     this.sharingService.getSharing(this.item.sharingId, this.type)
       .pipe(this.scavenger.collect(), retry(2))
       .subscribe(data => {
-          this.sharedTo = data;
-          this.formatNumber();
-        }, err => this.errorHandler.handleError(err),
-        () => this.loading = false);
+        this.sharedTo = data;
+        this.formatNumber();
+      }, err => {
+        this.errorHandler.handleError(err);
+        this.loading = false;
+      }, () => this.loading = false);
   }
 
   private messageDialog(head: string, msg: string, type: string) {

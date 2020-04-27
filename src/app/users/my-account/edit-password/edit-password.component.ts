@@ -7,7 +7,7 @@ import {MustMatch} from '../../../core/validators/CustomValidators';
 import {UserService} from '../../../services/user/user.service';
 import {retry} from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {AuthService} from "../../../services/authentication/auth.service";
+import {AuthService} from '../../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-edit-password',
@@ -17,7 +17,6 @@ import {AuthService} from "../../../services/authentication/auth.service";
 export class EditPasswordComponent implements OnInit, OnDestroy {
 
   public loading = false;
-  public oldValid = false;
   public submitted = false;
   public showPassword = false;
   public resetForm: FormGroup;

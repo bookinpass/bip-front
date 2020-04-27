@@ -5,7 +5,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
 import {CookiesService} from '../cookie/cookies.service';
 import {UserModel} from '../../models/User.model';
-import {VariableConfig} from "../../../assets/variable.config";
+import {VariableConfig} from '../../../assets/variable.config';
 
 @Injectable({
   providedIn: 'root'

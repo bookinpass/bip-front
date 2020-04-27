@@ -206,8 +206,6 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   private openConditionModal() {
     const dlg = this.dialog.open(GeneralConditionComponent, {
       width: window.innerWidth > 768 ? '800px' : window.innerWidth / 2 + 'px',
-      // height: 'auto',
-      // height: window.innerHeight > 700 ? window.innerHeight - 40 + 'px' : window.innerHeight - 20 + 'px',
       closeOnNavigation: true,
       hasBackdrop: true,
       disableClose: true,

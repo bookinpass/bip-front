@@ -14,7 +14,7 @@ import {CountryJson} from '../../../assets/Country.json';
 import {CountryCode, formatIncompletePhoneNumber} from 'libphonenumber-js';
 import {GeneralConditionComponent} from '../../core/modal/general-condition/general-condition.component';
 import {MatDialog} from '@angular/material/dialog';
-import {UrlConfig} from "../../../assets/url.config";
+import {UrlConfig} from '../../../assets/url.config';
 
 const colors: any = {
   0: {
@@ -60,7 +60,7 @@ export class BusResultComponent implements OnInit {
   public passengers = 0;
   public currentStep = 1;
   public ddd: any;
-  public selectedDate: any;
+  public selectedDate: Date;
   public unitPrice: number;
   public formGroup: FormGroup;
   public countries = new CountryJson().countries;
@@ -144,7 +144,7 @@ export class BusResultComponent implements OnInit {
     this.payExpressParam = this.getPayExpressParam();
   }
 
-  public getPayExpressParam(): PayExpressParams {
+  private getPayExpressParam(): PayExpressParams {
     const req = new PayExpressParams();
     req.command_name = `Ticket Bus Senegal Dem DIKK`;
     req.item_name = `Vos tickets de transport ${this.from} - ${this.to}.`;
@@ -152,10 +152,13 @@ export class BusResultComponent implements OnInit {
     req.ipn_url = this.urlConfig.mainHost.concat(this.urlConfig.payExpressIpn);
     req.cancel_url = `${location.origin}/transaction?type=transport&items=${this.passengers}`;
     req.success_url = `${location.origin}/transaction?type=transport&items=${this.passengers}`;
+    const date = this.datePipe.transform(this.selectedDate, 'yyyy-MM-ddTHH:mm:ss', 'GMT');
     req.custom_field = JSON.stringify({
-      id: null, type: 'transport',
-      tickets: `price#${this.unitPrice}@passengers#${this.passengers}@from#${this.from}@to#${this.to}`,
-      firstName: this.f.firstName.value, lastName: this.f.lastName.value
+      id: null,
+      type: 'transport',
+      tickets: `price#${this.unitPrice}@passengers#${this.passengers}@from#${this.from}@to#${this.to}@at#${date}@type#DDD@name#${this.from + ' - ' + this.to}`,
+      firstName: this.f.firstName.value,
+      lastName: this.f.lastName.value
     });
     return req;
   }

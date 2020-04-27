@@ -34,12 +34,12 @@
 }
 
 .ticket-container {
-  margin-left: 20px;
-  margin-right: 0px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 0 0 20px;
+  border: 0.3px solid #dedede;
   width: max-content;
   height: max-content;
+  cursor: pointer;
+  position: relative;
 }
 
 .ticket-header {
@@ -47,10 +47,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  height: 170px;
+}
+
+.ticket-header.bus {
   height: 175px;
 }
 
-.ticket-header > img {
+.ticket-header > img:not(.bus) {
   z-index: 1;
   width: 220px;
   height: 100px;
@@ -59,7 +63,7 @@
 .ticket-header > qrcode {
   z-index: 2;
   position: relative;
-  bottom: 30px;
+  bottom: 20px;
 }
 
 hr {
@@ -74,11 +78,6 @@ hr {
   align-items: center;
 }
 
-.ticket-body > span:first-child {
-  font-size: 14px;
-  font-weight: bold;
-}
-
 .ticket-body > span {
   margin-bottom: 1px;
   width: 100%;
@@ -87,10 +86,15 @@ hr {
   text-align: center;
 }
 
+.ticket-body > span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+}
+
 .ticket-body > span:last-child {
   color: #FF6600;
-  font-weight: 700;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 12px;
 }
 
 .logo-container > p {
@@ -104,19 +108,49 @@ hr {
 }
 
 .logo-container:last-child > img {
-  width: 40px;
+  width: 45px;
   height: 45px;
 }
 
 .ticket-footer {
   background-color: black;
-  height: 22px;
+  height: 20px;
   color: white;
-  font-size: 13px;
+  font-size: 12px;
   margin-top: 2px;
   padding-right: 10px;
-  font-family: ubuntu, "open sans", sans-serif;
-  font-weight: 900;
+  font-family: "open sans", sans-serif;
+  font-weight: 500;
+  width: 100%;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  z-index: 4;
+  background-color: #111;
+}
+
+.ticket-container:hover .overlay {
+  opacity: 0.75;
+}
+
+.icon {
+  color: #ff6600;
+  font-size: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -127,7 +161,7 @@ hr {
 
 @media print {
   .ticket-container {
-    /*margin: 0 !important;*/
+    margin: 0 !important;
     page-break-after: always
   }
 }

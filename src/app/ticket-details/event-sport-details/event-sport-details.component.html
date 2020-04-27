@@ -180,16 +180,16 @@
         <re-captcha (resolved)="resolvedCaptcha($event)" [hidden]="f.captcha.valid" [siteKey]="captachaKey"
                     formControlName="captcha"></re-captcha>
         <div *ngIf="currentStep === 2" class="h-100 d-flex justify-content-end w-available">
-          <div (click)="previousStep()" class="ui left floated orange button ml-3">Precedent</div>
-          <div (click)="onSubmit()" [ngClass]="formGroup.invalid ? 'disabled' : ''" class="ui right floated green button">
-            Preceder au paiement
+          <div (click)="previousStep()" class="ui left floated orange button ml-3">Précédent</div>
+          <div (click)="onSubmit()" [ngClass]="formGroup.invalid ? 'disabled' : ''" class="ui right floated violet button">
+            Procéder au paiement
           </div>
         </div>
       </div>
     </form>
     <app-payment *ngIf="currentStep === 3" [paymentRequest]="payExpressParam" class="mt-2"></app-payment>
     <div *ngIf="currentStep === 3" class="h-100 w-available">
-      <div (click)="previousStep()" class="ui right aligned orange button ml-3">Precedent</div>
+      <div (click)="previousStep()" class="ui right aligned orange button ml-3">Précédent</div>
     </div>
   </div>
 </div>

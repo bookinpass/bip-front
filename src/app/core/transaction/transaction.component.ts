@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import * as jspdf from 'jspdf';
 import html2canvas from "html2canvas";
 import {now} from "moment";
+import {TransportTicketModel} from "../../models/transport-ticket.model";
 
 @Component({
   selector: 'app-transaction',
@@ -21,6 +22,7 @@ import {now} from "moment";
 export class TransactionComponent implements OnInit, OnDestroy {
 
   public eventTickets: Array<TicketEventModel>;
+  public transportTickets: Array<TransportTicketModel>;
   public loading = true;
   public status: string;
   public type: string;
@@ -67,9 +69,8 @@ export class TransactionComponent implements OnInit, OnDestroy {
         focusConfirm: true,
         showCloseButton: false
       });
-      if (this.type.toLowerCase() === 'event_sport') {
-        this.getEventSportDetails();
-      }
+      if (this.type.toLowerCase() === 'event_sport') this.getEventSportDetails();
+      else if (this.type.toLowerCase() === 'transport') this.getTransportTickets()
     } else this.failedStatus();
   }
 
@@ -102,23 +103,37 @@ export class TransactionComponent implements OnInit, OnDestroy {
 
   public download() {
     this.loading = true;
-    const data = document.getElementById('ticket-container1');
-    // for (let i = 0; i < data.length; ++i) {
-    html2canvas(data as HTMLElement).then(canvas => {
-      // Few necessary setting options
-      const imgWidth = 2.91;
-      const pageHeight = 4.13;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      const heightLeft = imgHeight;
+    const type = this.type === 'event_sport' ? 'event' : this.type === 'transport' ? 'transport' : '';
+    for (let i = 0; i < this.items; ++i) {
+      const data = document.getElementById(type + '-ticket-container' + i);
+      console.log(data);
+      if (data === null || data === undefined) {
+        Swal.fire('Erreur', 'Une erreure s\'est produite lors de la tentative de telechargement des tickets!', 'error')
+          .then(res => {
+            if (res) this.loading = false;
+          });
+      } else {
+        html2canvas(data as HTMLElement).then(canvas => {
+          // Few necessary setting options
+          const imgWidth = 2;
+          const pageHeight = 2.8;
+          const imgHeight = canvas.height * imgWidth / canvas.width;
+          const heightLeft = imgHeight;
 
-      const contentDataURL = canvas.toDataURL('image/jpg');
-      const pdf = new jspdf('p', 'in', 'a7'); // A4 size page of PDF
-      pdf.addImage(contentDataURL, 'jpg', 0, 0, imgWidth, imgHeight, null, 'slow'); // , imgWidth, imgHeight);
-      pdf.save(`${new Date(now()).toISOString()}.pdf`, {returnPromise: true})
-        .then(() => {
-          this.loading = false;
-        }); // Generated PDF
-    });
+          const contentDataURL = canvas.toDataURL('image/jpeg');
+          const pdf = new jspdf('p', 'in', 'a8'); // A4 size page of PDF
+          pdf.addImage(contentDataURL, 'jepg', 0, 0, imgWidth, imgHeight, null, 'slow'); // , imgWidth, imgHeight);
+          pdf.save(`${new Date(now()).toISOString()}.pdf`, {returnPromise: true})
+            .then(() => {
+              this.loading = false;
+            }); // Generated PDF
+        });
+      }
+    }
+  }
+
+  downloadTicket(type: string, id: number) {
+    console.log(type, id);
   }
 
   private failedStatus() {
@@ -144,7 +159,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.ticketService.getTicketEventByRef(this.idTransaction)
       .pipe(this.scavenger.collect(), retry(3))
       .subscribe(data => {
-        if (data.length !== this.items) this.getEventTickets();
+        if (data.length !== this.items) setTimeout(() => this.getEventTickets(), 1000);
         else {
           this.eventTickets = data;
           this.eventTickets.sort((a, b) => {
@@ -153,5 +168,17 @@ export class TransactionComponent implements OnInit, OnDestroy {
           this.loading = false;
         }
       });
+  }
+
+  private getTransportTickets() {
+    this.ticketService.getTicketTransportByRef(this.idTransaction)
+      .pipe(this.scavenger.collect(), retry(3))
+      .subscribe(data => {
+        if (data.length !== this.items) setTimeout(() => this.getTransportTickets(), 1000);
+        else {
+          this.transportTickets = data;
+          this.loading = false;
+        }
+      })
   }
 }
