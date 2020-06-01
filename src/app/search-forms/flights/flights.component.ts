@@ -2,12 +2,12 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AirportModel} from '../../models/airport.model';
 import {AirportsJson} from '../../../assets/airports.json';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
 import {DatePipe} from '@angular/common';
-import {FlightSearchModel} from '../../models/flight-search.model';
+import {FlightSearchModel} from '../../models/amadeus/flight-search.model';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {addDays, isBefore, parseISO} from 'date-fns';
 import * as Fuse from 'fuse.js/dist/fuse';
+import * as _ from 'underscore';
 
 const fuseOptions: Fuse.IFuseOptions<AirportModel> = {
   shouldSort: true,
@@ -36,7 +36,9 @@ export class FlightsComponent implements OnInit, OnDestroy {
   public fuseKeySearchReturn: string;
   public fuseResultList = Array<AirportModel>();
   public fuseOnDepart: boolean;
-  public ticketSearch = new FlightSearchModel();
+  public searchModel = {} as FlightSearchModel;
+  public oneWay = false;
+
   // directFlight checkBox
   public loading = false;
   private listOfAirports: AirportModel[] = new AirportsJson().airport; // getting airport from json file in assets folder
@@ -47,13 +49,19 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
 
   constructor(private router: Router,
-              private http: HttpClient,
               private datePipe: DatePipe) {
   }
 
   ngOnInit() {
-    this.ticketSearch.oneWay = false;
-    this.ticketSearch.nonStop = false;
+    this.searchModel.nonStop = false;
+    this.searchModel.adults = 1;
+    this.searchModel.children = 0;
+    this.searchModel.infants = 0;
+    this.searchModel.travelClass = 'ECONOMY';
+    this.searchModel.currencyCode = 'XOF';
+    this.searchModel.from = null;
+    this.searchModel.to = null;
+    this.searchModel.max = 100;
     document.getElementById('fuse__block').style.width = document.getElementById('field__ref').offsetWidth + 'px';
   }
 
@@ -61,21 +69,18 @@ export class FlightsComponent implements OnInit, OnDestroy {
   }
 
   public searchFlight() {
-    if (this.areAirportsValidAndDifferent() && this.areDatesValid()) {
-      localStorage.setItem('search_ticket', JSON.stringify(this.ticketSearch));
-      // @ts-ignore
-      this.router.navigate(['/search/flights']);
-    }
-  }
+    if (this.fuseKeySearchDepart !== undefined && this.fuseKeySearchDepart !== null && this.fuseKeySearchDepart.length > 0)
+      this.searchModel.from = _.find(this.listOfAirports, x => x.airportName === this.fuseKeySearchDepart)?.iata || null;
+    else this.searchModel.from = null;
 
-  public selectPassenger() {
-    if (this.ticketSearch.adults < this.ticketSearch.infants) {
-      this.swal.ErrorSwalWithReturn('Erreur', 'Le nombre de bébé ne doit pas etre supérieur au nombre d\'adulte par voyage')
-        .then(data => {
-          if (data.value) {
-            this.ticketSearch.infants = this.ticketSearch.adults;
-          }
-        });
+    if (this.fuseKeySearchReturn !== undefined && this.fuseKeySearchReturn !== null && this.fuseKeySearchReturn.length > 0)
+      this.searchModel.to = _.find(this.listOfAirports, x => x.airportName === this.fuseKeySearchReturn)?.iata || null;
+    else this.searchModel.to = null;
+
+    if (this.oneWay) this.searchModel.returnDate = null;
+    if (this.areAirportsValidAndDifferent() && this.areDatesValid()) {
+      localStorage.setItem('search-data', JSON.stringify(this.searchModel));
+      this.router.navigate(['flights']).then();
     }
   }
 
@@ -83,18 +88,12 @@ export class FlightsComponent implements OnInit, OnDestroy {
     const x = document.getElementById('fuse__block');
     x.style.left = isDepart ? '0' : 'unset';
     x.style.right = isDepart ? 'unset' : '0';
-    if ((isDepart && this.fuseKeySearchDepart && this.fuseKeySearchDepart.length > 1) ||
-      (!isDepart && this.fuseKeySearchReturn && this.fuseKeySearchReturn.length > 1)) {
+    const data = isDepart ? this.fuseKeySearchDepart : this.fuseKeySearchReturn;
+    if (data?.length > 1) {
       x.style.display = 'block';
       this.fuseOnDepart = isDepart;
-      this.fuseResultList.splice(0);
-      this.fuse.search(isDepart ? this.fuseKeySearchDepart : this.fuseKeySearchReturn).forEach(airport => {
-        // @ts-ignore
-        this.fuseResultList.push(airport.item);
-      });
-    } else {
-      this.closeSuggestion();
-    }
+      this.fuseResultList = this.fuse.search(data).map(item => item.item);
+    } else this.closeSuggestion();
   }
 
   public closeSuggestion() {
@@ -104,13 +103,13 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
   public updateSelection(item: AirportModel) {
     if (item === null) {
-      setTimeout(() => this.closeSuggestion(), 250);
+      setTimeout(() => {
+        this.closeSuggestion();
+      }, 200);
     } else {
       if (this.fuseOnDepart) {
-        this.ticketSearch.fromIata = item.iata;
         this.fuseKeySearchDepart = item.airportName;
       } else {
-        this.ticketSearch.toIata = item.iata;
         this.fuseKeySearchReturn = item.airportName;
       }
       this.closeSuggestion();
@@ -118,14 +117,12 @@ export class FlightsComponent implements OnInit, OnDestroy {
   }
 
   private areAirportsValidAndDifferent(): boolean {
-    if (this.listOfAirports.filter(x => x.iata.equalIgnoreCase(this.ticketSearch.fromIata)).length === 0 ||
-      this.listOfAirports.filter(x => x.iata.equalIgnoreCase(this.ticketSearch.toIata)).length === 0) {
-      const local = this.listOfAirports.filter(x => x.iata.equalIgnoreCase(this.ticketSearch.fromIata)).length === 0 ? 'de départ' : 'd\'arrivée';
+    if (this.searchModel.from === null || this.searchModel.to === null) {
+      const local = this.searchModel.from === null ? 'de départ' : 'd\'arrivée';
       this.swal.ErrorSwalWithNoReturn('Erreur', `Veuillez séléctionner un lieu ${local} valide.`);
       return false;
     }
-    if (this.ticketSearch.fromIata !== '' && this.ticketSearch.toIata !== '' &&
-      this.ticketSearch.fromIata.equalIgnoreCase(this.ticketSearch.toIata)) {
+    if (this.searchModel.from.equalIgnoreCase(this.searchModel.to)) {
       this.swal.ErrorSwalWithNoReturn('Erreur', `les aéroports d'origine et de destination ne peuvent pas être les mêmes!`);
       return false;
     }
@@ -136,14 +133,14 @@ export class FlightsComponent implements OnInit, OnDestroy {
     let x = true;
     let msg = '';
     const todayFormatted = this.datePipe.transform(new Date(), 'dd MMMM yyyy', 'UTC');
-    if (this.ticketSearch.departure === null || this.ticketSearch.departure === undefined) {
+    if (this.searchModel.departDate === null || this.searchModel.departDate === undefined) {
       msg = 'Veuillez sélectionner une date de départ';
-    } else if (isBefore(parseISO(this.ticketSearch.departure.toString()), new Date())) {
+    } else if (isBefore(parseISO(this.searchModel.departDate.toString()), new Date())) {
       msg = 'La date de départ doit être supérieur au ' + todayFormatted;
-    } else if (!this.ticketSearch.oneWay) {
-      if (this.ticketSearch.return === null || this.ticketSearch.return === undefined) {
+    } else if (!this.oneWay) {
+      if (this.searchModel.returnDate === null || this.searchModel.returnDate === undefined) {
         msg = 'Veuillez sélectionner une date de retour';
-      } else if (isBefore(parseISO(this.ticketSearch.return.toString()), addDays(parseISO(this.ticketSearch.departure.toString()), 1))) {
+      } else if (isBefore(parseISO(this.searchModel.returnDate.toString()), addDays(parseISO(this.searchModel.departDate.toString()), 1))) {
         msg = 'La date de retour ne peut être inférieure ou égale à la date de départ';
       }
     }

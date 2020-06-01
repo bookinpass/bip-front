@@ -25,4 +25,13 @@ export class UrlConfig {
   readonly payExpressPaymentRequest = '/request-payment';
   readonly payExpressIpn = '/ipn';
 
+  // amadeus endpoints
+
+  readonly amadeusBaseUrl = 'https://test.api.amadeus.com';
+  readonly requestAmadeusToken = this.amadeusBaseUrl + '/v1/security/oauth2/token';
+  readonly flightOfferSearch = this.amadeusBaseUrl + '/v2/shopping/flight-offers';
+  readonly flightOfferPricing = this.amadeusBaseUrl + '/v1/shopping/flight-offers/pricing';
+  readonly flightCreateOrder = this.amadeusBaseUrl + '/v1/booking/flight-orders';
+  readonly seatsMap = this.amadeusBaseUrl + '/v1/shopping/seatmaps';
+
 }

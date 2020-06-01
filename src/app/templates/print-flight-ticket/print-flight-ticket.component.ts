@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FlightModel} from '../../models/amadeus/flight.model';
-import {TravelerModel} from '../../models/amadeus/Traveler.model';
+import {FlightModel} from '../../models/amadeuss/flight.model';
+import {TravelerModel} from '../../models/amadeuss/Traveler.model';
 import {CompanyJson} from '../../../assets/compagnies.json';
 import {CompagnieModel} from '../../models/compagnie.model';
 import {AirportsJson} from '../../../assets/airports.json';

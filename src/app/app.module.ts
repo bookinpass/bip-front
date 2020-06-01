@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import localeFr from '@angular/common/locales/fr';
 import '../assets/prototypes/string-prototypes';
 import '../assets/prototypes/array-prototypes';
@@ -7,7 +7,7 @@ import '../assets/prototypes/array-prototypes';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './templates/header/header.component';
 import {FooterComponent} from './templates/footer/footer.component';
@@ -47,10 +47,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {HomeBannerComponent} from './advertising/home-banner/home-banner.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {ChooseFlightDialogComponent} from './templates/trend-preference/choose-flight-dialog/choose-flight-dialog.component';
-import {TokenInterceptor} from './core/Interceptors/token-interceptor.service';
 import {MatCardModule} from '@angular/material/card';
 import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
+import {InterceptorProviders} from './core/Interceptors/interceptorProvider';
 
 registerLocaleData(localeFr);
 
@@ -122,9 +122,8 @@ window['jQuery'] = $;
     CurrencyPipe,
     DatePipe,
     CookieService,
-    {provide: LOCALE_ID, useValue: 'fr'},
+    InterceptorProviders,
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

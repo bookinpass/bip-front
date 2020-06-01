@@ -1,16 +1,11 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {FlightResultComponent} from '../../results/flight/flight-result.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {EventSportResultComponent} from '../../results/event-sport/event-sport-result.component';
 import {BoatResultComponent} from '../../results/boat/boat-result.component';
 import {BusResultComponent} from '../../results/bus/bus-result.component';
 
 
 const routes: Routes = [
-  {
-    path: 'flights',
-    component: FlightResultComponent
-  },
   {
     path: 'events',
     component: EventSportResultComponent
@@ -29,4 +24,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SearchResultRoutingModule { }
+export class SearchResultRoutingModule {
+}

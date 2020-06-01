@@ -1,9 +1,9 @@
 <div class="ui form">
   <div class="ui horizontal list flight-type">
-    <p [ngClass]="!ticketSearch.oneWay ? 'active' : ''" class="item m-3">
-      <a (click)="this.ticketSearch.oneWay = false">Aller-retour</a></p>
-    <p [ngClass]="ticketSearch.oneWay ? 'active' : ''" class="item m-0">
-      <a (click)="this.ticketSearch.oneWay = true">Aller simple</a></p>
+    <p [ngClass]="!oneWay ? 'active' : ''" class="item m-3">
+      <a (click)="oneWay = false">Aller-retour</a></p>
+    <p [ngClass]="oneWay ? 'active' : ''" class="item m-0">
+      <a (click)="oneWay = true">Aller simple</a></p>
   </div>
 
   <div class="ui two fields">
@@ -39,13 +39,13 @@
     <div class="field">
       <div class="ui left action input fluid">
         <button class="ui white labeled icon button cursor-default">Départ le</button>
-        <input [(ngModel)]="ticketSearch.departure" class="w-100 border-0" name="departure" type="date"/>
+        <input [(ngModel)]="searchModel.departDate" class="w-100 border-0" name="departure" type="date"/>
       </div>
     </div>
     <div class="field">
       <div class="ui left action input fluid p-0">
         <button class="ui white labeled icon button cursor-default">Retour le</button>
-        <input [(ngModel)]="ticketSearch.return" [disabled]="ticketSearch.oneWay" class="w-100 border-0" name="return" type="date"/>
+        <input [(ngModel)]="searchModel.returnDate" [disabled]="oneWay" class="w-100 border-0" name="return" type="date"/>
       </div>
     </div>
   </div>
@@ -54,18 +54,17 @@
     <div class="ui fields mb-0 flex-column justify-content-start half-width">
       <div class="field passenger_selection">
         <p>Adulte (+12ans):</p>
-        <!--        <p>{{ticketSearch.adults}}<i class="dropdown icon"></i></p>-->
         <div class="dropdown dropdown-class">
           <button class="dropdownBtn">
-            {{ticketSearch.adults}}
+            {{searchModel.adults}}
             <i class="dropdown icon"></i>
           </button>
           <div class="dropdown-content">
-            <div (click)="ticketSearch.adults = 1" class="cursor-pointer item">1</div>
-            <div (click)="ticketSearch.adults = 2" class="cursor-pointer item">2</div>
-            <div (click)="ticketSearch.adults = 3" class="cursor-pointer item">3</div>
-            <div (click)="ticketSearch.adults = 4" class="cursor-pointer item">4</div>
-            <div (click)="ticketSearch.adults = 5" class="cursor-pointer item">5</div>
+            <div (click)="searchModel.adults = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.adults = 2" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.adults = 3" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.adults = 4" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.adults = 5" class="cursor-pointer item">5</div>
           </div>
         </div>
       </div>
@@ -74,16 +73,16 @@
         <p>Enfant (-12ans):</p>
         <div class="dropdown dropdown-class">
           <button class="dropdownBtn">
-            {{ticketSearch.children}}
+            {{searchModel.children}}
             <i class="dropdown icon"></i>
           </button>
           <div class="dropdown-content">
-            <div (click)="ticketSearch.children = 0" class="cursor-pointer item">0</div>
-            <div (click)="ticketSearch.children = 1" class="cursor-pointer item">1</div>
-            <div (click)="ticketSearch.children = 2" *ngIf="ticketSearch.adults > 1" class="cursor-pointer item">2</div>
-            <div (click)="ticketSearch.children = 3" *ngIf="ticketSearch.adults > 2" class="cursor-pointer item">3</div>
-            <div (click)="ticketSearch.children = 4" *ngIf="ticketSearch.adults > 3" class="cursor-pointer item">4</div>
-            <div (click)="ticketSearch.children = 5" *ngIf="ticketSearch.adults > 4" class="cursor-pointer item">5</div>
+            <div (click)="searchModel.children = 0" class="cursor-pointer item">0</div>
+            <div (click)="searchModel.children = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.children = 2" *ngIf="searchModel.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.children = 3" *ngIf="searchModel.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.children = 4" *ngIf="searchModel.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.children = 5" *ngIf="searchModel.adults > 4" class="cursor-pointer item">5</div>
           </div>
         </div>
       </div>
@@ -92,16 +91,16 @@
         <p>Bébé (-2ans):</p>
         <div class="dropdown dropdown-class">
           <button class="dropdownBtn">
-            {{ticketSearch.infants}}
+            {{searchModel.infants}}
             <i class="dropdown icon"></i>
           </button>
           <div class="dropdown-content">
-            <div (click)="ticketSearch.infants = 0" class="cursor-pointer item">0</div>
-            <div (click)="ticketSearch.infants = 1" class="cursor-pointer item">1</div>
-            <div (click)="ticketSearch.infants = 2" *ngIf="ticketSearch.adults > 1" class="cursor-pointer item">2</div>
-            <div (click)="ticketSearch.infants = 3" *ngIf="ticketSearch.adults > 2" class="cursor-pointer item">3</div>
-            <div (click)="ticketSearch.infants = 4" *ngIf="ticketSearch.adults > 3" class="cursor-pointer item">4</div>
-            <div (click)="ticketSearch.infants = 5" *ngIf="ticketSearch.adults > 4" class="cursor-pointer item">5</div>
+            <div (click)="searchModel.infants = 0" class="cursor-pointer item">0</div>
+            <div (click)="searchModel.infants = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.infants = 2" *ngIf="searchModel.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.infants = 3" *ngIf="searchModel.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.infants = 4" *ngIf="searchModel.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.infants = 5" *ngIf="searchModel.adults > 4" class="cursor-pointer item">5</div>
           </div>
         </div>
       </div>
@@ -110,21 +109,21 @@
     <div class="d-flex flex-column justify-content-between half-width">
       <div class="dropdown dropdown-class">
         <button class="dropdownBtn">
-          Classe: {{ticketSearch.travelClass === 'ECONOMY' ? 'Économique' :
-          ticketSearch.travelClass === 'PREMIUM_ECONOMY' ? 'Économique Prémium' : ticketSearch.travelClass === 'BUSINESS' ? 'Affaires' :
-            ticketSearch.travelClass === 'FIRST' ? 'Première Classe' : '' | titlecase}}
+          Classe: {{searchModel.travelClass === 'ECONOMY' ? 'Économique' :
+          searchModel.travelClass === 'PREMIUM_ECONOMY' ? 'Économique Prémium' : searchModel.travelClass === 'BUSINESS' ? 'Affaires' :
+            searchModel.travelClass === 'FIRST' ? 'Première Classe' : '' | titlecase}}
           <i class="dropdown icon"></i>
         </button>
         <div class="dropdown-content">
-          <div (click)="ticketSearch.travelClass = 'ECONOMY'" class="cursor-pointer item">Économique</div>
-          <div (click)="ticketSearch.travelClass = 'PREMIUM_ECONOMY'" class="cursor-pointer item">Économique Premium</div>
-          <div (click)="ticketSearch.travelClass = 'BUSINESS'" class="cursor-pointer item">Affaires</div>
-          <div (click)="ticketSearch.travelClass = 'FIRST'" class="cursor-pointer item">Première Classe</div>
+          <div (click)="searchModel.travelClass = 'ECONOMY'" class="cursor-pointer item">Économique</div>
+          <div (click)="searchModel.travelClass = 'PREMIUM_ECONOMY'" class="cursor-pointer item">Économique Premium</div>
+          <div (click)="searchModel.travelClass = 'BUSINESS'" class="cursor-pointer item">Affaires</div>
+          <div (click)="searchModel.travelClass = 'FIRST'" class="cursor-pointer item">Première Classe</div>
         </div>
       </div>
       <div class="d-flex flex-row justify-content-between align-items-center">
         <div class="ui checkbox">
-          <input [(ngModel)]="ticketSearch.nonStop" type="checkbox"/>
+          <input [(ngModel)]="searchModel.nonStop" type="checkbox"/>
           <label>Vol Direct</label>
         </div>
         <button (click)="searchFlight()" class="search-btn">Rechercher</button>

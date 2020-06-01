@@ -7,8 +7,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {GlobalErrorHandlerService} from '../../core/error/global-error-handler.service';
 import {CompagnieModel} from '../../models/compagnie.model';
 import {FlightSearchModel} from '../../models/flight-search.model';
-import {AmadeusService} from '../../services/amadeus/amadeus.service';
-import {DepartureOrArrival, FlightModel, ItinerariesEntity, TravelerPricingsEntity} from '../../models/amadeus/flight.model';
+import {AmaService} from '../../services/amadeus/ama.service';
+import {DepartureOrArrival, FlightModel, ItinerariesEntity, TravelerPricingsEntity} from '../../models/amadeuss/flight.model';
 import {retry} from 'rxjs/operators';
 import {FlightItineraryComponent} from './flight-itinerary/flight-itinerary.component';
 import {CompanyJson} from '../../../assets/compagnies.json';
@@ -50,7 +50,7 @@ export class FlightResultComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               public dialog: MatDialog,
               private errorHandler: GlobalErrorHandlerService,
-              private amadeusService: AmadeusService) {
+              private amadeusService: AmaService) {
   }
 
   ngOnInit() {

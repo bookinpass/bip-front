@@ -2,24 +2,53 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca8241b0-1446-4074-a5b8-4b981b48add2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/images/icons/sen-dd2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/logo/bip-logo-ticket.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/core/Interceptors/amadeus.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/core/Interceptors/interceptorProvider.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/dictionaryModel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-create-order-response.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-create-order.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-offer-meta.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-offer-response.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-offer.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/flight-search.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/models/amadeus/traveler.model.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/modules/flight-details/flight-details-routing.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/modules/flight-details/flight-details.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/modules/flight-search/flight-search-routing.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/modules/flight-search/flight-search.module.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/services/amadeus/ama.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/seydousoow.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/transaction/transaction.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/bus/bus-result.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/authentication/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/services/tickets/ticket.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/tickets/ticket.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/core/Interceptors/token-interceptor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/core/Interceptors/token-interceptor.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/amadeus/Traveler.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/amadeuss/Traveler.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/amadeus/flight.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/amadeuss/flight.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/event.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/event.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/modules/search-result/search-result-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/search-result/search-result-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/modules/search-result/search-result.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/modules/search-result/search-result.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/results/flight/flight-itinerary/flight-itinerary.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/flight/flight-itinerary/flight-itinerary.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/results/flight/flight-result.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/results/flight/flight-result.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/search-forms/flights/flights.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/search-forms/flights/flights.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/search-forms/flights/flights.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/search-forms/flights/flights.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/amadeus/amadeus.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/amadeus/amadeus.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/images/image.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/images/image.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/print-flight-ticket/print-flight-ticket.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/print-flight-ticket/print-flight-ticket.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/ticket-details/ticket-details.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/templates/trend-preference/trend-preference.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/ticket-details/event-sport-details/event-sport-details.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/my-account/edit-password/edit-password.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/my-account/edit-password/edit-password.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/my-tickets/details-ticket/details-ticket.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/my-tickets/details-ticket/details-ticket.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/my-tickets/my-tickets.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/my-tickets/my-tickets.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/addresses/addresses.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/flight-ticket-details/flight-ticket-details.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/tickets/travel-aside/travel-aside.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/tickets/travel-aside/travel-aside.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/SwalConfig/Swal.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/SwalConfig/Swal.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/base64/image.base64.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/images/base64/image.base64.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/assets/url.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/url.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +92,7 @@
     <property name="ToolWindowDuplicates.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../back-end" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/app/core/Interceptors" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -78,19 +107,19 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/assets/images/logo" />
-      <recent name="$PROJECT_DIR$/src/app/services" />
-      <recent name="$PROJECT_DIR$/src/app/core" />
-      <recent name="$PROJECT_DIR$/src/app/modules" />
-      <recent name="$PROJECT_DIR$/src/assets/images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/modules" />
       <recent name="$PROJECT_DIR$/src/app/services/tickets" />
       <recent name="$PROJECT_DIR$/src/app/search-forms" />
       <recent name="$PROJECT_DIR$/src/app/results" />
       <recent name="$PROJECT_DIR$/src/app/templates" />
-      <recent name="$PROJECT_DIR$/src/app/templates/search" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/core/Interceptors" />
+      <recent name="$PROJECT_DIR$/src/app/services/amadeus" />
+      <recent name="$PROJECT_DIR$/src/app/models" />
+      <recent name="$PROJECT_DIR$/src/assets/images/logo" />
+      <recent name="$PROJECT_DIR$/src/app/services" />
     </key>
   </component>
   <component name="RunManager" selected="npm.Angular CLI Server">
@@ -241,6 +270,12 @@
       <workItem from="1587742938179" duration="652000" />
       <workItem from="1587748079566" duration="237000" />
       <workItem from="1587749507016" duration="198000" />
+      <workItem from="1588056756823" duration="1823000" />
+      <workItem from="1588391192890" duration="34000" />
+      <workItem from="1588391281560" duration="19000" />
+      <workItem from="1588392775093" duration="159000" />
+      <workItem from="1588477369528" duration="1519000" />
+      <workItem from="1590986056071" duration="10883000" />
     </task>
     <servers />
   </component>
@@ -277,6 +312,10 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="559" y="216" key="#Inspections/0.28.1920.1052@0.28.1920.1052" timestamp="1583363327908" />
+    <state x="668" y="352" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590996595689">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="668" y="352" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1590996595689" />
     <state x="772" y="274" key="#com.intellij.ide.util.MemberChooser" timestamp="1586663923978">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -293,26 +332,22 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="747" y="313" width="426" height="480" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1587749704242" />
-    <state x="0" y="28" key="FileDocumentManager.FileCacheConflict" timestamp="1579629061664">
+    <state width="1878" height="286" key="GridCell.Tab.0.bottom" timestamp="1588118200493">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state x="0" y="28" key="FileDocumentManager.FileCacheConflict/0.28.1920.1052@0.28.1920.1052" timestamp="1579629061664" />
-    <state width="1876" height="286" key="GridCell.Tab.0.bottom" timestamp="1586410397666">
+    <state width="1878" height="286" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1588118200493" />
+    <state width="1878" height="286" key="GridCell.Tab.0.center" timestamp="1588118200493">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state width="1876" height="286" key="GridCell.Tab.0.bottom/0.28.1920.1052@0.28.1920.1052" timestamp="1586410397666" />
-    <state width="1876" height="286" key="GridCell.Tab.0.center" timestamp="1586410397666">
+    <state width="1878" height="286" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1588118200493" />
+    <state width="1878" height="286" key="GridCell.Tab.0.left" timestamp="1588118200493">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state width="1876" height="286" key="GridCell.Tab.0.center/0.28.1920.1052@0.28.1920.1052" timestamp="1586410397666" />
-    <state width="1876" height="286" key="GridCell.Tab.0.left" timestamp="1586410397666">
+    <state width="1878" height="286" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1588118200493" />
+    <state width="1878" height="286" key="GridCell.Tab.0.right" timestamp="1588118200493">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state width="1876" height="286" key="GridCell.Tab.0.left/0.28.1920.1052@0.28.1920.1052" timestamp="1586410397666" />
-    <state width="1876" height="286" key="GridCell.Tab.0.right" timestamp="1586410397666">
-      <screen x="0" y="28" width="1920" height="1052" />
-    </state>
-    <state width="1876" height="286" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1586410397666" />
+    <state width="1878" height="286" key="GridCell.Tab.0.right/0.28.1920.1052@0.28.1920.1052" timestamp="1588118200493" />
     <state x="628" y="228" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1586368634693">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
@@ -325,10 +360,10 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="216" y="418" width="1535" height="769" key="dock-window-1/0.28.1920.1052@0.28.1920.1052" timestamp="1586006944916" />
-    <state x="293" y="261" key="run.anything.popup" timestamp="1586639297717">
+    <state x="293" y="261" key="run.anything.popup" timestamp="1590987951826">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state x="293" y="261" key="run.anything.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1586639297717" />
+    <state x="293" y="261" key="run.anything.popup/0.28.1920.1052@0.28.1920.1052" timestamp="1590987951826" />
     <state x="623" y="260" width="672" height="684" key="search.everywhere.popup" timestamp="1586793206792">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>

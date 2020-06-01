@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/search-result/search-result.module').then(module => module.SearchResultModule)
   },
   {
+    path: 'flights',
+    loadChildren: () => import('./modules/flight-search/flight-search.module').then(module => module.FlightSearchModule)
+  },
+  {
     path: 'details/event',
     loadChildren: () => import('./modules/result-details/result-details.module').then(module => module.ResultDetailsModule)
   },

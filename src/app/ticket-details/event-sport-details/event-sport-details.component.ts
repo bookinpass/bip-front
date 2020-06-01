@@ -8,7 +8,7 @@ import {EventModel} from '../../models/event.model';
 import {Location} from '@angular/common';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {ImageService} from '../../services/images/image.service';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 import {PricingModel} from '../../models/pricing.model';
 import Swal from 'sweetalert2';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -48,6 +48,7 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   public countries = new CountryJson().countries;
   public captachaKey = new VariableConfig().captachaKey;
   public payExpressParam: PayExpressParams;
+  public image: SafeUrl;
   private urlConfig = new UrlConfig();
   private scavenger = new Scavenger(this);
 
@@ -219,20 +220,12 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // private getImages() {
-  //   this.imageService.getImage('event', this.id)
-  //     .pipe(this.scavenger.collect(), retry(3))
-  //     .subscribe(data => {
-  //       const x: any = data.body;
-  //       this.eventImage = this.sanitizer.bypassSecurityTrustUrl(x.content.toString());
-  //     }, _ => this.eventImage = this.sanitizer.bypassSecurityTrustUrl(new ImageBase64().noImageFR));
-  // }
-
   private getEvent() {
     this.eventService.getAnEvent(this.id)
       .pipe(this.scavenger.collect(), retry(3))
       .subscribe(
         data => {
+          this.image = this.imageService.getImage(data.eventId, data.imageTimestamp);
           this.event = data;
           this.currentStep = 1;
           this.loading = false;

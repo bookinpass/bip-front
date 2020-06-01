@@ -1,0 +1,19 @@
+<div *ngIf="loading"
+     class="col-xl-12 d-flex justify-content-center align-items-xl-baseline align-items-center plane-search-loader"
+     title="Veuillez patienter quelques instants">
+  <div class="col-xl-3 col-md-7 col-sm-10 col-10 mt-xl-5 mt-md-0 mt-0 loader-box d-flex flex-column">
+    <div class="d-flex">
+      <div class="logo-bip">
+        <img alt="BIP LOGO" src="../../../assets/images/logo/bip-logo.png" style="border: none">
+      </div>
+      <div class="plane-gif">
+        <img alt="plane loader" src="../../../assets/images/loader/plane.gif">
+      </div>
+    </div>
+    <h2>Nous cherchons le billet correspondant à votre demande</h2>
+  </div>
+</div>
+
+<div *ngIf="!loading">
+
+</div>

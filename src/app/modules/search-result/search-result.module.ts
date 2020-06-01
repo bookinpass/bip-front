@@ -15,8 +15,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {QRCodeModule} from 'angularx-qrcode';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {PaymentModule} from "../payment/payment.module";
-
+import {PaymentModule} from '../payment/payment.module';
 
 @NgModule({
   declarations: [

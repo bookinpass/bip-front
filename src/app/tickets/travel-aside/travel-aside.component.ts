@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlightModel, TravelerPricingsEntity} from '../../models/amadeus/flight.model';
+import {FlightModel, TravelerPricingsEntity} from '../../models/amadeuss/flight.model';
 import {TravelerTypeEnum} from '../../models/traveler-type.enum';
 
 @Component({

@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {faPlaneDeparture} from '@fortawesome/free-solid-svg-icons';
 import {AirportsJson} from '../../../assets/airports.json';
 import {DomSanitizer} from '@angular/platform-browser';
-import {FlightModel, SegmentsEntity} from '../../models/amadeus/flight.model';
+import {FlightModel, SegmentsEntity} from '../../models/amadeuss/flight.model';
 import {CompanyJson} from '../../../assets/compagnies.json';
 import {CompagnieModel} from '../../models/compagnie.model';
 

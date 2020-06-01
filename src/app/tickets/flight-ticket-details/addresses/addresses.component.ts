@@ -9,7 +9,7 @@ import {VariableConfig} from '../../../../assets/variable.config';
 import {Scavenger} from '@wishtack/rx-scavenger';
 import {SwalConfig} from '../../../../assets/SwalConfig/Swal.config';
 import {AuthService} from '../../../services/authentication/auth.service';
-import {PhoneModel, TravelerModel} from '../../../models/amadeus/Traveler.model';
+import {PhoneModel, TravelerModel} from '../../../models/amadeuss/Traveler.model';
 import {DatePipe} from '@angular/common';
 import {AirportModel} from '../../../models/airport.model';
 
