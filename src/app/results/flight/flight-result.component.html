@@ -112,20 +112,17 @@
                   <fa-icon [icon]="faPlaneDeparture"></fa-icon>
                   <p class="d-flex flex-column">
                     <span>{{formatAirport(ticket.itineraries[0].segments[0].departure)}}</span>
-                    <span>{{ticket.itineraries[0].segments[0].departure.at | date: 'HH:mm'}}{{checkTerminal(
-                      ticket.itineraries[0].segments[0].departure)}}</span>
+                    <span>{{ticket.itineraries[0].segments[0].departure.at | date: 'HH:mm'}}
+                      {{checkTerminal(ticket.itineraries[0].segments[0].departure)}}</span>
                   </p>
                 </div>
 
                 <div class="col-xl-5">
                   <fa-icon [icon]="faPlaneArrival"></fa-icon>
                   <p class="d-flex flex-column">
-                                        <span>{{formatAirport(
-                                          ticket.itineraries[0].segments[ticket.itineraries[0].segments.length - 1].arrival)}}</span>
-                    <span>{{ticket.itineraries[0].segments[ticket.itineraries[0].segments.length -
-                    1].arrival.at | date: 'HH:mm'}}
-                      {{checkTerminal(
-                        ticket.itineraries[0].segments[ticket.itineraries[0].segments.length - 1].arrival)}}</span>
+                    <span>{{formatAirport(ticket.itineraries[0].segments[ticket.itineraries[0].segments.length - 1].arrival)}}</span>
+                    <span>{{ticket.itineraries[0].segments[ticket.itineraries[0].segments.length - 1].arrival.at | date: 'HH:mm'}}
+                      {{checkTerminal(ticket.itineraries[0].segments[ticket.itineraries[0].segments.length - 1].arrival)}}</span>
                   </p>
                 </div>
 

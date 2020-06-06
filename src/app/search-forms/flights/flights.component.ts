@@ -6,24 +6,8 @@ import {DatePipe} from '@angular/common';
 import {FlightSearchModel} from '../../models/amadeus/flight-search.model';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {addDays, isBefore, parseISO} from 'date-fns';
-import * as Fuse from 'fuse.js/dist/fuse';
 import * as _ from 'underscore';
-
-const fuseOptions: Fuse.IFuseOptions<AirportModel> = {
-  shouldSort: true,
-  threshold: 0.1,
-  location: 0,
-  distance: 100,
-  minMatchCharLength: 1,
-  keys: [
-    'iata',
-    'city',
-    'state',
-    'airportName',
-    'countryName',
-    'airportName'
-  ]
-};
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-flights',
@@ -41,15 +25,30 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
   // directFlight checkBox
   public loading = false;
+  public fuse;
   private listOfAirports: AirportModel[] = new AirportsJson().airport; // getting airport from json file in assets folder
-  public fuse = new Fuse(this.listOfAirports, fuseOptions);
-
   // Class for Sweet Alert default config
   private swal: SwalConfig = new SwalConfig();
 
+  private fuseOptions: Fuse.IFuseOptions<any> = {
+    shouldSort: true,
+    threshold: 0.1,
+    location: 0,
+    distance: 100,
+    minMatchCharLength: 1,
+    keys: [
+      'iata',
+      'city',
+      'state',
+      'airportName',
+      'countryName',
+      'airportName'
+    ]
+  };
 
   constructor(private router: Router,
               private datePipe: DatePipe) {
+    this.fuse = new Fuse(this.listOfAirports, this.fuseOptions);
   }
 
   ngOnInit() {

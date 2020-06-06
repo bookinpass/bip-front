@@ -24,9 +24,8 @@ export class AmadeusService implements OnDestroy {
   }
 
   public getFlights(from: string, to: string, departureDate: string, travelClass: string, nonStop: string, adult: number, children = 0,
-                    infants = 0, max = 100, currencyCode = 'XOF', returnDate?: string, includedAirlineCodes?: string,
-                    excludedAirlineCodes?: string) {
-    const httpParam = new HttpParams({
+                    infants = 0, max = 100, currencyCode = 'XOF', returnDate?: string, includedAirlineCodes?: string) {
+    let httpParam = new HttpParams({
       fromObject: {
         originLocationCode: from.toUpperCase(),
         destinationLocationCode: to.toUpperCase(),
@@ -40,9 +39,9 @@ export class AmadeusService implements OnDestroy {
         max: max.toString(10)
       }
     });
-    if (returnDate && returnDate.length > 0) httpParam.append(returnDate, returnDate);
-    if (includedAirlineCodes && includedAirlineCodes.length > 0) httpParam.append(includedAirlineCodes, includedAirlineCodes.toUpperCase());
-    if (excludedAirlineCodes && excludedAirlineCodes.length > 0) httpParam.append(excludedAirlineCodes, excludedAirlineCodes.toUpperCase());
+    if (returnDate && returnDate.length > 0) httpParam = httpParam.append('returnDate', returnDate);
+    if (includedAirlineCodes && includedAirlineCodes.length > 0)
+      httpParam = httpParam.append('includedAirlineCodes', includedAirlineCodes.toUpperCase());
     return this.http.get<FlightOfferResponseModel>(this.url.flightOfferSearch, {params: httpParam});
   }
 

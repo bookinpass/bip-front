@@ -18,7 +18,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-import {CurrencyPipe, DatePipe, registerLocaleData} from '@angular/common';
+import {CurrencyPipe, DatePipe, registerLocaleData, TitleCasePipe} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -121,6 +121,7 @@ window['jQuery'] = $;
   providers: [
     CurrencyPipe,
     DatePipe,
+    TitleCasePipe,
     CookieService,
     InterceptorProviders,
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},

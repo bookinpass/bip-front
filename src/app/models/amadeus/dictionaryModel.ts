@@ -1,4 +1,4 @@
-interface LocationValue {
+export interface LocationValue {
   cityCode: string; // City code associated to the airport
   countryCode: string; // Country code of the airport
 }

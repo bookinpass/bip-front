@@ -1,3 +1,15 @@
+# Version 6.0.0
+
+- Added [logical query expressions](https://fusejs.io/api/query.html) (#411)
+- Added ability to dynamically add/remove items (#412)
+- Mix different `options:key` types during intialization (#413)
+- Improved indexing performances, as well storage savings (#405, #407)
+
+# Version 5.2.0
+
+- Addresses #390, #376, #382, #385
+- Removed ngram search and extended bitap to search long patterns
+
 # Version 5.0.9-beta
 
 - Fixed Fuse global name. Erroenously set as 'Fuse.js'
@@ -5,7 +17,7 @@
 # Version 5.0.8-beta
 
 - Changed bundler to Rollup.
-- Added ES6 modules for bundlers and browsers (`fuse.esm.js`) (fixed #262)
+- Added ES6 modules for bundlers and browsers (`fuse.esm.js`) (fixed [#262](#262))
 - Added CommonJS builds (`fuse.common.js`)
 
 ## Breaking Changes

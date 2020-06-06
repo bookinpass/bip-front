@@ -14,6 +14,118 @@
   </div>
 </div>
 
-<div *ngIf="!loading">
+<div *ngIf="loadingFilter" [ngClass]="loadingFilter ? 'active' : ''" class="ui dimmer inverted" style="width: 100%; height: 100%">
+  <div class="ui massive text loader">Filtering</div>
+</div>
 
+<div class="ui fluid main-content" style="color: #F5F5F5">
+  <div *ngIf="!loading" class="container col col-xl-9">
+    <div class="d-flex flex-row justify-content-center text-dark w-100 pt-3">
+      <div class="search-field">
+        <label>De:
+          <input [value]="getCityFromDictionary(searchModel.from)" readonly type="text"/>
+        </label>
+      </div>
+      <div class="search-field ml-2">
+        <label>A:
+          <input [value]="getCityFromDictionary(searchModel.to)" readonly type="text"/>
+        </label>
+      </div>
+      <div class="search-field ml-2">
+        <label>Depart le:
+          <input [value]="searchModel.departDate | date: 'dd MMMM yyyy'" readonly type="date"/>
+        </label>
+      </div>
+      <div *ngIf="searchModel.returnDate" class="search-field ml-2 mr-2">
+        <label>Retour le:
+          <input [value]="searchModel.returnDate | date: 'dd MMMM yyyy'" readonly type="date"/>
+        </label>
+      </div>
+      <div [ngSwitch]="isEditing">
+        <div (click)="isEditing = true" *ngSwitchCase="false" class="ui inverted orange button">Modifier</div>
+        <div (click)="updateSearch()" *ngSwitchCase="true" class="ui inverted orange button">Appliquer</div>
+        <div (click)="isEditing = false" *ngSwitchCase="true" class="ui basic button">Annuler</div>
+      </div>
+    </div>
+
+    <div class="ui grid fluid m-0 flex-nowrap">
+      <div class="four wide column computer only">
+        <app-filter (filterAirlines)="filterAirlines($event)"
+                    (filterPrice)="filterPrice($event)"
+                    (filterStops)="filterStops($event)"
+                    *ngIf="dictionaryModel"
+                    [dictionary]="dictionaryModel"
+                    [priceRange]="priceRange"
+                    class="w-100"></app-filter>
+      </div>
+      <div *ngIf="!loadingFilter" class="column sixteen wide tablet twelve wide computer">
+        <p *ngIf="totalElements === 0" class="no-result">Aucun resultat trouve, essayez de modifier les filtres appliques!</p>
+        <div *ngIf="totalElements > 0" class="ui fluid d-flex flex-row justify-content-end align-items-center pr-3 pl-3">
+          <div class="ui large form">
+            <div class="ui inline field">
+              <label class="mr-0">Element par page:</label>
+              <select [(ngModel)]="itemPerPage" class="ui dropdown border-0 pl-0">
+                <option *ngFor="let item of elementPerPage" [value]="item">{{item}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="totalElements > 0" class="ui items mt-2">
+          <div *ngFor="let item of collection | paginate: {id: 'custom-ngx', itemsPerPage: itemPerPage, currentPage: currentPage,
+           totalItems: totalElements}" class="item raised">
+            <div class="image-title">
+              <div class="ui logo circular image">
+                <img alt="" src="../assets/images/airlines/{{item.validatingAirlineCodes[0]}}.png"/>
+              </div>
+              <div class="extra">{{getAirline(item.validatingAirlineCodes[0])}}</div>
+            </div>
+
+            <div class="content">
+              <div class="header w-100">
+                <div *ngFor="let itinerary of item.itineraries; let i = count"
+                     class="ui segment orange itinerary-container">
+                  <div class="itinerary-content">
+                    <div>
+                      <p class="m-0">
+                        {{formatDateTime(itinerary.segments[0].departure.at)}} - {{formatDateTime(itinerary.segments[0].arrival.at)}}
+                      </p>
+                      <p class="m-0">De {{getCityFromDictionary(itinerary.segments[0].departure.iataCode)}} à
+                        {{getCityFromDictionary(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}}
+                      </p>
+                    </div>
+                    <span class="ui right floated basic label border-0"><i class="dolly flatbed icon"></i>Baggage en soute inclus</span>
+                  </div>
+                  <div class="trip-duration">
+                    <div>
+                      <p class="mb-0">{{formatItineraryDuration(itinerary.duration)}}</p>
+                      <p class="mb-0">{{getStops(itinerary.segments.length - 1)}}</p>
+                    </div>
+                    <img alt="Information" class="itinerary-info-icon" matTooltip="Détails" src="../../../assets/images/icons/info.png">
+                  </div>
+                </div>
+
+                <div class="itinerary-description">
+                  <div class="ui label">
+                    Siege disponible: {{item.numberOfBookableSeats}} <br/>
+                  </div>
+                  <div>
+                    <span class="total-price">
+                      {{item.price.total | currency: item.price.currency.toUpperCase(): 'symbol-narrow': '1.1-2' : 'fr-FR'}}
+                    </span>
+                    <div class="ui small blue button">Sélectionner</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <pagination-controls (pageChange)="doPagination($event)" *ngIf="totalElements > 0" id="custom-ngx" nextLabel="Suivant"
+                             previousLabel="Precedent"
+                             responsive="true"></pagination-controls>
+      </div>
+    </div>
+  </div>
 </div>
