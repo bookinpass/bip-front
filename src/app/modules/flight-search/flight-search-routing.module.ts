@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'details',
-    component: SearchComponent
+    loadChildren: () => import('../flight-details/flight-details.module').then(m => m.FlightDetailsModule)
   },
   {
     path: '**',

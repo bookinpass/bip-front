@@ -7,7 +7,7 @@ import {CompanyJson} from '../../../assets/compagnies.json';
 import {CompagnieModel} from '../../models/compagnie.model';
 
 @Component({
-  selector: 'app-ticket-details',
+  selector: 'app-ticket-resume',
   templateUrl: './ticket-details.component.html',
   styleUrls: ['./ticket-details.component.css']
 })

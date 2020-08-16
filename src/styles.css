@@ -1,5 +1,6 @@
 @import "./assets/css/payexpresse.min.css";
 @import "./assets/css/fonts.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 * {
   box-sizing: border-box;
@@ -26,6 +27,10 @@ body,
 :not(.icon),
 :not(.fa-icon) {
   font-family: Ubuntu, "Open Sans", AdineuePRO, sans-serif;
+}
+
+footer.page-footer {
+  background-image: url("assets/images/background/footer-bd sky blue.webp");
 }
 
 /* Sweet Alert2 button style */
@@ -101,7 +106,8 @@ h3 {
   padding-right: 10px;
 }
 
-#user-details-ticket-dialog {
+#user-details-ticket-dialog,
+#flight-conditions-dialog {
   padding: 0 !important;
 }
 
@@ -166,6 +172,7 @@ select.dropdown:focus {
 }
 
 /****************************** form validation ************************/
+
 .invalid-message {
   width: 100%;
   margin-top: .25rem;
@@ -284,6 +291,13 @@ delete-icon path {
 .multiSelectDropdown .list-area > div {
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/********************************* Dp picker input ***************************************/
+.dp-picker-input {
+  height: 38px !important;
+  font-size: 14px !important;
+  color: #666 !important;
 }
 
 @media screen and (min-width: 1600px) {

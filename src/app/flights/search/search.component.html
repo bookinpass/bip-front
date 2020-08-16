@@ -15,41 +15,30 @@
 </div>
 
 <div *ngIf="loadingFilter" [ngClass]="loadingFilter ? 'active' : ''" class="ui dimmer inverted" style="width: 100%; height: 100%">
-  <div class="ui massive text loader">Filtering</div>
+  <div class="ui massive text loader">Filtering...</div>
 </div>
 
-<div class="ui fluid main-content" style="color: #F5F5F5">
-  <div *ngIf="!loading" class="container col col-xl-9">
-    <div class="d-flex flex-row justify-content-center text-dark w-100 pt-3">
-      <div class="search-field">
-        <label>De:
-          <input [value]="getCityFromDictionary(searchModel.from)" readonly type="text"/>
-        </label>
-      </div>
-      <div class="search-field ml-2">
-        <label>A:
-          <input [value]="getCityFromDictionary(searchModel.to)" readonly type="text"/>
-        </label>
-      </div>
-      <div class="search-field ml-2">
-        <label>Depart le:
-          <input [value]="searchModel.departDate | date: 'dd MMMM yyyy'" readonly type="date"/>
-        </label>
-      </div>
-      <div *ngIf="searchModel.returnDate" class="search-field ml-2 mr-2">
-        <label>Retour le:
-          <input [value]="searchModel.returnDate | date: 'dd MMMM yyyy'" readonly type="date"/>
-        </label>
-      </div>
-      <div [ngSwitch]="isEditing">
-        <div (click)="isEditing = true" *ngSwitchCase="false" class="ui inverted orange button">Modifier</div>
-        <div (click)="updateSearch()" *ngSwitchCase="true" class="ui inverted orange button">Appliquer</div>
-        <div (click)="isEditing = false" *ngSwitchCase="true" class="ui basic button">Annuler</div>
-      </div>
-    </div>
+<div *ngIf="updatingSearch" [ngClass]="updatingSearch ? 'active' : ''" class="ui dimmer inverted" style="z-index:9;width: 100%; height:
+100%">
+  <div class="ui massive text loader">Mise a jour de votre recherche...</div>
+</div>
 
+<div class="ui fluid main-content">
+  <app-update-search (updateResearch)="doUpdate($event)"
+                     *ngIf="searchModel && dictionaryModel"
+                     [departDate]="searchModel.departDate"
+                     [from]="searchModel.from"
+                     [locations]="dictionaryModel.locations"
+                     [returnDate]="searchModel.returnDate || null"
+                     [to]="searchModel.to"
+                     [travelClass]="searchModel.travelClass"
+                     [travelerAdults]="searchModel.adults"
+                     [travelerChildren]="searchModel.children"
+                     [travelerInfants]="searchModel.infants"></app-update-search>
+
+  <div class="container">
     <div class="ui grid fluid m-0 flex-nowrap">
-      <div class="four wide column computer only">
+      <div *ngIf="!updatingSearch" class="four wide column computer only">
         <app-filter (filterAirlines)="filterAirlines($event)"
                     (filterPrice)="filterPrice($event)"
                     (filterStops)="filterStops($event)"
@@ -58,7 +47,7 @@
                     [priceRange]="priceRange"
                     class="w-100"></app-filter>
       </div>
-      <div *ngIf="!loadingFilter" class="column sixteen wide tablet twelve wide computer">
+      <div *ngIf="!loadingFilter || !updatingSearch" class="column sixteen wide tablet twelve wide computer">
         <p *ngIf="totalElements === 0" class="no-result">Aucun resultat trouve, essayez de modifier les filtres appliques!</p>
         <div *ngIf="totalElements > 0" class="ui fluid d-flex flex-row justify-content-end align-items-center pr-3 pl-3">
           <div class="ui large form">
@@ -112,7 +101,7 @@
                     <span class="total-price">
                       {{item.price.total | currency: item.price.currency.toUpperCase(): 'symbol-narrow': '1.1-2' : 'fr-FR'}}
                     </span>
-                    <div class="ui small blue button">Sélectionner</div>
+                    <div (click)="selectTicket(item)" class="ui small blue button">Sélectionner</div>
                   </div>
                 </div>
 
@@ -123,8 +112,7 @@
           </div>
         </div>
         <pagination-controls (pageChange)="doPagination($event)" *ngIf="totalElements > 0" id="custom-ngx" nextLabel="Suivant"
-                             previousLabel="Precedent"
-                             responsive="true"></pagination-controls>
+                             previousLabel="Precedent" responsive="true"></pagination-controls>
       </div>
     </div>
   </div>

@@ -19,7 +19,7 @@ export interface ContactModel {
   name?: NameModel;
   address?: AddressModel;
   purpose?: string; // the purpose for which this contact is to be used [ STANDARD, INVOICE, STANDARD_WITHOUT_TRANSMISSION ]
-  phones?: Array<PhoneModel>; // max 3
+  phones: Array<PhoneModel>; // max 3
   companyName?: string;
 }
 
@@ -44,10 +44,10 @@ export interface DiscountEligibilityModel {
 }
 
 export interface TravelerModel {
-  id?: string;
-  dateOfBirth?: string; // The date of birth in ISO 8601 format (yyyy-mm-dd)
-  gender?: string; // [MALE, FEMALE]
-  name?: NameModel; // name
+  id: string;
+  dateOfBirth: string; // The date of birth in ISO 8601 format (yyyy-mm-dd)
+  gender: string; // [MALE, FEMALE]
+  name: NameModel; // name
   documents?: Array<DocumentModel>; // Advanced Passenger Information - regulatory identity documents - SSR DOCS & DOCO elements
   emergencyContact?: EmergencyContactModel; // emergency contact number
   loyaltyPrograms?: Array<LoyaltyProgram>; // loyalty program information
@@ -67,7 +67,7 @@ export interface DocumentModel {
   expiryDate?: string;
   issuanceCountry: string; // ISO 3166-1 alpha-2 of the country that issued the document
   issuanceLocation?: string; // A more precise information concerning the place where the document has been issued, when available.
-                            // It may be a country, a state, a city or any other type of location. e.g. New-York
+  // It may be a country, a state, a city or any other type of location. e.g. New-York
   nationality: string; // ISO 3166-1 alpha-2 of the nationality appearing on the document
   birthPlace: string;
   documentType: string; // [ VISA, PASSPORT, IDENTITY_CARD, KNOWN_TRAVELER, REDRESS ]

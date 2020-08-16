@@ -1,0 +1,174 @@
+<!--suppress ALL -->
+<div class="parent w-100">
+
+  <div class="ui orange segment pl-0 pr-0" style="border-top-width: 4px !important;">
+    <div *ngFor="let itinerary of getItineraries(); let i = index" class="ui fluid">
+      <!--      Header of resume-->
+      <div class="d-flex flex-row justify-content-between align-items-center flex-nowrap pb-4 pr-3 pl-3">
+        <div class="ui items m-0">
+          <div class="item">
+            <div class="ui mini image">
+              <img alt="logo" src="assets/images/airlines/{{itinerary.segments[0].carrierCode}}.png">
+            </div>
+            <div class="middle aligned content p-0">
+              <div class="header">
+                <span class="ml-2 mr-5">{{i === 0 ? 'Aller ' : 'Retour '}}</span>
+                <span class="airline_name">{{getCompanyName(itinerary.segments[0].carrierCode) }}
+                  {{itinerary.segments[0].carrierCode.concat(itinerary.segments[0].number) | uppercase}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 17px">
+          {{itinerary.segments[0].departure.at | date : 'EEEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}}
+        </div>
+      </div>
+      <!--      End Header of resume-->
+
+      <!--      Resume Body-->
+      <div class="resume_body">
+        <div class="body">
+          <div class="item">
+            <div>
+              <span class="strong">{{itinerary.segments[0].departure.at | date : 'HH:mm'}}&nbsp;&nbsp;</span>
+              <span>({{itinerary.segments[0].departure.iataCode | uppercase}})</span>
+            </div>
+            <div class="mt-2">
+              <p>{{itinerary.segments[0].departure.at | date : 'EEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}},&nbsp;
+                {{getTerminal(itinerary.segments[0].departure.terminal)}}</p>
+              <p>{{getCityAirport(itinerary.segments[0].departure.iataCode)}}</p>
+            </div>
+          </div>
+
+          <div class="stopover">
+            <div class="ui fluid d-flex flex-row flex-nowrap justify-content-center align-items-center">
+              <div class="ball ball_unfilled"></div>
+              <div class="ball_support"></div>
+              <div class="ball ball_filled"></div>
+            </div>
+            <p>{{getNumberOfStops(itinerary.segments.length)}}</p>
+          </div>
+
+          <div class="item">
+            <div>
+              <span class="strong">{{itinerary.segments[itinerary.segments.length - 1].arrival.at | date : 'HH:mm'}}</span>
+              <span>&nbsp;&nbsp;({{itinerary.segments[itinerary.segments.length - 1].arrival.iataCode | uppercase}})</span>
+            </div>
+            <div class="mt-2">
+              <p>
+                {{itinerary.segments[itinerary.segments.length - 1].arrival.at | date : 'EEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}},&nbsp;
+                {{getTerminal(itinerary.segments[itinerary.segments.length - 1].arrival.terminal)}}
+              </p>
+              <p>{{getCityAirport(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="extra">
+          <p>{{getDuration(itinerary.segments[0].departure.at, itinerary.segments[itinerary.segments.length - 1].arrival.at)}}</p>
+        </div>
+      </div>
+      <!--      End Resume Body-->
+      <hr *ngIf="i < flightOffer.itineraries.length - 1">
+    </div>
+  </div>
+
+  <div *ngFor="let item of flightOffer.travelerPricings; let i = index" class="ui orange segment pl-0 pr-0 pb-0"
+       style="border-top-width: 4px !important;">
+    <div class="ui fluid pl-3 pr-3">
+      <p class="h4 mb-4">Passager {{item.travelerId}} - {{getPassengerType(item.travelerType)}}</p>
+    </div>
+
+    <div class="ui form fluid pl-3 pr-3">
+      <div class="two fields">
+        <div class="inline field required mr-md-4" style="width: max-content">
+          <label>Genre</label>
+          <select [(ngModel)]="travelers[i].gender" class="ui selection dropdown inline_input" name="gender">
+            <option selected value="MALE">Homme</option>
+            <option value="FEMALE">Femme</option>
+          </select>
+        </div>
+        <div class="inline field required d-flex flex-nowrap justify-content-start align-items-center">
+          <label>Date de naissance</label>
+          <dp-date-picker [(ngModel)]="travelers[i].dateOfBirth" [config]="datePickerConfig" [name]="'birthdate'+i" [required]="true"
+                          [theme]="'dp-material'" mode="day" placeholder="Date de naissance"></dp-date-picker>
+        </div>
+      </div>
+
+      <div class="three fields">
+        <div class="field required">
+          <label>Prenom</label>
+          <input [(ngModel)]="travelers[i].name.firstName" name="fName" placeholder="Prenom" type="text"/>
+        </div>
+        <div class="field">
+          <label>Second prenom</label>
+          <input [(ngModel)]="travelers[i].name.middleName" name="mName" placeholder="Deuxieme prenom" type="text"/>
+        </div>
+        <div class="required field">
+          <label>Nom</label>
+          <input [(ngModel)]="travelers[i].name.lastName" name="lName" placeholder="Nom" type="text"/>
+        </div>
+      </div>
+
+      <div *ngIf="i===0">
+        <h3>Document de voyage <sup class="text-danger">*</sup></h3>
+        <div class="three fields">
+          <div class="required field">
+            <label>Type de document</label>
+            <select [(ngModel)]="travelers[i].documents[0].documentType" class="ui selection dropdown">
+              <option value="IDENTITY_CARD">Carte nationale d'identite</option>
+              <option value="PASSPORT">Passport</option>
+              <option value="VISA">VISA</option>
+            </select>
+          </div>
+          <div class="required field">
+            <label>Numero du document</label>
+            <input [(ngModel)]="travelers[i].documents[0].number" placeholder="Numero du document" type="text"/>
+          </div>
+          <div class="field required">
+            <label>Nationalite</label>
+            <select [(ngModel)]="travelers[i].documents[0].nationality" class="ui selection dropdown">
+              <option selected value="">Nationalite</option>
+              <option *ngFor="let country of countries" [value]="country.code">{{country.name | titlecase}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="three fields">
+          <div class="field required">
+            <label>Date de delivrance</label>
+            <dp-date-picker [(ngModel)]="travelers[i].documents[0].issuanceDate" [config]="datePickerConfig" [required]="true"
+                            [theme]="'dp-material'" mode="day" name="deliveryDate" placeholder="Date de delivrance"
+                            style="width: 100%"></dp-date-picker>
+          </div>
+          <div class="field required">
+            <label>Date d'expiration</label>
+            <dp-date-picker [(ngModel)]="travelers[i].documents[0].expiryDate" [config]="datePickerConfig2" [required]="true"
+                            [theme]="'dp-material'" mode="day" name="expiryDate" placeholder="Date d'expiration"
+                            style="width: 100%"></dp-date-picker>
+          </div>
+          <div class="required field">
+            <label>Lieu de delivrance</label>
+            <select [(ngModel)]="travelers[i].documents[0].issuanceCountry" class="ui selection dropdown">
+              <option *ngFor="let country of countries" [value]="country.code">{{country.name | titlecase}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="dashed-hr">
+
+    <div class="ui fluid included_suitcase_container">
+      <p class="h5 mb-0"><i class="box icon"></i>Bagages inclus</p>
+      <div *ngFor="let itinerary of flightOffer.itineraries" class="included_suitcase">
+        <p>{{getCity(itinerary.segments[0].departure.iataCode)}} <i class="long arrow alternate right icon"></i>
+          {{getCity(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}}</p>
+        <p><i class="orange large dolly flatbed icon mr-4"></i>{{getIncludedBags(itinerary.segments[0].id, i)}} bagages inclus</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -19,9 +19,9 @@ import {DictionaryModel} from '../../models/amadeus/dictionaryModel';
 })
 export class SearchComponent implements OnInit, OnDestroy {
 
+  public updatingSearch = false;
   public loading = true;
   public loadingFilter = false;
-  public isEditing = false;
   public priceRange: { min: number, max: number };
 
   public totalElements: number;
@@ -104,8 +104,23 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchFlights(true);
   }
 
-  public updateSearch() {
+  public doUpdate = (map: Map<string, string>) => {
+    this.searchModel.from = map.get('from').toUpperCase();
+    this.searchModel.to = map.get('to').toUpperCase();
+    this.searchModel.departDate = new Date(map.get('depart'));
+    this.searchModel.returnDate = map.get('return') === null ? null : new Date(map.get('return'));
+    this.searchModel.travelClass = map.get('class').toUpperCase();
+    this.searchModel.adults = Number(map.get('adults'));
+    this.searchModel.children = Number(map.get('children'));
+    this.searchModel.infants = Number(map.get('infants'));
+    localStorage.setItem('search-data', JSON.stringify(this.searchModel));
+    this.updatingSearch = true;
+    this.searchFlights();
+  }
 
+  public selectTicket = (item: FlightOfferModel) => {
+    localStorage.setItem('offer', JSON.stringify(item));
+    this.router.navigate(['flights', 'details']).then();
   }
 
   private fixNGXClass = () => {
@@ -139,7 +154,9 @@ export class SearchComponent implements OnInit, OnDestroy {
           }
         }, () => this.swalError('Une erreur s\'est produite lors de la recherche. Veuillez réessayer SVP!'),
         () => {
-          if (!filter) this.loading = false; else this.isFiltering();
+          if (!filter) {
+            if (this.updatingSearch) this.updatingSearch = false; else this.loading = false;
+          } else this.isFiltering();
           setTimeout(() => this.fixNGXClass(), 250);
         });
   }

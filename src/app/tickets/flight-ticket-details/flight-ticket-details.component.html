@@ -2,147 +2,147 @@
 <div *ngIf="loading"
      class="col-xl-12 d-flex justify-content-center align-items-xl-baseline align-items-center plane-search-loader"
      title="Veuillez patienter quelques instants">
-    <div class="col-xl-3  col-md-7 col-sm-10 col-10 mt-xl-5 mt-md-0 mt-0 loader-box d-flex flex-column">
-        <div class="d-flex">
-            <div class="logo-bip">
-                <img alt="BIP LOGO" border="0" src="../../../assets/images/logo/bip-logo.png">
-            </div>
-            <div class="plane-gif">
-                <img alt="plane loader" src="../../../assets/images/loader/plane.gif">
-            </div>
-        </div>
-        <h2>Nous préparons votre réservation</h2>
+  <div class="col-xl-3  col-md-7 col-sm-10 col-10 mt-xl-5 mt-md-0 mt-0 loader-box d-flex flex-column">
+    <div class="d-flex">
+      <div class="logo-bip">
+        <img alt="BIP LOGO" border="0" src="../../../assets/images/logo/bip-logo.png">
+      </div>
+      <div class="plane-gif">
+        <img alt="plane loader" src="../../../assets/images/loader/plane.gif">
+      </div>
     </div>
+    <h2>Nous préparons votre réservation</h2>
+  </div>
 </div>
 
 <div *ngIf="!loading" class="col col-lg-10 offset-lg-1 col-xl-8 offset-xl-2 p-0 d-flex flex-row justify-content-between">
-    <div class="col p-1 p-md-2 main-container">
-        <div class="d-flex flex-column sections-wrapper ui segments very stacked raised mt-2 pl-2 pr-2">
-            <p class="travel-to ml-md-5 ml-sm-1 mt-2 mb-2">
-                Votre voyage {{to.charAt(0).toLowerCase().match('^[aieou].*') ? 'en ' : 'à '}}{{to}}
-            </p>
-            <app-ticket-details [ticket]="ticket" id="first-td"></app-ticket-details>
+  <div class="col p-1 p-md-2 main-container">
+    <div class="d-flex flex-column sections-wrapper ui segments very stacked raised mt-2 pl-2 pr-2">
+      <p class="travel-to ml-md-5 ml-sm-1 mt-2 mb-2">
+        Votre voyage {{to.charAt(0).toLowerCase().match('^[aieou].*') ? 'en ' : 'à '}}{{to}}
+      </p>
+      <app-ticket-resume [ticket]="ticket" id="first-td"></app-ticket-resume>
 
-            <section *ngIf="!isLoggedIn" class="ui piled segment mt-4 mb-4 auth-section p-0 pt-2 pb-2 mr-2 ml-2">
-                <div class="ui two column stackable center aligned grid">
-                    <div class="middle aligned very compact column">
-                        <p class="mb-1">Vous possédez un compte ?</p>
-                        <button class="ui labeled icon violet button">
-                            <i class="sign-in icon"></i>
-                            Connectez-vous
-                        </button>
-                    </div>
-                    <div [ngClass]="innerWidth < 768 ? 'horizontal' : 'vertical'" class="m-0 ui divider">ou</div>
-                    <div class="middle aligned compact column">
-                        <p class="mb-1">Vous n'avez pas encore de compte ?</p>
-                        <button class="ui labeled icon orange button">
-                            <i class="signup icon"></i>
-                            Inscrivez-vous
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <section class="ui fluid column stackable raised center aligned mb-4 mt-4 mt-md-0 section-headed">
-                <div *ngIf="isLoggedIn" class="ui segment">
-                    <div class="two column stackable">
-                        <div class="column center aligned">
-                            <i class="shield icon"></i>
-                            Vous êtes connecté en tant que
-                            <span class="font-weight-bold text-underline">{{client.firstName}} {{client.lastName}}</span>
-                        </div>
-                        <div class="column center aligned">
-                            Ce n'est pas vous, <span class="font-weight-bold cursor-pointer strong" style="color: #f60">
-                  connectez-vous</span> à votre compte
-                        </div>
-                    </div>
-                </div>
-                <app-addresses (principalStatus)="setPrincipalStatus($event)" [principal]="listTravelersInfo[0]"></app-addresses>
-                <div *ngIf="listTravelersInfo.length > 1" class="ui raised segments section-headed">
-                    <div class="ui compact segment raised very stacked">
-                        <div *ngFor="let element of listEnumTravelers, let i = index" class="ui equal width form travelers">
-                            <h4 class="ui dividing header">Information voyageur {{i + 2}}: {{element | titlecase}}</h4>
-                            <div class="three fields">
-                                <div [ngClass]="mapError.get(i+1).has('firstName' + (i+1)) ? 'error' : ''"
-                                     class="required field">
-                                    <label>Prénom </label>
-                                    <input [(ngModel)]="listTravelersInfo[i + 1].name.firstName" id="firstName{{i+1}}" name="firstName"
-                                           placeholder="Prénom"
-                                           type="text">
-                                </div>
-                                <div class="field">
-                                    <label>Deuxième prénom</label>
-                                    <input [(ngModel)]="listTravelersInfo[i + 1].name.middleName" name="middleName"
-                                           placeholder="Deuxième prénom" type="text">
-                                </div>
-                                <div [ngClass]="mapError.get(i+1).has('lastName' + (i+1)) ? 'error' : ''"
-                                     class="required field">
-                                    <label>Nom</label>
-                                    <input [(ngModel)]="listTravelersInfo[i + 1].name.lastName" id="lastName{{i+1}}" name="lastName"
-                                           placeholder="Nom"
-                                           type="text">
-                                </div>
-                            </div>
-                            <div class="three equal width fields">
-                                <div [ngClass]="mapError.get(i+1).has('gender' + (i+1))? 'select-error' : ''" class="required field">
-                                    <label>Genre</label>
-                                    <select [(ngModel)]="listTravelersInfo[i+1].gender" class="ui fluid dropdown" id="gender{{i+1}}"
-                                            name="gender">
-                                        <option value="">Séléctionner</option>
-                                        <option value="MALE">Homme</option>
-                                        <option value="FEMALE">Femme</option>
-                                    </select>
-                                </div>
-                                <div [ngClass]="mapError.get(i+1).has('birthDate' + (i+1)) ? 'error' : ''" class="required field">
-                                    <label>Date de naissance</label>
-                                    <input (input)="listTravelersInfo[i+1].dateOfBirth = parseDate($event.target.value)"
-                                           [value]="listTravelersInfo[i+1].dateOfBirth | date:'yyyy-MM-dd'" id="birthDate{{i+1}}"
-                                           type="date">
-                                </div>
-                                <div [ngClass]="mapError.get(i+1).has('birthPlace' + (i+1)) ? 'select-error' : ''" class="required field">
-                                    <label>Lieu de naissance</label>
-                                    <select (change)="setBirthCountry($event.target.value, i+1)" class="ui fluid search dropdown"
-                                            id="birthPlace{{i+1}}"
-                                            name="birthCountry">
-                                        <option value="">Lieu de naissance</option>
-                                        <option *ngFor="let item of countries"
-                                                [value]="item.countryCode">{{item.countryName | titlecase}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="ui fluid column stackable raised center aligned mb-4 mt-4 mt-md-0 section-headed">
-                <div class="ui form attached segment">
-                    <div class="required field">
-                        <div class="ui checkbox">
-                            <input (click)="openConditionDialog()" id="condition-checkbox" type="checkbox"/>
-                            <label class="hovered-condition cursor-pointer" for="condition-checkbox">
-                                En cochant cette case, je reconnais avoir lu et accepté sans réserve les conditions générales
-                                suivantes</label>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="showPayment && principalBoxChecked" class="ui very raised segments">
-                    <div class="ui segment">
-                        <div class="ui dividing header h4">Choisissez votre méthode de paiement</div>
-                        <div class="ui small images d-flex flex-row justify-content-around">
-                            <a (click)="pay()" class="ui image cursor-pointer" matTooltip="Payer avec PayExpress"
-                               matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
-                                <img alt="payexpress" src="../../../assets/images/icons/epayment.png" style="height: 150px">
-                            </a>
-                            <a (click)="openCashPaymentDialog()" class="ui image cursor-pointer" matTooltip="Payer en point de relai"
-                               matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
-                                <img alt="cash" src="../../../assets/images/icons/cash.jpg" style="height: 150px">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+      <section *ngIf="!isLoggedIn" class="ui piled segment mt-4 mb-4 auth-section p-0 pt-2 pb-2 mr-2 ml-2">
+        <div class="ui two column stackable center aligned grid">
+          <div class="middle aligned very compact column">
+            <p class="mb-1">Vous possédez un compte ?</p>
+            <button class="ui labeled icon violet button">
+              <i class="sign-in icon"></i>
+              Connectez-vous
+            </button>
+          </div>
+          <div [ngClass]="innerWidth < 768 ? 'horizontal' : 'vertical'" class="m-0 ui divider">ou</div>
+          <div class="middle aligned compact column">
+            <p class="mb-1">Vous n'avez pas encore de compte ?</p>
+            <button class="ui labeled icon orange button">
+              <i class="signup icon"></i>
+              Inscrivez-vous
+            </button>
+          </div>
         </div>
+      </section>
+
+      <section class="ui fluid column stackable raised center aligned mb-4 mt-4 mt-md-0 section-headed">
+        <div *ngIf="isLoggedIn" class="ui segment">
+          <div class="two column stackable">
+            <div class="column center aligned">
+              <i class="shield icon"></i>
+              Vous êtes connecté en tant que
+              <span class="font-weight-bold text-underline">{{client.firstName}} {{client.lastName}}</span>
+            </div>
+            <div class="column center aligned">
+              Ce n'est pas vous, <span class="font-weight-bold cursor-pointer strong" style="color: #f60">
+                  connectez-vous</span> à votre compte
+            </div>
+          </div>
+        </div>
+        <app-addresses (principalStatus)="setPrincipalStatus($event)" [principal]="listTravelersInfo[0]"></app-addresses>
+        <div *ngIf="listTravelersInfo.length > 1" class="ui raised segments section-headed">
+          <div class="ui compact segment raised very stacked">
+            <div *ngFor="let element of listEnumTravelers, let i = index" class="ui equal width form travelers">
+              <h4 class="ui dividing header">Information voyageur {{i + 2}}: {{element | titlecase}}</h4>
+              <div class="three fields">
+                <div [ngClass]="mapError.get(i+1).has('firstName' + (i+1)) ? 'error' : ''"
+                     class="required field">
+                  <label>Prénom </label>
+                  <input [(ngModel)]="listTravelersInfo[i + 1].name.firstName" id="firstName{{i+1}}" name="firstName"
+                         placeholder="Prénom"
+                         type="text">
+                </div>
+                <div class="field">
+                  <label>Deuxième prénom</label>
+                  <input [(ngModel)]="listTravelersInfo[i + 1].name.middleName" name="middleName"
+                         placeholder="Deuxième prénom" type="text">
+                </div>
+                <div [ngClass]="mapError.get(i+1).has('lastName' + (i+1)) ? 'error' : ''"
+                     class="required field">
+                  <label>Nom</label>
+                  <input [(ngModel)]="listTravelersInfo[i + 1].name.lastName" id="lastName{{i+1}}" name="lastName"
+                         placeholder="Nom"
+                         type="text">
+                </div>
+              </div>
+              <div class="three equal width fields">
+                <div [ngClass]="mapError.get(i+1).has('gender' + (i+1))? 'select-error' : ''" class="required field">
+                  <label>Genre</label>
+                  <select [(ngModel)]="listTravelersInfo[i+1].gender" class="ui fluid dropdown" id="gender{{i+1}}"
+                          name="gender">
+                    <option value="">Séléctionner</option>
+                    <option value="MALE">Homme</option>
+                    <option value="FEMALE">Femme</option>
+                  </select>
+                </div>
+                <div [ngClass]="mapError.get(i+1).has('birthDate' + (i+1)) ? 'error' : ''" class="required field">
+                  <label>Date de naissance</label>
+                  <input (input)="listTravelersInfo[i+1].dateOfBirth = parseDate($event.target.value)"
+                         [value]="listTravelersInfo[i+1].dateOfBirth | date:'yyyy-MM-dd'" id="birthDate{{i+1}}"
+                         type="date">
+                </div>
+                <div [ngClass]="mapError.get(i+1).has('birthPlace' + (i+1)) ? 'select-error' : ''" class="required field">
+                  <label>Lieu de naissance</label>
+                  <select (change)="setBirthCountry($event.target.value, i+1)" class="ui fluid search dropdown"
+                          id="birthPlace{{i+1}}"
+                          name="birthCountry">
+                    <option value="">Lieu de naissance</option>
+                    <option *ngFor="let item of countries"
+                            [value]="item.countryCode">{{item.countryName | titlecase}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ui fluid column stackable raised center aligned mb-4 mt-4 mt-md-0 section-headed">
+        <div class="ui form attached segment">
+          <div class="required field">
+            <div class="ui checkbox">
+              <input (click)="openConditionDialog()" id="condition-checkbox" type="checkbox"/>
+              <label class="hovered-condition cursor-pointer" for="condition-checkbox">
+                En cochant cette case, je reconnais avoir lu et accepté sans réserve les conditions générales
+                suivantes</label>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="showPayment && principalBoxChecked" class="ui very raised segments">
+          <div class="ui segment">
+            <div class="ui dividing header h4">Choisissez votre méthode de paiement</div>
+            <div class="ui small images d-flex flex-row justify-content-around">
+              <a (click)="pay()" class="ui image cursor-pointer" matTooltip="Payer avec PayExpress"
+                 matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+                <img alt="payexpress" src="../../../assets/images/icons/epayment.png" style="height: 150px">
+              </a>
+              <a (click)="openCashPaymentDialog()" class="ui image cursor-pointer" matTooltip="Payer en point de relai"
+                 matTooltipClass="tooltipClass" matTooltipHideDelay="250" matTooltipShowDelay="0">
+                <img alt="cash" src="../../../assets/images/icons/cash.jpg" style="height: 150px">
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <app-travel-aside [from]="from" [ticket]="ticket" [to]="to" class="mt-3 d-none d-lg-flex" style="width: 300px"></app-travel-aside>
+  </div>
+  <app-travel-aside [from]="from" [ticket]="ticket" [to]="to" class="mt-3 d-none d-lg-flex" style="width: 300px"></app-travel-aside>
 </div>

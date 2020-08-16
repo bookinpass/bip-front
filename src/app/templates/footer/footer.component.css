@@ -4,7 +4,7 @@ footer {
   width: 100%;
   z-index: 0;
   clear: both;
-  background: url("../../../assets/images/background/footer-bd sky blue.webp");
+  /*noinspection CssUnknownTarget*/
   background-size: cover;
 }
 
@@ -64,7 +64,7 @@ a {
 .inputWithIcon.inputIconBg button {
   background-color: orange;
   padding: 6px 17px;
-  border-radius: 0 4px 4px 0px;
+  border-radius: 0 4px 4px 0;
 }
 
 .inputWithIcon.inputIconBg input[type="text"]:focus + button {

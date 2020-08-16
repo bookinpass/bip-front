@@ -10,12 +10,15 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {FormsModule} from '@angular/forms';
 import {NgxSliderModule} from '@m0t0r/ngx-slider';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {UpdateSearchComponent} from '../../flights/update-search/update-search.component';
+import {DpDatePickerModule} from 'ng2-date-picker';
 
 @NgModule({
   declarations: [
     SearchComponent,
     FilterComponent,
-    PreviewComponent
+    PreviewComponent,
+    UpdateSearchComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     NgxPaginationModule,
     FormsModule,
     NgxSliderModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    DpDatePickerModule
   ]
 })
 export class FlightSearchModule {

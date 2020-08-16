@@ -128,11 +128,12 @@ export interface DescriptionModel {
 }
 
 export interface TermAndConditionModel {
-  category: string; // This defines what type of modification is concerned in this rule. [ REFUND, EXCHANGE, REVALIDATION, REISSUE, REBOOK, CANCELLATION ]
+  category: string; // This defines what type of modification is concerned in this rule. [ REFUND, EXCHANGE, REVALIDATION, REISSUE,
+  // REBOOK, CANCELLATION ]
   circumstances: string;
   notApplicable: boolean;
   maxPenaltyAmount: string;
-  descriptions: Array<DescriptionModel>;
+  descriptions: DescriptionModel[];
 }
 
 export interface FareRuleModel {

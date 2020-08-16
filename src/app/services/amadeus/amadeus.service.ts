@@ -6,6 +6,7 @@ import {Scavenger} from '@wishtack/rx-scavenger';
 import {FlightOfferResponseModel} from '../../models/amadeus/flight-offer-response.model';
 import {UrlConfig} from '../../../assets/url.config';
 import {FlightCreateOrderResponseModel} from '../../models/amadeus/flight-create-order-response.model';
+import {FlightOfferPricingResponseModel} from '../../models/amadeus/flight-offer-pricing-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,13 @@ export class AmadeusService implements OnDestroy {
   }
 
   public getFlightPricing(data: string) {
-    return this.http.post<any>(this.url.flightOfferPricing, data);
+    const params = new HttpParams({
+      fromObject: {
+        include: 'credit-card-fees,bags,other-services,detailed-fare-rules',
+        forceClass: 'true'
+      }
+    })
+    return this.http.post<FlightOfferPricingResponseModel>(this.url.flightOfferPricing, data, {params});
   }
 
   public getSeatsMap(data: string) {

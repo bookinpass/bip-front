@@ -1,0 +1,11 @@
+.ui.label.p-0.w-auto > select {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100px;
+  min-width: auto;
+  background-color: #f2711c !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 10px 0 10px 10px !important;
+}

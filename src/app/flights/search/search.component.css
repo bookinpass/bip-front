@@ -45,14 +45,6 @@
   color: #172368;
 }
 
-/***************** update search **********************/
-
-.search-field > label > input {
-  font-size: 12px;
-  width: 120px;
-  width: -moz-max-content;
-}
-
 /*********************** ITEMS ************************/
 
 .no-result {
