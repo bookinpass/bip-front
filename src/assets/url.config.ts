@@ -1,9 +1,10 @@
 export class UrlConfig {
 
   readonly bookingHost = 'https://bip-booking.herokuapp.com';
-  readonly mainHost = 'https://bip-event.herokuapp.com';
   readonly frontHost = 'https://bip-event.000webhostapp.com';
-  // readonly mainHost = 'http://localhost:8081';
+  // readonly mainHost = 'https://bip-event.herokuapp.com';
+  readonly mainHost = 'http://localhost:8081';
+
   readonly generateCode = '/forgotten/password';
   readonly checkCode = '/forgotten/password/check';
   readonly resetPassword = '/password/reset';
@@ -35,4 +36,13 @@ export class UrlConfig {
   readonly flightCreateOrder = this.amadeusBaseUrl + '/v1/booking/flight-orders';
   readonly seatsMap = this.amadeusBaseUrl + '/v1/shopping/seatmaps';
 
+  // paygate endpoints
+
+  readonly paygateBaseUrl = 'https://api.paygate.africa';
+  readonly paygateRequestToken = this.mainHost.concat('/paygate/token');
+  readonly paygateCreateTransactionUrl = this.mainHost.concat('/paygate/transactions/create');
+  readonly preorderDateTimeLimit = 20; // in minutes
+  readonly preorderDateTimeFormat = 'yyyy-MM-dd HH:mm';
+  readonly currency = 'XOF';
+  readonly paymentOptions = 'preorder';
 }

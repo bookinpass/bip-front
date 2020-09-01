@@ -49,6 +49,16 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
   public captachaKey = new VariableConfig().captachaKey;
   public payExpressParam: PayExpressParams;
   public image: SafeUrl;
+  public ticketIcon = {
+    0: '#ff6600',
+    1: '#ba0912',
+    2: '#34a6d8',
+    3: '#ff6600',
+    4: '#ba0912',
+    5: '#34a6d8',
+    6: '#ff6600',
+    7: '#ba0912'
+  }
   private urlConfig = new UrlConfig();
   private scavenger = new Scavenger(this);
 
@@ -194,6 +204,7 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
             });
         else setTimeout(() => this.f.captcha.setValue(true), 500);
       }, error => console.log(error));
+    this.submitted = true;
   }
 
   public itemExistInCart(item: PricingModel) {
@@ -222,7 +233,7 @@ export class EventSportDetailsComponent implements OnInit, OnDestroy {
 
   private getEvent() {
     this.eventService.getAnEvent(this.id)
-      .pipe(this.scavenger.collect(), retry(3))
+      .pipe(this.scavenger.collect(), retry(1))
       .subscribe(
         data => {
           this.image = this.imageService.getImage(data.eventId, data.imageTimestamp);

@@ -82,8 +82,8 @@ export class TicketResumeComponent {
   public getIncludedBags = (segmentId: string, travelerIndex: number): string => {
     const item = this.flightOffer.travelerPricings[travelerIndex].fareDetailsBySegment
       .filter(x => x.segmentId.equalIgnoreCase(segmentId))[0].includedCheckedBags;
-    return item.quantity.toString(10)
-      .concat(item.weight !== null && item.weight !== undefined ? ' * ' + item.weight + ' ' + item.weightUnit : '');
+    return (!item.quantity ? 1 : item.quantity).toString(10)
+      .concat(item.weight !== null && item.weight !== undefined ? ' * ' + item.weight + ' ' + item.weightUnit : ' * 23 KG');
   }
 
   private configDP = (): void => {

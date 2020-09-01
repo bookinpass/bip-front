@@ -11,10 +11,13 @@ import {MustMatch, ValidPhone} from '../../core/validators/CustomValidators';
 import {CountryJson} from '../../../assets/Country.json';
 import {MatDialog} from '@angular/material/dialog';
 import {DatePipe} from '@angular/common';
-import {isAfter, isBefore, isSameDay, subYears} from 'date-fns';
+import {addMinutes, isAfter, isBefore, isSameDay, parseISO, subYears} from 'date-fns';
 import {retry} from 'rxjs/operators';
 import {ConditionsComponent} from './conditions/conditions.component';
 import {CountryCode, formatIncompletePhoneNumber} from 'libphonenumber-js';
+import {PaygateService} from '../../services/paygate.service';
+import {CookieService} from 'ngx-cookie-service';
+import {UrlConfig} from '../../../assets/url.config';
 
 @Component({
   selector: 'app-details',
@@ -29,11 +32,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
   public response: FlightOfferPricingResponseModel;
   public travelers: TravelerModel[] = [];
   public countries = new CountryJson().countries;
+  private config = new UrlConfig();
   private flightOfferModel: FlightOfferModel;
   private scavenger = new Scavenger(this);
 
   constructor(private router: Router,
               private amadeusService: AmadeusService,
+              private paygateService: PaygateService,
+              private cookieService: CookieService,
               private fb: FormBuilder,
               private dialog: MatDialog,
               private datePipe: DatePipe) {
@@ -45,26 +51,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.setContactForm();
-    // await this.amadeusService.setToken();
-    // this.flightOfferModel = JSON.parse(localStorage.getItem('offer')) as FlightOfferModel;
-    // if (this.flightOfferModel === null || this.flightOfferModel === undefined) this.noOfferFound();
-    // else this.getFlightOfferPrice();
-    this.response = JSON.parse(localStorage.getItem('ticket')) as FlightOfferPricingResponseModel;
-    this.response.data.flightOffers[0].travelerPricings.forEach(x => {
-      const model: TravelerModel = {
-        gender: 'MALE',
-        name: {lastName: '', firstName: '', middleName: null},
-        id: x.travelerId,
-        dateOfBirth: ''
-      };
-      if (Number(x.travelerId) === 1)
-        model.documents = [{
-          documentType: 'IDENTITY_CARD', // VISA, PASSPORT, IDENTITY_CARD
-          holder: true, issuanceCountry: 'SN', issuanceDate: '', expiryDate: '', nationality: '', number: '', birthCountry: ''
-        } as DocumentModel];
-      this.travelers.push(model)
-    });
-    this.loading = false;
+    await this.amadeusService.setToken();
+    this.flightOfferModel = JSON.parse(localStorage.getItem('offer')) as FlightOfferModel;
+    if (this.flightOfferModel === null || this.flightOfferModel === undefined) this.noOfferFound();
+    else this.getFlightOfferPrice();
+    // this.response = JSON.parse(localStorage.getItem('ticket')) as FlightOfferPricingResponseModel;
+    // this.response.data.flightOffers[0].travelerPricings.forEach(x => {
+    //   const model: TravelerModel = {
+    //     gender: 'MALE',
+    //     name: {lastName: '', firstName: '', middleName: null},
+    //     id: x.travelerId,
+    //     dateOfBirth: ''
+    //   };
+    //   if (Number(x.travelerId) === 1)
+    //     model.documents = [{
+    //       documentType: 'IDENTITY_CARD', // VISA, PASSPORT, IDENTITY_CARD
+    //       holder: true, issuanceCountry: 'sn', issuanceDate: '', expiryDate: '', nationality: '', number: '', birthCountry: ''
+    //     } as DocumentModel];
+    //   this.travelers.push(model)
+    // });
+    // this.loading = false;
   }
 
   ngOnDestroy() {
@@ -79,6 +85,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
       dialog.afterClosed()
         .subscribe(() => {
+          // document.getElementById('buttonPayment').classList.remove('d-none');
         });
     }
   }
@@ -88,6 +95,31 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   public updateFlag = () =>
     this.f.flag.setValue(this.countries.find(x => x.dial_code === this.f.countryCallingCode.value).code.toLowerCase());
+
+  public async proceedToPayment() {
+    const date = new Date(addMinutes(parseISO(new Date().toISOString()), this.config.preorderDateTimeLimit));
+    const value = JSON.stringify(
+      {
+        amount: 100.00,
+        currency: this.config.currency,
+        payment_options: this.config.paymentOptions,
+        preorder_end_date: this.datePipe.transform(date, this.config.preorderDateTimeFormat, 'UTC'),
+        order_ref: '3701',
+        items: 1,
+        cart: [{
+          product_name: 'product 1',
+          product_code: 'ADBFRT345',
+          quantity: 2,
+          price: '50.00',
+          total: '100.00',
+          description: ''
+        }]
+      }
+    );
+    const transaction = await this.paygateService.crateTransaction(value);
+    sessionStorage.setItem('created_trx', JSON.stringify(transaction));
+    window.open(transaction.capture_url, '_self');
+  }
 
   private noOfferFound = (): void => {
     Swal.fire({
@@ -139,10 +171,12 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.isNOD(x.name.lastName) || this.isNOD(x.gender)));
     const principal = this.checkTravelersPrincipalInformation();
     const ages = this.checkAges;
+
     if (principal.length > 0 || arr.length > 0 || this.contactForm.invalid || ages !== null) {
       const txt = principal.length > 0 ? principal : arr.length > 0 ? `Les champs ${arr.length > 1 ? 'du passager ' : 'des passagers '}
       ${arr.join(', ').concat('')} ne sont pas correctement remplis. Veuillez remplir tous les champs pour chaque passager!` :
         this.contactForm.invalid ? 'Veuillez corriger les champs erronés!' : ages;
+
       Swal.fire({
         title: 'Error', html: `${txt}`, icon: 'error', showConfirmButton: false, timerProgressBar: true, timer: 3000,
         allowOutsideClick: false, allowEscapeKey: false

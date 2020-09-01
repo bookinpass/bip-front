@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
+import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
 import localeFr from '@angular/common/locales/fr';
 import '../assets/prototypes/string-prototypes';
 import '../assets/prototypes/array-prototypes';
@@ -125,6 +125,7 @@ window['jQuery'] = $;
     CookieService,
     InterceptorProviders,
     {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    {provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent]
 })

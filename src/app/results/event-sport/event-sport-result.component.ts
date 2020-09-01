@@ -115,17 +115,10 @@ export class EventSportResultComponent implements OnInit, OnDestroy {
 
   private getImages() {
     this.listOfEvents
-      .map(x => x.eventId)
-      .forEach(ids => this.images.set(ids, this.sanitizer.bypassSecurityTrustUrl(`../../../assets/images/event/${ids}.jpg`)));
+      .map(x => `${x.eventId}-${x.imageTimestamp}`)
+      .forEach(name =>
+        this.images.set(name.split('-')[0], this.sanitizer.bypassSecurityTrustUrl(`../../../assets/images/event/${name}.jpg`)));
   }
-
-  // this.imageService.getImage('event', ids)
-  //   .pipe(this.scavenger.collect(),
-  //     retry(1))
-  //   .subscribe(data => {
-  //     const d: any = data.body;
-  //     this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(d.content.toString()));
-  //   }, _ => this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(this.noImage)));
 
   private setMarkedAndUnmarkedList() {
     let selectedList = (this.option.equalIgnoreCase('event') ?
