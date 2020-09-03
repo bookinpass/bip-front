@@ -2,8 +2,8 @@ export class UrlConfig {
 
   readonly bookingHost = 'https://bip-booking.herokuapp.com';
   readonly frontHost = 'https://bip-event.000webhostapp.com';
-  // readonly mainHost = 'https://bip-event.herokuapp.com';
-  readonly mainHost = 'http://localhost:8081';
+  readonly mainHost = 'https://bip-event.herokuapp.com';
+  // readonly mainHost = 'http://localhost:8081';
 
   readonly generateCode = '/forgotten/password';
   readonly checkCode = '/forgotten/password/check';

@@ -29,10 +29,6 @@ body,
   font-family: Ubuntu, "Open Sans", AdineuePRO, sans-serif;
 }
 
-footer.page-footer {
-  background-image: url("assets/images/background/footer-bd sky blue.webp");
-}
-
 /* Sweet Alert2 button style */
 
 .swal2-confirm,
@@ -298,6 +294,13 @@ delete-icon path {
   height: 38px !important;
   font-size: 14px !important;
   color: #666 !important;
+}
+
+/********************************* Calendar **********************************************/
+.cal-month-view .cal-open-day-events {
+  color: #fff !important;
+  background-color: #2daae1 !important;
+  box-shadow: none !important;
 }
 
 @media screen and (min-width: 1600px) {

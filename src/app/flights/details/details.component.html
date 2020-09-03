@@ -6,19 +6,19 @@
   <div class="ui two column grid fluid m-0 flex-nowrap">
     <div class="row">
       <div class="parent sixteen wide column tablet twelve wide computer">
-
         <!--        Flight resume-->
         <app-ticket-resume *ngIf="travelers && response && response.dictionaries && response.data"
                            [dictionary]="response.dictionaries"
                            [flightOffer]="response.data.flightOffers[0]"
-                           [travelers]="travelers"
-        ></app-ticket-resume>
+                           [travelers]="travelers"></app-ticket-resume>
         <!--        End Flight resume-->
 
         <!--        Contact area-->
-        <div *ngIf="contactForm" class="ui orange segment">
-          <h3 class="ui header">Contact<sup class="text-danger">*</sup></h3>
-          <form [formGroup]="contactForm" class="ui form fluid">
+        <div *ngIf="contactForm" class="ui orange segment contact-form p-0">
+          <div class="ui fluid head">
+            <p class="h4">Contact</p>
+          </div>
+          <form [formGroup]="contactForm" class="ui form fluid pl-3 pr-3">
             <div class="ui two fields">
               <div [ngClass]="submitted && f.emailAddress.errors ? 'error' : ''" class="required field">
                 <label>Email</label>
@@ -93,8 +93,10 @@
         <!--        End Payment area-->
 
       </div>
-      <aside class="four wide column tablet only">
-
+      <aside class="four wide column computer only">
+        <div class="ui orange segment pl-2 pr-2">
+          <app-sidebar></app-sidebar>
+        </div>
       </aside>
     </div>
   </div>

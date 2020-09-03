@@ -51,26 +51,26 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.setContactForm();
-    await this.amadeusService.setToken();
-    this.flightOfferModel = JSON.parse(localStorage.getItem('offer')) as FlightOfferModel;
-    if (this.flightOfferModel === null || this.flightOfferModel === undefined) this.noOfferFound();
-    else this.getFlightOfferPrice();
-    // this.response = JSON.parse(localStorage.getItem('ticket')) as FlightOfferPricingResponseModel;
-    // this.response.data.flightOffers[0].travelerPricings.forEach(x => {
-    //   const model: TravelerModel = {
-    //     gender: 'MALE',
-    //     name: {lastName: '', firstName: '', middleName: null},
-    //     id: x.travelerId,
-    //     dateOfBirth: ''
-    //   };
-    //   if (Number(x.travelerId) === 1)
-    //     model.documents = [{
-    //       documentType: 'IDENTITY_CARD', // VISA, PASSPORT, IDENTITY_CARD
-    //       holder: true, issuanceCountry: 'sn', issuanceDate: '', expiryDate: '', nationality: '', number: '', birthCountry: ''
-    //     } as DocumentModel];
-    //   this.travelers.push(model)
-    // });
-    // this.loading = false;
+    // await this.amadeusService.setToken();
+    // this.flightOfferModel = JSON.parse(localStorage.getItem('offer')) as FlightOfferModel;
+    // if (this.flightOfferModel === null || this.flightOfferModel === undefined) this.noOfferFound();
+    // else this.getFlightOfferPrice();
+    this.response = JSON.parse(localStorage.getItem('ticket')) as FlightOfferPricingResponseModel;
+    this.response.data.flightOffers[0].travelerPricings.forEach(x => {
+      const model: TravelerModel = {
+        gender: 'MALE',
+        name: {lastName: '', firstName: '', middleName: null},
+        id: x.travelerId,
+        dateOfBirth: ''
+      };
+      if (Number(x.travelerId) === 1)
+        model.documents = [{
+          documentType: 'IDENTITY_CARD', // VISA, PASSPORT, IDENTITY_CARD
+          holder: true, issuanceCountry: 'sn', issuanceDate: '', expiryDate: '', nationality: '', number: '', birthCountry: ''
+        } as DocumentModel];
+      this.travelers.push(model)
+    });
+    this.loading = false;
   }
 
   ngOnDestroy() {

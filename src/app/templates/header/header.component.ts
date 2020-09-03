@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() registrationEmitter = new EventEmitter();
   @Output() sidebarEmitter = new EventEmitter();
   @Output() innerWidth = new EventEmitter<number>();
+  public home = false;
   private scavenger: Scavenger = new Scavenger(this);
 
   constructor(private router: Router) {
@@ -25,7 +26,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(this.scavenger.collect())
       .subscribe(arg => {
         if (arg instanceof NavigationEnd) {
-          document.getElementsByClassName('nav-link active')[0].parentElement.className = 'nav-item active';
+          setTimeout(() => {
+            if (arg.url.startsWith('/contact') || arg.url.startsWith('/about') || arg.url.startsWith('/how-to'))
+              $('#navbarNav > .nav-item')[0].classList.remove('active');
+            else
+              $('#navbarNav > .nav-item')[0].classList.add('active');
+          }, 100);
         }
       });
   }

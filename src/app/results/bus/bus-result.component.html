@@ -7,13 +7,13 @@
     <div [ngClass]="currentStep !== 1 ? 'disabled' : ''" class="ui very raised segment">
       <div class="d-flex flex-row justify-content-around">
         <div (viewDateChange)="closeOpenMonthViewDay()" [(viewDate)]="viewDate" [view]="view" class="ui green button step-buttons"
-             mwlCalendarPreviousView>Précédent
+             mwlCalendarPreviousView style="background-color:#ff6600; color: #fff">Précédent
         </div>
         <div>
           <p class="h5 text-capitalize">{{ viewDate | calendarDate:(view + 'ViewTitle'):'fr' }}</p>
         </div>
         <div (viewDateChange)="closeOpenMonthViewDay()" [(viewDate)]="viewDate" [view]="view" class="ui blue button step-buttons"
-             mwlCalendarNextView>Suivant
+             mwlCalendarNextView style="background-color: #2daae1; color: #fff">Suivant
         </div>
       </div>
       <div [ngSwitch]="view">
@@ -44,39 +44,42 @@
           <span class="font-weight-bolder">Le ticket est non remboursable en cas de retard.</span></li>
         <li class="item" value="*">Les bagages ne sont pas gratuits. Mais chaque passager a droit à une valisette.</li>
       </ol>
-      <div class="ui form">
+      <div class="ui form bus-details-form">
         <div class="field">
-          <p class="h5 mb-3" style="color: #00004a"><span class="mb-0 underlined font-weight-bold mr-2">Itineraire:</span>
+          <p class="h5"><span class="mb-0 underlined font-weight-bold mr-2">Itineraire:</span>
             {{from | titlecase}} - {{to | titlecase}}
           </p>
         </div>
         <div class="field">
-          <p class="h5 mb-3" style="color: #00004a"><span class="mb-0 underlined font-weight-bold mr-2">Date de Départ:</span>
+          <p class="h5"><span class="mb-0 underlined font-weight-bold mr-2">Date de Départ:</span>
             <span *ngIf="selectedDate">{{selectedDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} à
               {{selectedDate | date: 'HH:mm'}}</span>
             <span *ngIf="!selectedDate">Séléctionner une date</span>
           </p>
         </div>
         <div class="field">
-          <p class="h5 mb-3" style="color: #00004a"><span class="mb-0 underlined font-weight-bold mr-2">Prix par passager:</span>
-            {{unitPrice | currency : 'XOF' : 'symbol-narrow' : '1.1-2'}}
-          </p>
-        </div>
-        <div class="required field">
           <label>Nombre de voyageur{{passengers > 2 ? 's' : ''}}:</label>
           <input [(ngModel)]="passengers" max="5" min="1" name="adult" type="number">
         </div>
-        <div class="field">
-          <p class="h5 mb-3" style="color: #00004a"><span class="mb-0 underlined font-weight-bold mr-2">Prix Total:</span>
-            {{unitPrice * passengers | currency : 'XOF' : 'symbol-narrow' : '1.1-2'}}
-          </p>
+
+        <div class="two fields">
+          <div class="field">
+            <p><span>Prix par passager:</span>{{unitPrice | currency : 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
+          </div>
+          <div class="field">
+            <p><span>Prix Total:</span>
+              {{unitPrice * passengers | currency : 'XOF' : 'symbol-narrow' : '1.1-2'}}
+            </p>
+          </div>
         </div>
+
         <div class="field d-flex justify-content-end">
           <div (click)="checkData()" *ngIf="currentStep === 1" [ngClass]="passengers === 0 || !selectedDate ? 'disabled' : ''"
-               class="ui orange button">Suivant
+               class="ui button" style="background-color: #FF6600; color: #fff">Suivant
           </div>
         </div>
       </div>
+
       <form *ngIf="currentStep === 2" [formGroup]="formGroup" autocomplete="on" class="ui form">
         <div class="two equal width fields">
           <div [ngClass]="submitted && f.firstName.status === 'INVALID' ? 'error' : ''" class="required field">
@@ -131,43 +134,7 @@
       <div *ngIf="currentStep === 3" class="h-100 w-available mt-3">
         <div (click)="previousStep()" class="ui right aligned orange button ml-3">Précédent</div>
       </div>
+
     </div>
   </div>
 </div>
-
-
-<!--
-  <div *ngIf="currentStep === 3" class="d-flex flex-column flex-lg-row justify-content-center justify-content-lg-around step-3">
-    <div class="d-flex flex-row justify-content-around w-100">
-      <div>
-        <h3 class="ui dividing header underlined mt-2">Récapitulatif</h3>
-        <div class="field">
-          <p class="h5 mb-2 mt-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">ID Transaction</span>:
-            {{paymentData.orderId}}</p>
-        </div>
-        <div class="field">
-          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Itineraire</span>:
-            {{from}} - {{to}}</p>
-        </div>
-        <div class="field">
-          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Départ</span>:
-            {{selectedDate | date: 'EEEE, dd MMMM yyyy à HH:mm'}}
-          </p>
-        </div>
-        <div class="field">
-          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix unitaire</span>:
-            {{unitPrice | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
-        </div>
-        <div class="field">
-          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Nombre de passager</span>:
-            {{passengers}}</p>
-        </div>
-        <div class="field">
-          <p class="h5 mb-2" style="color: #00004a"><span class="mb-0 underlined font-weight-bold">Prix total</span>:
-            {{unitPrice * passengers | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</p>
-        </div>
-      </div>
-
-
-    </div>
-  </div>-->

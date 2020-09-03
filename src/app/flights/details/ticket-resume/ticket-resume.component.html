@@ -74,10 +74,9 @@
     </div>
   </div>
 
-  <div *ngFor="let item of flightOffer.travelerPricings; let i = index" class="ui orange segment pl-0 pr-0 pb-0"
-       style="border-top-width: 4px !important;">
-    <div class="ui fluid pl-3 pr-3">
-      <p class="h4 mb-4">Passager {{item.travelerId}} - {{getPassengerType(item.travelerType)}}</p>
+  <div *ngFor="let item of flightOffer.travelerPricings; let i = index" class="ui orange segment travelers-container p-0">
+    <div class="ui fluid head">
+      <p class="h4">Passager {{item.travelerId}} - {{getPassengerType(item.travelerType)}}</p>
     </div>
 
     <div class="ui form fluid pl-3 pr-3">

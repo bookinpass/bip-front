@@ -9,3 +9,25 @@
   font-size: 14px !important;
   padding: 10px 0 10px 10px !important;
 }
+
+.contact-form {
+  background-color: #efefef;
+}
+
+.contact-form .field label,
+.contact-form .field label:after {
+  color: #FF6600 !important;
+}
+
+.contact-form .head {
+  background-color: #2daae1;
+  color: white;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+#paymentButton {
+  background-color: #efefef;
+}

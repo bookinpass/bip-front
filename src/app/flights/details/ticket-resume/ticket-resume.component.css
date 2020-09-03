@@ -110,7 +110,6 @@
 
 .included_suitcase_container {
   padding: 14px 14px 0;
-  background-color: #f9f9f9;
 }
 
 .included_suitcase:nth-of-type(1) {
@@ -129,4 +128,23 @@
   font-size: 14px;
   font-weight: 600;
   margin: 0;
+}
+
+.travelers-container {
+  border-top-width: 5px;
+  background-color: #efefef;
+}
+
+.travelers-container > .head {
+  background-color: #2daae1;
+  color: white;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.travelers-container .field label,
+.travelers-container .field label:after {
+  color: #FF6600 !important;
 }
