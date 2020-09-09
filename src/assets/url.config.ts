@@ -41,7 +41,7 @@ export class UrlConfig {
   readonly paygateBaseUrl = 'https://api.paygate.africa';
   readonly paygateRequestToken = this.mainHost.concat('/paygate/token');
   readonly paygateCreateTransactionUrl = this.mainHost.concat('/paygate/transactions/create');
-  readonly preorderDateTimeLimit = 20; // in minutes
+  readonly preorderDateTimeLimit = 15; // in minutes
   readonly preorderDateTimeFormat = 'yyyy-MM-dd HH:mm';
   readonly currency = 'XOF';
   readonly paymentOptions = 'preorder';

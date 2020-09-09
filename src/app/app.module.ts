@@ -51,6 +51,7 @@ import {MatCardModule} from '@angular/material/card';
 import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 import {InterceptorProviders} from './core/Interceptors/interceptorProvider';
+import {PaygateResponseComponent} from './core/paygate/response/paygate-response.component';
 
 registerLocaleData(localeFr);
 
@@ -85,6 +86,7 @@ window['jQuery'] = $;
     TravelAsideComponent,
     EventSportComponent,
     GeneralConditionComponent,
+    PaygateResponseComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +101,8 @@ window['jQuery'] = $;
       config: {
         tokenGetter,
         headerName: 'Authorization',
-        whitelistedDomains: ['http://localhost:4201', 'https://bookinpass.000webhostapp.com']
+        allowedDomains: ['http://localhost:4201', 'https://bookinpass.000webhostapp.com'],
+        disallowedRoutes: []
       }
     }),
     MatTooltipModule,

@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './search-forms/home/home.component';
 import {AuthGuard} from './guards/auth.guard';
 import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
+import {PaygateResponseComponent} from './core/paygate/response/paygate-response.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,14 @@ const routes: Routes = [
   {
     path: 'transaction',
     loadChildren: () => import('./modules/transaction/transaction.module').then(m => m.TransactionModule)
+  },
+  {
+    path: 'paygate/success',
+    component: PaygateResponseComponent
+  },
+  {
+    path: 'paygate/failure',
+    component: PaygateResponseComponent
   },
   {
     path: '**',

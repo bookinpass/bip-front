@@ -9,10 +9,10 @@ import {GlobalErrorHandlerService} from '../error/global-error-handler.service';
 import {TicketEventModel} from '../../models/ticket-event.model';
 import {TicketService} from '../../services/tickets/ticket.service';
 import Swal from 'sweetalert2';
-import * as jspdf from 'jspdf';
-import html2canvas from "html2canvas";
-import {now} from "moment";
-import {TransportTicketModel} from "../../models/transport-ticket.model";
+import {jsPDF} from 'jspdf';
+import html2canvas from 'html2canvas';
+import {now} from 'moment';
+import {TransportTicketModel} from '../../models/transport-ticket.model';
 
 @Component({
   selector: 'app-transaction',
@@ -108,7 +108,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
       const data = document.getElementById(type + '-ticket-container' + i);
       console.log(data);
       if (data === null || data === undefined) {
-        Swal.fire('Erreur', 'Une erreure s\'est produite lors de la tentative de telechargement des tickets!', 'error')
+        Swal.fire('Erreur', 'Une erreure s\'est produite lors de la tentative de téléchargement des tickets!', 'error')
           .then(res => {
             if (res) this.loading = false;
           });
@@ -116,17 +116,18 @@ export class TransactionComponent implements OnInit, OnDestroy {
         html2canvas(data as HTMLElement).then(canvas => {
           // Few necessary setting options
           const imgWidth = 2;
-          const pageHeight = 2.8;
           const imgHeight = canvas.height * imgWidth / canvas.width;
-          const heightLeft = imgHeight;
 
           const contentDataURL = canvas.toDataURL('image/jpeg');
-          const pdf = new jspdf('p', 'in', 'a8'); // A4 size page of PDF
-          pdf.addImage(contentDataURL, 'jepg', 0, 0, imgWidth, imgHeight, null, 'slow'); // , imgWidth, imgHeight);
-          pdf.save(`${new Date(now()).toISOString()}.pdf`, {returnPromise: true})
-            .then(() => {
-              this.loading = false;
-            }); // Generated PDF
+          const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a7'
+          }); // A4 size page of PDF
+          pdf.addImage(contentDataURL, 'jpeg', 0, 0, imgWidth, imgHeight);
+          // @ts-ignore
+          pdf.save(`${new Date(now()).toISOString()}.pdf`, {returnPromise: true}).then(_ => this.loading = false); // Generated PDF
+          pdf.autoPrint();
         });
       }
     }

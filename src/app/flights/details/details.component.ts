@@ -85,7 +85,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
       dialog.afterClosed()
         .subscribe(() => {
-          // document.getElementById('buttonPayment').classList.remove('d-none');
+          // $('#buttonPayment').disabled = false;
         });
     }
   }
@@ -97,8 +97,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
     this.f.flag.setValue(this.countries.find(x => x.dial_code === this.f.countryCallingCode.value).code.toLowerCase());
 
   public async proceedToPayment() {
+    const url = await this.createTransaction();
+    window.open(url, '_self');
+  }
+
+  private async createPaygateTransactionData(): Promise<string> {
     const date = new Date(addMinutes(parseISO(new Date().toISOString()), this.config.preorderDateTimeLimit));
-    const value = JSON.stringify(
+    return JSON.stringify(
       {
         amount: 100.00,
         currency: this.config.currency,
@@ -116,9 +121,13 @@ export class DetailsComponent implements OnInit, OnDestroy {
         }]
       }
     );
+  }
+
+  private async createTransaction(): Promise<string> {
+    const value = await this.createPaygateTransactionData();
     const transaction = await this.paygateService.crateTransaction(value);
-    sessionStorage.setItem('created_trx', JSON.stringify(transaction));
-    window.open(transaction.capture_url, '_self');
+    sessionStorage.setItem('trx_id', transaction.capture_url);
+    return transaction.capture_url;
   }
 
   private noOfferFound = (): void => {
@@ -232,13 +241,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  private isNOD = (x: string): boolean => {
-    return x !== null && x !== undefined && x.length > 0;
-  }
+  private isNOD = (x: string): boolean => x !== null && x !== undefined && x.length > 0;
 
-  private strToDate = (str: string): Date => {
-    return new Date(this.datePipe.transform(str, 'yyyy-MM-dd', 'UTC'));
-  }
+  private strToDate = (str: string): Date => new Date(this.datePipe.transform(str, 'yyyy-MM-dd', 'UTC', 'fr-FR'));
 
   private setContactForm = (): void => {
     this.contactForm = this.fb.group({

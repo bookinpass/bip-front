@@ -87,8 +87,10 @@
         <!--        End Seat map area-->
 
         <!--        Payment area-->
-        <div class="ui orange segment" id="paymentButton">
-          <div (click)="proceedToPayment()" class="ui orange button" style="width:160px">Proceder au paiement</div>
+        <div class="ui orange segment">
+          <button (click)="proceedToPayment()" class="ui orange button" disabled id="paymentButton" style="width:200px">
+            Proceder au paiement
+          </button>
         </div>
         <!--        End Payment area-->
 

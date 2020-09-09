@@ -7,7 +7,7 @@ import {DakarZiguinchorJson} from '../../../assets/dakar-ziguinchor.json';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {AppComponent} from '../../app.component';
 import html2canvas from 'html2canvas';
-import * as jspdf from 'jspdf';
+import {jsPDF} from 'jspdf';
 import {PayExpressParams} from '../../models/pay-express-params';
 import {EventNominationModel} from '../../models/event-nomination.model';
 
@@ -206,7 +206,11 @@ export class BoatResultComponent implements OnInit {
       const imgWidth = 210;
       const imgHeight = canvas.height * imgWidth / canvas.width;
       const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jspdf('p', 'mm', 'a4');
+      const pdf = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
+      }); // A4 size page of PDF
       pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
       pdf.save(`${this.departure} - ${this.arrival}, ${this.selectedDate}.pdf`); // Generated PDF
     });

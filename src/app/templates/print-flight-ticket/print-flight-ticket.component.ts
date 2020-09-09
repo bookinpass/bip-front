@@ -6,8 +6,8 @@ import {CompagnieModel} from '../../models/compagnie.model';
 import {AirportsJson} from '../../../assets/airports.json';
 import {ActivatedRoute} from '@angular/router';
 import {DatePipe} from '@angular/common';
-import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import {jsPDF} from 'jspdf';
 
 @Component({
   selector: 'app-print-flight-ticket',
@@ -53,18 +53,19 @@ export class PrintFlightTicketComponent implements OnInit, AfterViewInit {
       html2canvas(data.item(i) as HTMLElement).then(canvas => {
         // Few necessary setting options
         const imgWidth = 208;
-        const pageHeight = 295;
         const imgHeight = canvas.height * imgWidth / canvas.width;
-        const heightLeft = imgHeight;
 
         const contentDataURL = canvas.toDataURL('image/png');
-        const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+        const pdf = new jsPDF({
+          orientation: 'p',
+          unit: 'mm',
+          format: 'a4'
+        }); // A4 size page of PDF
         pdf.addImage(contentDataURL, 'PNG', 0, 0, imgWidth, imgHeight);
         const names = 'BILLET ' + this.travelers[i].name.firstName.toUpperCase() + ' ' + this.travelers[i].name.lastName.toUpperCase();
-        pdf.save(`${names}-${this.listOfBookingRef[i]}-${date}.pdf`, {returnPromise: true})
-          .then(() => {
-            this.loading = false;
-          }); // Generated PDF
+        // @ts-ignore
+        pdf.save(`${names}-${this.listOfBookingRef[i]}-${date}.pdf`, {returnPromise: true}).then(
+          _ => this.loading = false); // Generated PDF
       });
     }
   }
