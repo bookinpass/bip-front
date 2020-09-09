@@ -1,60 +1,59 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {FlightSearchingComponent} from './results/flight-searching/flight-searching.component';
-import {EventSearchingComponent} from './results/event-searching/event-searching.component';
+import {HomeComponent} from './search-forms/home/home.component';
+import {AuthGuard} from './guards/auth.guard';
 import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
-import {EventSportDetailsComponent} from './templates/search/event-sport/event-sport-details/event-sport-details.component';
-import {PrintFlightTicketComponent} from './templates/print-flight-ticket/print-flight-ticket.component';
-import {BoatResultComponent} from './templates/search/boat/boat-result/boat-result.component';
-import {BusResultComponent} from './templates/search/bus/bus-result/bus-result.component';
+import {PaygateResponseComponent} from './core/paygate/response/paygate-response.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent
   },
   {
     path: 'search',
-    children: [
-      {
-        path: 'flights',
-        component: FlightSearchingComponent
-      },
-      {
-        path: 'events',
-        component: EventSearchingComponent
-      },
-      {
-        path: 'cruise',
-        component: BoatResultComponent
-      },
-      {
-        path: 'bus',
-        component: BusResultComponent
-      }
-    ]
+    loadChildren: () => import('./modules/search-result/search-result.module').then(module => module.SearchResultModule)
   },
   {
-    path: 'details',
-    children: [
-      {
-        path: 'flight',
-        component: FlightTicketDetailsComponent
-      },
-      {
-        path: 'event/:id',
-        component: EventSportDetailsComponent
-      }
-    ]
+    path: 'flights',
+    loadChildren: () => import('./modules/flight-search/flight-search.module').then(module => module.FlightSearchModule)
   },
   {
-    path: 'print/flight',
-    component: PrintFlightTicketComponent
+    path: 'details/event',
+    loadChildren: () => import('./modules/result-details/result-details.module').then(module => module.ResultDetailsModule)
   },
   {
-    path: '',
-    redirectTo: '/home',
+    path: 'details/flight',
+    component: FlightTicketDetailsComponent
+  },
+  {
+    path: 'print',
+    loadChildren: () => import('./modules/printing/printing.module').then(module => module.PrintingModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./modules/account/account.module').then(module => module.AccountModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./modules/payment/payment.module').then(module => module.PaymentModule)
+  },
+  {
+    path: 'transaction',
+    loadChildren: () => import('./modules/transaction/transaction.module').then(m => m.TransactionModule)
+  },
+  {
+    path: 'paygate/success',
+    component: PaygateResponseComponent
+  },
+  {
+    path: 'paygate/failure',
+    component: PaygateResponseComponent
+  },
+  {
+    path: '**',
+    redirectTo: '',
     pathMatch: 'full'
   }
 ];

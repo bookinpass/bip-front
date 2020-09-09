@@ -1,0 +1,150 @@
+.airline_name {
+  font-size: 14px !important;
+  font-weight: 500;
+}
+
+.ui.mini.image {
+  width: 60px;
+}
+
+/*******************************Resume body ***************************/
+
+.resume_body {
+  padding: 0 21px;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.resume_body > div:first-child {
+  width: 70%;
+}
+
+.resume_body > div:last-child {
+  width: 30%;
+}
+
+.resume_body .stopover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  margin: auto 0;
+}
+
+.resume_body .stopover > p {
+  font-size: 12px;
+  font-weight: 500;
+  color: #1cb670;
+}
+
+.resume_body .body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.resume_body .item {
+  width: calc((100% - 92px) / 2);
+}
+
+.resume_body .item:first-child {
+  margin-right: 15px;
+}
+
+.resume_body .item:last-child {
+  margin-left: 20px;
+}
+
+.resume_body .item span {
+  font-size: 20px;
+  font-weight: 400;
+  color: #000;
+}
+
+.resume_body .item span.strong {
+  font-weight: 500;
+}
+
+.resume_body .item > div:nth-of-type(2) p {
+  font-size: 13px;
+  margin-bottom: 0;
+  color: #666;
+}
+
+.ball {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #ccc;
+  border-radius: 100%;
+}
+
+.ball_support {
+  height: 2px;
+  width: 75px;
+  background-color: #ccc;
+}
+
+.ball_filled {
+  background-color: #cccccc;
+}
+
+.resume_body .extra > p {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.inline_input {
+  width: 140px !important;
+  min-width: 140px !important;
+}
+
+.dashed-hr {
+  border-top: 1px dashed orange;
+  margin-bottom: 0;
+}
+
+.included_suitcase_container {
+  padding: 14px 14px 0;
+}
+
+.included_suitcase:nth-of-type(1) {
+  border-bottom: 1px solid orange;
+}
+
+.included_suitcase {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 37px;
+}
+
+.included_suitcase > p {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.travelers-container {
+  border-top-width: 5px;
+  background-color: #efefef;
+}
+
+.travelers-container > .head {
+  background-color: #2daae1;
+  color: white;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.travelers-container .field label,
+.travelers-container .field label:after {
+  color: #FF6600 !important;
+}

@@ -1,0 +1,110 @@
+.step-1 > div:nth-of-type(1),
+.step-1 > div:nth-of-type(2) {
+  width: 48%;
+}
+
+.cal-month-view .cal-day-cell {
+  min-height: 78px;
+}
+
+#boat-travelers-table > thead > tr:last-child > th,
+#boat-travelers-table2 > thead > tr:last-child > th {
+  width: 100px;
+}
+
+#boat-travelers-table th,
+#boat-travelers-table2 th {
+  padding: 4px;
+  text-align: center;
+}
+
+#boat-travelers-table td,
+#boat-travelers-table2 td {
+  text-align: center;
+  padding: 0;
+  vertical-align: middle;
+}
+
+#boat-travelers-table td input,
+#boat-travelers-table2 td input {
+  border: none !important;
+}
+
+#boat-travelers-table .stated-row,
+#boat-travelers-table2 .stated-row {
+  padding: 10px !important;
+  background-color: #2daae1;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.boat-soute-fee {
+  background-color: #333 !important;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.darkBlueLabel {
+  font-size: 16px !important;
+  color: #00004a !important;
+}
+
+.passenger_selection {
+  font-size: 16px;
+  color: #FF6600;
+}
+
+.passenger_selection > fui-select > div {
+  margin-top: 1px;
+}
+
+.passenger_selection > fui-select > div > span {
+  color: white;
+  font-size: 16px;
+}
+
+.passenger_selection > fui-select > i {
+  font-size: 16px;
+}
+
+#ticket-container {
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px outset aquamarine;
+  margin-bottom: 10px;
+}
+
+.departure-block,
+.departure-boat-block {
+  margin-bottom: 9px;
+  color: white;
+  background-color: #FF6600;
+  padding: 5px 10px;
+  border-radius: 7px;
+}
+
+.departure-block > span,
+.departure-boat-block > span {
+  text-decoration: underline;
+  margin-bottom: 0;
+}
+
+.departure-boat-block {
+  background-color: #2daae1;
+}
+
+@media screen and (max-width: 768px) {
+
+  #boat-travelers-table,
+  .step-1,
+  .step-1 > div,
+  .baggage-soute {
+    width: 100%;
+  }
+
+  .step-1 {
+    margin-bottom: 10px;
+  }
+}

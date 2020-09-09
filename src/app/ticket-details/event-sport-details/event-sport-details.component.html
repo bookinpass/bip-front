@@ -1,0 +1,205 @@
+<div *ngIf="loading" class="main-loader">
+  <p>Veuillez patienter SVP!</p>
+</div>
+
+<div *ngIf="!loading" class="ui form container mt-4 mb-3">
+  <div class="ui horizontal stackable segments d-flex flex-column flex-lg-row step-1 p-2 top-bordered-radius">
+    <div class="ui items raised segment">
+      <div class="item">
+        <div class="ui small rectangle image blue-border">
+          <img [src]="image" alt="" style="height: 100%; width: 100%">
+        </div>
+        <div class="content">
+          <a class="header event-title">{{event.designation}}</a>
+          <div class="description d-flex flex-column">
+            <div><h6>Type:</h6> {{event.eventType}}</div>
+            <div><h6>Lieu:</h6> {{event.place.designation}}</div>
+            <div><h6>Début:</h6> {{event.startingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.startingTime}}</div>
+            <div><h6>Fin:</h6> {{event.endingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.endingTime}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="item d-flex flex-column">
+        <!--        <h5 class="font-weight-bold underlined h5">Description:</h5>-->
+        <h6 class="font-weight-normal">{{event.description}}</h6>
+      </div>
+    </div>
+    <div class="ui raised segment">
+      <div class="ui centered header h4" style="color: #ff6600">Billet disponible</div>
+      <div class="d-flex flex-column justify-content-around" style="height: calc(100% - 50px);">
+        <div *ngFor="let item of sortPricing(); let i=index" class="available-ticket">
+          <div [style]="'background-color:' + ticketIcon[i] ">{{item.description | titlecase}}</div>
+          <div [style]="'color:' + ticketIcon[i] " class="d-flex flex-column">
+            <div class="d-flex flex-row w-100 justify-content-between m-0">
+              <span class="list-item-display">Prix</span>
+              <span>{{item.price | currency: 'XOF' : 'symbol-narrow' : '1.1-2'}}</span>
+            </div>
+            <div class="d-flex flex-row w-100 justify-content-between">
+              <span class="list-item-display">Ticket Restant</span>
+              <span>{{!item.remainingTicket ? item.totalTickets : item.remainingTicket <= 0 ? 'Sold out' : item.remainingTicket}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui horizontal stackable segments d-flex flex-column flex-lg-row step-1 p-2 bottom-bordered-radius">
+  </div>
+
+  <div *ngIf="currentStep === 1" class="ui raised segment cart-step">
+    <div class="ui orange dividing header" style="color: #ff6600">Ajout de ticket a mon panier</div>
+    <div class="ui form">
+      <div class="inline fields align-items-end rounded-button">
+        <div class="required field">
+          <label>Type du billet</label>
+          <select (change)="updateSelectedTicketType()" [(ngModel)]="cartTicket.type" class="ui search selection dropdown"
+                  name="ticketType">
+            <option value="">Séléctionner</option>
+            <option *ngFor="let item of filteredPricing()" [ngClass]="itemExistInCart(item) ? 'd-none' : ''"
+                    [value]="item.description">{{item.description | titlecase}}</option>
+          </select>
+        </div>
+        <div class="required field">
+          <label>Nombre de billet</label>
+          <select (change)="cartTicket.totalPrice = cartTicket.unitPrice * cartTicket.amount" [(ngModel)]="cartTicket.amount"
+                  [disabled]="cartTicket.type  === '' &&  cartTicket.unitPrice  === 0" class="ui selection dropdown" name="amount">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Prix unitaire</label>
+          <input [value]="cartTicket.unitPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'"
+                 placeholder="Prix unitaire" readonly tabindex="-1" type="text">
+        </div>
+        <div class="field">
+          <label>Prix total</label>
+          <input [value]="cartTicket.totalPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'"
+                 readonly tabindex="-1" type="text">
+        </div>
+        <button (click)="addToCart()" [ngClass]="cartTicket.amount > 0 && cartTicket.type.length > 0 ? '' : 'disabled'"
+                class="ui button" style="color: #FFFFFF; background-color: #34a6d8" type="button">Ajouter
+        </button>
+      </div>
+    </div>
+    <!-- End of Adding to cart-->
+
+    <!-- Display Cart -->
+    <div class="ui orange dividing header mt-0" style="color: #ff6600">Mon panier</div>
+    <table class="ui striped very compact stackable celled five column table" style="background: transparent !important;">
+      <thead>
+      <tr class="center aligned" style="background-color: #34a6d8">
+        <th style="background-color: #34a6d8;color: white">Type</th>
+        <th style="background-color: #34a6d8;color: white">Nombre</th>
+        <th style="background-color: #34a6d8;color: white">Prix Unitaire</th>
+        <th style="background-color: #34a6d8;color: white">Prix Total</th>
+        <th style="background-color: #34a6d8;color: white">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="cart.length === 0">
+        <td class="text-center h4 text-dark" colspan="5">Votre panier est vide</td>
+      </tr>
+      <tr *ngFor="let item of cart">
+        <td>{{item.type}}</td>
+        <td class="text-right">{{item.amount}}</td>
+        <td class="text-right">{{item.unitPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'}}</td>
+        <td class="text-right">{{item.totalPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'}}</td>
+        <td class="d-flex flex-row justify-content-around w-100 ui one column">
+          <button (click)="editItem(item)" class="ui icon button text-primary"><i class="pencil icon"></i></button>
+          <button (click)="deleteItem(item)" class="ui icon button text-danger"><i class="trash icon"></i></button>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot *ngIf="cart.length > 0">
+      <tr>
+        <th>Total</th>
+        <th class="text-right">{{cartTotalTicket()}}</th>
+        <th></th>
+        <th class="text-right">{{cartTotalPrice() | currency: 'XOF': 'symbol-narrow': '1.1-2'}}</th>
+        <th></th>
+      </tr>
+      </tfoot>
+    </table>
+    <!-- end of displaying cart -->
+    <div class="ui fluid" style="height: 40px">
+      <div (click)="currentStep = currentStep + 1" [ngClass]="cart.length > 0 ? '' : 'disabled'" class="ui right floated button"
+           style="color: #FFFFFF; background-color: #34a6d8">
+        Suivant
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="[2, 3].includes(currentStep)" class="ui segment cart-step step-2 mb-1">
+    <form [formGroup]="formGroup" autocomplete="on" class="ui form orange-labeled">
+      <div class="two equal width fields">
+        <div [ngClass]="submitted && f.firstName.status === 'INVALID' ? 'error' : ''" class="required field">
+          <label>Prénom</label>
+          <input autocapitalize="words" formControlName="firstName" type="text"/>
+          <div *ngIf="submitted && f.firstName.errors">
+            <div *ngIf="f.firstName.errors.required" class="invalid-message">Ce champ est requis.</div>
+            <div *ngIf="f.firstName.errors.minlength" class="invalid-message">Ce champ doit contenir au moins 2 caractères.</div>
+          </div>
+        </div>
+        <div [ngClass]="submitted && f.lastName.status === 'INVALID' ? 'error' : ''" class="required field">
+          <label>Nom</label>
+          <input autocapitalize="words" formControlName="lastName" type="text"/>
+          <div *ngIf="submitted && f.lastName.errors">
+            <div *ngIf="f.lastName.errors.required" class="invalid-message">Ce champ est requis.</div>
+            <div *ngIf="f.lastName.errors.minlength" class="invalid-message">Ce champ doit contenir au moins 2 caractères.</div>
+          </div>
+        </div>
+      </div>
+      <div class="ui two equal width fields">
+        <div [ngClass]="submitted && f.countryCode.errors ? 'error' : ''" class="required field">
+          <label>Pays</label>
+          <select class="ui dropdown selection share-tel mr-2  mb-0 h6" formControlName="countryCode">
+            <option *ngFor="let item of countries" [value]="item.code">{{item.name}}</option>
+          </select>
+          <div *ngIf="submitted && f.countryCode.errors">
+            <div *ngIf="f.countryCode.errors.required" class="invalid-message">Ce champ est requis.</div>
+          </div>
+        </div>
+        <div [ngClass]="submitted && f.telephone.errors ? 'error' : ''" class="required field">
+          <label>Téléphone</label>
+          <div class="ui left labeled input">
+            <div class="ui label">
+              <i class="{{f.countryCode.value | lowercase}} flag"></i>{{getDialCode()}}
+            </div>
+            <input (keyup)="formatNumber()" formControlName="telephone" type="tel"/>
+          </div>
+          <div *ngIf="submitted && f.telephone.errors">
+            <div *ngIf="f.telephone.errors.required" class="invalid-message">Ce champ est requis.</div>
+            <div *ngIf="f.telephone.errors.validPhone" class="invalid-message">Le format de votre numéro de téléphone est invalide.
+            </div>
+            <div *ngIf="f.telephone.errors.pattern" class="invalid-message">Ce champ ne peut contenir que des chiffres.</div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-column flex-md-row align-items-end">
+        <re-captcha (resolved)="resolvedCaptcha($event)" [hidden]="f.captcha.valid" [siteKey]="captachaKey"
+                    formControlName="captcha"></re-captcha>
+        <div *ngIf="currentStep === 2" class="h-100 d-flex justify-content-end w-available">
+          <div (click)="previousStep()" class="ui left floated button ml-3" style="color: #FFFFFF; background-color: #34a6d8">Précédent
+          </div>
+          <div (click)="onSubmit()" [ngClass]="formGroup.invalid ? 'disabled' : ''" class="ui right floated button"
+               style="color: #FFFFFF; background-color: #ff6600">
+            Procéder au paiement
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-payment *ngIf="currentStep === 3" [paymentRequest]="payExpressParam" class="mt-2"></app-payment>
+    <div *ngIf="currentStep === 3" class="h-100 w-available">
+      <div (click)="previousStep()" class="ui right aligned button ml-3" style="color: #FFFFFF; background-color: #ff6600">Précédent</div>
+    </div>
+  </div>
+</div>
+

@@ -3,8 +3,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CountryJson} from '../../../../assets/Country.json';
 import Swal from 'sweetalert2';
 import {CountryCode, isValidNumberForRegion} from 'libphonenumber-js';
-import {EPaymentData} from '../../core-payment-v2/core-payment-v2.component';
 import {CurrencyPipe} from '@angular/common';
+import {EPaymentData} from '../../../results/boat/boat-result.component';
 
 @Component({
   selector: 'app-e-payment',
@@ -23,7 +23,6 @@ export class EPaymentComponent implements OnInit {
     {path: '../../../assets/images/icons/wari.png', alt: 'avec Wari', type: 'wari'},
     {path: '../../../assets/images/icons/tigoCash.png', alt: 'avec Tigo Cash', type: 'tigo'},
     {path: '../../../assets/images/icons/cash.png', alt: 'en espece', type: 'cash'},
-    // {path: '../../../assets/images/icons/credit.jpg', alt: 'Credit telephonique', type: 'mobile'},
   ];
 
   constructor(public dialogRef: MatDialogRef<EPaymentComponent>,
@@ -49,7 +48,7 @@ export class EPaymentComponent implements OnInit {
           title: 'Réussi',
           html: 'Votre paiement a été accepté.<br/> ID transaction: ' + this.paymentData.orderId + '<br/> Net Payé: ' +
             this.currencyPipe.transform(this.paymentData.price, 'XOF', 'symbol-narrow', '1.1-2'),
-          type: 'success',
+          icon: 'success',
           showCloseButton: false,
           showCancelButton: false,
           showConfirmButton: true,
@@ -87,7 +86,7 @@ export class EPaymentComponent implements OnInit {
   }
 
   private checkForm() {
-    return isValidNumberForRegion(this.paymentData.payer.phone, this.paymentData.payer.countryCode as CountryCode)
+    return isValidNumberForRegion(this.paymentData.payer.telephone, this.paymentData.payer.countryCode as CountryCode)
       && this.authorizationCode.length === 6;
   }
 }

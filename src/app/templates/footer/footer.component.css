@@ -1,46 +1,30 @@
 footer {
-  /*position: absolute;*/
   bottom: 0;
   width: 100%;
-  z-index: 0;
-  clear: both;
-  background: url("../../../assets/images/background/footer-bd sky blue.webp");
-  background-size: cover;
+  background-color: #ddd;
+  color: #222;
 }
 
 .rubrique_show {
   color: white;
 }
 
-footer > div {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-strong {
-  color: white !important;
+strong, a {
+  color: #222 !important;
 }
 
 .btn-primary-footer-custom {
-  border-color: #e94e38 !important;
-  background: #e94e38 !important;
+  border-color: #ff6600 !important;
+  background: #ff6600 !important;
 }
 
 .btn-primary-footer-custom:hover {
-  border-color: #e94e38 !important;
-  background: #e94e38 !important;
-}
-
-.white-back-custom {
-  width: 45%;
-  border: 1px solid white;
+  border-color: #ff6600 !important;
+  background: #ff6600 !important;
 }
 
 .a-footer-custom {
   font-size: 40px;
-}
-
-a {
-  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .inputWithIcon input[type="text"] {
@@ -64,12 +48,12 @@ a {
 .inputWithIcon.inputIconBg button {
   background-color: orange;
   padding: 6px 17px;
-  border-radius: 0 4px 4px 0px;
+  border-radius: 0 4px 4px 0;
 }
 
 .inputWithIcon.inputIconBg input[type="text"]:focus + button {
-  color: #fff;
-  background-color: orange;
+  color: #000;
+  background-color: #ff6600;
 }
 
 .inputWithIcon {
@@ -86,7 +70,21 @@ a {
 }
 
 .inputWithIcon input[type="text"]:focus + button {
-  color: orange;
+  color: #FF6600;
+}
+
+.footer-copyright {
+  background-color: #373737;
+  height: 45px !important;
+  align-items: center;
+  margin: 7px 0 0 0;
+}
+
+.footer-copyright p {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Open Sans", "Roboto Slab", AdineuePRO, Ubuntu, Roboto, "Helvetica Neue", sans-serif;
+  letter-spacing: 0.7px;
 }
 
 /**

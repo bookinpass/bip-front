@@ -1,0 +1,14 @@
+<h1 matDialogTitle></h1>
+
+<div matDialogContent>
+  <div *ngIf="conditions.size > 0" class="ui very relaxed top aligned divided list">
+    <div *ngFor="let item of conditions|keyvalue" class="item">
+      <div class="content">
+        <a class="header h2 mb-3 cursor-default">{{item.key}}</a>
+        <div class="description">
+          <p [innerHTML]="item.value"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

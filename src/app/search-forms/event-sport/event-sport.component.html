@@ -1,0 +1,53 @@
+<div [ngClass]="loading ? 'loading' : ''" class="ui form fluid">
+
+  <div class="two fields">
+    <div *ngIf="option.equalIgnoreCase('event')" class="required field">
+      <label>{{'type événement' | titlecase}}</label>
+      <select [(ngModel)]="eventType" class="ui search dropdown" name="eventType">
+        <option value="tout">{{'Peu importe' | titlecase}}</option>
+        <option *ngFor="let item of variableConfig.eventType.sort()" [value]="item.toLowerCase()">{{item | titlecase}}</option>
+      </select>
+    </div>
+    <div [ngClass]="option.equalIgnoreCase('sport') ? 'mt-2' : ''" class="field">
+      <label>{{'Date' | titlecase}}</label>
+      <input (change)="validateEventDate()" [(ngModel)]="eventSearch.date" name="date" type="date">
+    </div>
+  </div>
+
+  <div *ngIf="option.equalIgnoreCase('event')" class="field">
+    <label>Entrer des mots clés</label>
+    <tag-input [(ngModel)]="eventSearch.keyword"
+               [addOnBlur]="true"
+               [addOnPaste]="true"
+               [allowDupes]="false"
+               [editable]="true"
+               [maxItems]="5"
+               [modelAsStrings]="true"
+               [removable]="true"
+               [trimTags]="true"
+               inputClass="tag__input__class"
+               placeholder="Mot clés"></tag-input>
+  </div>
+
+  <div class="field">
+    <label>Lieu</label>
+    <angular2-multiselect (onDeSelect)="OnItemDeSelect($event)" (onDeSelectAll)="onDeSelectAll($event)"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          [(ngModel)]="selectedItems"
+                          [data]="dropdownList"
+                          [settings]="dropdownSettings">
+    </angular2-multiselect>
+
+
+    <!--    <select class="ui search dropdown" multiple name="name">-->
+    <!--      <option selected value="">Séléctionnez un ou plusieurs lieu (s)</option>-->
+    <!--      <option *ngFor="let item of allPlaces" [value]="item.placeId">{{item.designation}}</option>-->
+    <!--    </select>-->
+  </div>
+
+  <div>
+    <button (click)="searchEvent()" class="plane-search-button" type="button">Rechercher</button>
+  </div>
+
+</div>

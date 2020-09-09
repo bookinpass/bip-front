@@ -1,0 +1,121 @@
+<div class="content-wrapper">
+  <p class="m-0" mat-dialog-title>
+    <mat-card-title matDialogTitle>{{enterCode ? 'Activation du compte' : 'Inscription'}}
+      <fa-icon (click)="dialogRef.close(false)" [icon]="faClose" class="float-right cursor-pointer"></fa-icon>
+    </mat-card-title>
+  </p>
+  <form *ngIf="!enterCode" [ngClass]="loading ? 'loading' : ''" class="ui form">
+    <div [ngClass]="error.includes('firstName') ? 'error' : ''" class="ui field required">
+      <label>Prénom</label>
+      <input (blur)="checkRequiredField(user.firstName, 'firstName')" [(ngModel)]="user.firstName" autocapitalize="off"
+             autocomplete="true" autofocus="" name="firstName" placeholder="Prénom" type="text"/>
+      <div *ngIf="error.includes('firstName')" class="ui message">Veuillez saisie votre prénom</div>
+    </div>
+
+    <div [ngClass]="error.includes('lastName') ? 'error' : ''" class="ui field required">
+      <label>Nom</label>
+      <input (blur)="checkRequiredField(user.lastName, 'lastName')" [(ngModel)]="user.lastName" autocapitalize="off"
+             autocomplete="true" autofocus="" name="lastName" placeholder="Nom" type="text">
+      <div *ngIf="error.includes('lastName')" class="ui message">Veuillez saisir votre nom</div>
+    </div>
+
+    <div [ngClass]="error.includes('username') || !usernameLength ||(!error.includes('username') && usedAttribute.username) ? 'error' : ''"
+         class="ui field required">
+      <label>Nom d'utilisateur</label>
+      <input (blur)="checkUsername()" [(ngModel)]="user.credential.username" autocapitalize="off" autocomplete="true" autofocus=""
+             name="username" placeholder="Nom d'utilisateur" type="text"/>
+      <div *ngIf="error.includes('username') || usedAttribute.username || !usernameLength" class="ui message">
+        <ul class="list">
+          <li *ngIf="error.includes('username')">Veuillez saisir un nom d'utilisateur</li>
+          <li *ngIf="!usernameLength">Le nom d'utilisateur doit contenir au moins 4 carateres.</li>
+          <li *ngIf="!error.includes('username') && usedAttribute.username">Cet nom d'utilisateur n'est pas disponible</li>
+        </ul>
+      </div>
+    </div>
+
+    <div [ngClass]="error.includes('password') || !isPasswordValid? 'error' : ''" class="ui field required">
+      <label>Mot de passe</label>
+      <div class="ui icon input">
+        <input (focusin)="displayPasswordHint = true" (focusout)="displayPasswordHint = false" (keyup)="setPasswordStatus()"
+               [(ngModel)]="user.credential.password" [type]="showPassword ? 'text' : 'password'" autocomplete="false" name="password"
+               placeholder="*******"/>
+        <i (click)="showPassword = !showPassword" [ngClass]="showPassword ? 'eye slash icon' : 'eye icon'" class="cursor-pointer"
+           style="pointer-events: auto"></i>
+      </div>
+      <div *ngIf="error.includes('password') || !isPasswordValid" class="ui message">
+        <div class="header h5">Validateurs du mot de passe:</div>
+        <ul class="list">
+          <li *ngIf="passwordArrayValidator.includes('min')">Minimum 8 caractères</li>
+          <li *ngIf="passwordArrayValidator.includes('uppercase')">Au moins une majuscule</li>
+          <li *ngIf="passwordArrayValidator.includes('lowercase')">Au moins une minuscule</li>
+          <li *ngIf="passwordArrayValidator.includes('digits')">Au moins un chiffre</li>
+        </ul>
+      </div>
+      <div *ngIf="displayPasswordHint && !isPasswordValid" class="d-flex flex-column bubble">
+        <div>
+          <fa-icon [icon]="passwordArrayValidator.includes('min') ? faClose : faCheck"></fa-icon>
+          Minimum 8 caractères
+        </div>
+        <div>
+          <fa-icon [icon]="passwordArrayValidator.includes('uppercase') ? faClose : faCheck"></fa-icon>
+          Au moins une majuscule
+        </div>
+        <div>
+          <fa-icon [icon]="passwordArrayValidator.includes('lowercase') ? faClose : faCheck"></fa-icon>
+          Au moins une minuscule
+        </div>
+        <div>
+          <fa-icon [icon]="passwordArrayValidator.includes('digits') ? faClose : faCheck"></fa-icon>
+          Au moins un chiffre
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="error.includes('email') || !isEmailValid || usedAttribute.email ? 'error' : ''" class="ui field">
+      <label>Email</label>
+      <input (focusout)="checkEmail()" [(ngModel)]="user.email" autocapitalize="off" autocomplete="true" autofocus="" name="email"
+             placeholder="Email" type="text"/>
+      <div *ngIf="!isEmailValid || usedAttribute.email" class="ui message">
+        <ul class="list">
+          <li *ngIf="!isEmailValid">Le format de votre email est invalide.</li>
+          <li *ngIf="usedAttribute.email">Cet email est deja utilise.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ui field required">
+      <label>Séléctionner votre pays</label>
+      <select (change)="updateDialCode()" [(ngModel)]="user.countryCode" class="ui selection dropdown" name="countrySelect">
+        <option *ngFor="let ctr of countries" [selected]="ctr.code === user.countryCode" [value]="ctr.code">{{ctr.name}}</option>
+      </select>
+    </div>
+
+    <div [ngClass]="error.includes('telephone') ? 'error' : ''" class="ui field required">
+      <label>Téléphone</label>
+      <div class="ui labeled input">
+        <div class="ui basic label">{{dialCode}}</div>
+        <input (focusout)="checkTelephone()" (keyup)="formatNumber()" [(ngModel)]="user.telephone" autocapitalize="off" autocomplete="true"
+               autofocus="" name="telephone" placeholder="Téléphone" type="tel">
+      </div>
+      <div *ngIf="error.includes('telephone') || !isPhoneNumberValid || usedAttribute.telephone" class="ui message">
+        <ul class="list">
+          <li *ngIf="error.includes('telephone')">Veuillez saisir votre numéro de téléphone.</li>
+          <li *ngIf="!isPhoneNumberValid">Ce numéro de téléphone n'est pas valide pour le pays séléctionnné.</li>
+          <li *ngIf="usedAttribute.telephone">Ce numéro de téléphone est lié a un autre compte.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="w-100" matDialogActions>
+      <div class="ui left floated grey button" matDialogClose>Annuler</div>
+      <div (click)="register()" class="ui right floated violet button">Enregistrer</div>
+    </div>
+  </form>
+
+  <div *ngIf="enterCode" [ngClass]="loading ? 'loading' : ''" class="ui form">
+    <div class="field">
+      <label>Entrer le code de verification</label>
+      <input [(ngModel)]="code" placeholder="Code de verification" type="text"/>
+    </div>
+    <div (click)="loading = true; validateAccount()" class="ui green button mb-2">Valider</div>
+  </div>
+</div>

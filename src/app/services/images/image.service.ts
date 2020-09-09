@@ -1,26 +1,19 @@
 import {Injectable} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 import {UrlConfig} from '../../../assets/url.config';
-import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
-  private urlRepository = new UrlConfig();
-  readonly host = this.urlRepository.host;
-  readonly imageUrl = this.urlRepository.imageUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private sanitizer: DomSanitizer) {
   }
 
-  getImage(directory: string, filename: string) {
-    const params = new HttpParams({
-      fromObject: {
-        directory,
-        filename
-      }
-    });
-    return this.http.get(`${this.host + this.imageUrl}`, {params, observe: 'response', responseType: 'json'});
+  public getImage(id: string, timestamp: string) {
+    const name = [id, timestamp].join('-');
+    const img = `/assets/images/event/${name}.jpg`;
+    return this.sanitizer.bypassSecurityTrustUrl(new UrlConfig().frontHost.concat(img));
   }
 
 }

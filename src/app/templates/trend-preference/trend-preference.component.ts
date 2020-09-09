@@ -4,7 +4,7 @@ import {EventService} from '../../services/event/event.service';
 import {Scavenger} from '@wishtack/rx-scavenger';
 import {retry} from 'rxjs/operators';
 import {EventModel} from '../../models/event.model';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
+import {SafeUrl} from '@angular/platform-browser';
 import {ImageService} from '../../services/images/image.service';
 import {ImageBase64} from '../../../assets/images/base64/image.base64';
 import {faBars, faFutbol, faPlane, faStar} from '@fortawesome/free-solid-svg-icons';
@@ -47,7 +47,6 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private eventService: EventService,
               private imageService: ImageService,
-              private sanitizer: DomSanitizer,
               public dialog: MatDialog) {
   }
 
@@ -63,7 +62,8 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
   }
 
   public selectItem(eventId: string) {
-    this.router.navigate(['details', 'event', eventId]);
+    this.router.navigate(['details', 'event', eventId]).then(() => {
+    });
   }
 
   public selectDestination(code: string) {
@@ -89,7 +89,8 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
       ticket.oneWay = true;
       ticket.departure = result.toString();
       localStorage.setItem('search_ticket', JSON.stringify(ticket));
-      this.router.navigate(['search', 'flights']);
+      this.router.navigate(['search', 'flights']).then(() => {
+      });
     });
   }
 
@@ -109,17 +110,8 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
   }
 
   private getImage() {
-    const list = this.listOfEvents.map(x => x.eventId);
-    this.listOfSports.map(x => x.eventId).forEach(x => list.push(x));
-    list.forEach(ids => {
-      this.imageService.getImage('event', ids)
-        .pipe(this.scavenger.collect(),
-          retry(1))
-        .subscribe(data => {
-          const d: any = data.body;
-          this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(d.content.toString()));
-        }, _ => this.listImage.set(ids, this.sanitizer.bypassSecurityTrustUrl(this.noImage)));
-    });
+    this.listOfEvents.forEach(x => this.listImage.set(x.eventId, this.imageService.getImage(x.eventId, x.imageTimestamp)));
+    this.listOfSports.forEach(x => this.listImage.set(x.eventId, this.imageService.getImage(x.eventId, x.imageTimestamp)));
   }
 
 }

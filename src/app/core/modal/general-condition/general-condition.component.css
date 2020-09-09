@@ -1,6 +1,6 @@
 * {
   text-align: justify;
-  font-family: "Roboto Slab", "Open Sans", "Roboto", "Roboto Slab", Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: "Open Sans", Ubuntu, "Roboto", "Helvetica Neue", sans-serif;
   line-height: 1.5em !important;
 }
 
@@ -8,15 +8,3 @@
   font-size: 15px !important;
 }
 
-.matAction {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  flex-wrap: unset;
-  min-height: unset;
-  height: 60px;
-  align-items: center;
-  margin-bottom: -24px;
-  padding-top: 27px;
-  border-top: 1px solid #ccc;
-}

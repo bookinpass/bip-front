@@ -1,0 +1,49 @@
+<div class="ui styled accordion filtering">
+  <div class="active title">
+    Prix
+    <i class="dropdown icon"></i>
+  </div>
+  <div class="active content p-1">
+    <ngx-slider *ngIf="priceRange" [(highValue)]="maxValue" [(value)]="minValue" [options]="options"></ngx-slider>
+    <div class="d-flex flex-row justify-content-end align-items-center">
+      <a (click)="doFilter('prices')" class="ui orange basic label link">Appliquer</a>
+    </div>
+  </div>
+
+
+  <div class="active title">
+    Escale
+    <i class="dropdown icon"></i>
+  </div>
+  <div class="active content stop-content">
+    <mat-button-toggle-group aria-label="flight type" class="mt-2" name="flightType">
+      <mat-button-toggle (click)="filterStops.emit(false)" [checked]="!stop" value="1">Avec</mat-button-toggle>
+      <mat-button-toggle (click)="filterStops.emit(true)" [checked]="stop" value="0">Sans</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="active title">
+    Compagnies
+    <i class="dropdown icon"></i>
+  </div>
+
+  <div class="active content p-0">
+    <div class="d-flex justify-content-center flex-column pb-1 pt-0">
+      <div class="ui tiny buttons mt-2">
+        <button (click)="filteredCarriers = carriers" class="ui violet button">Toutes</button>
+        <div class="or" data-text="ou"></div>
+        <button (click)="filteredCarriers.splice(0)" class="ui orange button">Aucune</button>
+      </div>
+    </div>
+
+    <div *ngFor="let item of carriers">
+      <div class="ui checkbox">
+        <input (change)="updateCarrier(item)" [checked]="filteredCarriers.includes(item)" class="airline-checkbox" type="checkbox">
+        <label class="h7 mb-1">{{dictionary.carriers[item] | titlecase}}</label>
+      </div>
+    </div>
+    <div class="d-flex flex-row justify-content-end align-items-center">
+      <a (click)="doFilter('airlines')" class="ui orange basic label link">Appliquer</a>
+    </div>
+  </div>
+</div>

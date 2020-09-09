@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {ErrorHandler, LOCALE_ID, NgModule} from '@angular/core';
+import localeFr from '@angular/common/locales/fr';
 import '../assets/prototypes/string-prototypes';
 import '../assets/prototypes/array-prototypes';
 
@@ -10,69 +11,47 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HeaderComponent} from './templates/header/header.component';
 import {FooterComponent} from './templates/footer/footer.component';
-import {TicketSearchingComponent} from './templates/ticket-searching/ticket-searching.component';
-import {HomeComponent} from './home/home.component';
+import {TicketSearchingComponent} from './search-forms/ticket-searching/ticket-searching.component';
+import {HomeComponent} from './search-forms/home/home.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
 import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
-import {CurrencyPipe, DatePipe, registerLocaleData} from '@angular/common';
-import localeFr from '@angular/common/locales/fr';
-import {FlightSearchingComponent} from './results/flight-searching/flight-searching.component';
-import {EventSearchingComponent} from './results/event-searching/event-searching.component';
-import {FileUploadModule} from 'ng2-file-upload';
+import {CurrencyPipe, DatePipe, registerLocaleData, TitleCasePipe} from '@angular/common';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AsideFilterComponent} from './results/flight-searching/aside-filter/aside-filter.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {FlightItineraryComponent} from './results/flight-searching/flight-itinerary/flight-itinerary.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {FlightTicketDetailsComponent} from './tickets/flight-ticket-details/flight-ticket-details.component';
-import {EventSportDetailsComponent} from './templates/search/event-sport/event-sport-details/event-sport-details.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
-import {LoginComponent} from './authentication/login/login.component';
-import {RegisterComponent} from './authentication/register/register.component';
+import {LoginComponent} from './users/login/login.component';
+import {RegisterComponent} from './users/register/register.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CookieService} from 'ngx-cookie-service';
 import {JwtModule} from '@auth0/angular-jwt';
 import {GlobalErrorHandlerService} from './core/error/global-error-handler.service';
-import {MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
 import {TicketDetailsComponent} from './templates/ticket-details/ticket-details.component';
 // make jquery to be available globally
 import * as $ from 'jquery';
 import {AddressesComponent} from './tickets/flight-ticket-details/addresses/addresses.component';
-import {PaypalComponent} from './core/payments/paypal/paypal.component';
-import {CreditCardComponent} from './core/payments/credit-card/credit-card.component';
-import {InCashComponent} from './core/payments/in-cash/in-cash.component';
-import {NgxPayPalModule} from 'ngx-paypal';
-import {FomanticUIModule} from 'ngx-fomantic-ui';
 import {TagInputModule} from 'ngx-chips';
 import {TrendPreferenceComponent} from './templates/trend-preference/trend-preference.component';
 import {TravelAsideComponent} from './tickets/travel-aside/travel-aside.component';
-import {PrintFlightTicketComponent} from './templates/print-flight-ticket/print-flight-ticket.component';
-import {FlightsComponent} from './templates/search/flights/flights.component';
-import {EventSportComponent} from './templates/search/event-sport/event-sport.component';
-import {BoatComponent} from './templates/search/boat/boat.component';
-import {BoatResultComponent} from './templates/search/boat/boat-result/boat-result.component';
-import {CalendarModule, DateAdapter} from 'angular-calendar';
-import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-import {CorePaymentComponent} from './core/core-payment/core-payment.component';
-import {QRCodeModule} from 'angularx-qrcode';
+import {FlightsComponent} from './search-forms/flights/flights.component';
+import {EventSportComponent} from './search-forms/event-sport/event-sport.component';
+import {BoatComponent} from './search-forms/boats/boat.component';
 import {GeneralConditionComponent} from './core/modal/general-condition/general-condition.component';
-import {BusComponent} from './templates/search/bus/bus.component';
-import {BusResultComponent} from './templates/search/bus/bus-result/bus-result.component';
-import {RecaptchaModule} from 'ng-recaptcha';
-import {CorePaymentV2Component} from './core/core-payment-v2/core-payment-v2.component';
+import {BusComponent} from './search-forms/bus/bus.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {HomeBannerComponent} from './advertising/home-banner/home-banner.component';
-import {EPaymentComponent} from './core/payments/e-payment/e-payment.component';
-import {SlideshowModule} from "ng-simple-slideshow";
-import {SidebarModule} from "ng-sidebar";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatSidenavModule} from '@angular/material/sidenav';
 import {ChooseFlightDialogComponent} from './templates/trend-preference/choose-flight-dialog/choose-flight-dialog.component';
+import {MatCardModule} from '@angular/material/card';
+import {NgbCarouselModule} from '@ng-bootstrap/ng-bootstrap';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
+import {InterceptorProviders} from './core/Interceptors/interceptorProvider';
+import {PaygateResponseComponent} from './core/paygate/response/paygate-response.component';
 
 registerLocaleData(localeFr);
 
@@ -90,36 +69,24 @@ window['jQuery'] = $;
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    TicketSearchingComponent,
     HomeComponent,
-    FlightSearchingComponent,
-    EventSearchingComponent,
-    AsideFilterComponent,
-    FlightItineraryComponent,
+    TicketSearchingComponent,
+    FlightsComponent,
+    BoatComponent,
+    BusComponent,
+    TrendPreferenceComponent,
+    HomeBannerComponent,
+    ChooseFlightDialogComponent,
+
     FlightTicketDetailsComponent,
-    EventSportDetailsComponent,
     LoginComponent,
     RegisterComponent,
     TicketDetailsComponent,
     AddressesComponent,
-    PaypalComponent,
-    CreditCardComponent,
-    EPaymentComponent,
-    InCashComponent,
-    TrendPreferenceComponent,
     TravelAsideComponent,
-    PrintFlightTicketComponent,
-    FlightsComponent,
     EventSportComponent,
-    BoatComponent,
-    BoatResultComponent,
-    CorePaymentComponent,
     GeneralConditionComponent,
-    BusComponent,
-    BusResultComponent,
-    CorePaymentV2Component,
-    HomeBannerComponent,
-    ChooseFlightDialogComponent
+    PaygateResponseComponent,
   ],
   imports: [
     BrowserModule,
@@ -127,56 +94,43 @@ window['jQuery'] = $;
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    FileUploadModule,
     FontAwesomeModule,
-    MatButtonToggleModule,
-    MatDialogModule,
     ReactiveFormsModule,
-    MatCardModule,
-    MatProgressSpinnerModule,
-    MatButtonModule,
-    MatSelectModule,
+    SweetAlert2Module.forRoot(), //
     JwtModule.forRoot({
       config: {
         tokenGetter,
         headerName: 'Authorization',
-        whitelistedDomains: ['http://localhost:4201', 'https://bookinpass.000webhostapp.com']
+        allowedDomains: ['http://localhost:4201', 'https://bookinpass.000webhostapp.com'],
+        disallowedRoutes: []
       }
     }),
-    SweetAlert2Module.forRoot(),
-    MatStepperModule,
-    MatIconModule,
-    NgxPayPalModule,
-    FomanticUIModule,
-    TagInputModule,
-    CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
-    QRCodeModule,
-    RecaptchaModule,
     MatTooltipModule,
-    SlideshowModule,
-    SidebarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    NgbCarouselModule,
+    MatCardModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatButtonToggleModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatSelectModule,
+    TagInputModule,
+    AngularMultiSelectModule
   ],
   providers: [
     CurrencyPipe,
     DatePipe,
-    {provide: LOCALE_ID, useValue: 'fr-SN'},
+    TitleCasePipe,
     CookieService,
-    {provide: ErrorHandler, useClass: GlobalErrorHandlerService}
+    InterceptorProviders,
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService},
+    {provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    FlightItineraryComponent,
-    RegisterComponent,
-    LoginComponent,
-    GeneralConditionComponent,
-    EPaymentComponent,
-    InCashComponent,
-    ChooseFlightDialogComponent]
+  bootstrap: [AppComponent]
 })
 
 export class AppModule {

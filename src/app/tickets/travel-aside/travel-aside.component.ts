@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FlightModel, TravelerPricingsEntity} from '../../models/amadeus/flight.model';
-import {DatePipe} from '@angular/common';
-import {TravelerTypeEnum} from '../../models/TravelerType.enum';
+import {FlightModel, TravelerPricingsEntity} from '../../models/amadeuss/flight.model';
+import {TravelerTypeEnum} from '../../models/traveler-type.enum';
 
 @Component({
   selector: 'app-travel-aside',
@@ -18,7 +17,7 @@ export class TravelAsideComponent implements OnInit {
   public travelerTypeMap = new Map<string, number>();
   private travelerTypeEnum = TravelerTypeEnum;
 
-  constructor(private datePipe: DatePipe) {
+  constructor() {
   }
 
   ngOnInit() {

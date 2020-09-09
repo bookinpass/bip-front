@@ -1,8 +1,8 @@
 <!-- Conditions générales -->
-<!--<h2 class="ui header font-weight-bold text-right m-0" mat-dialog-title>Veuillez faire défiler vers le bas et accepter les termes et-->
-<!--  conditions</h2>-->
-<div mat-dialog-content>
-  <h2 class="ui dividing header underlined text-center mt-0">Informations générales</h2>
+<div class="ui header" mat-dialog-title>Informations générales</div>
+<!--  Veuillez faire défiler vers le bas et accepter les termes et conditions</h2>-->
+<mat-dialog-content>
+  <!--  <h2 class="ui dividing header underlined text-center mt-0">Informations générales</h2>-->
   <div class="ui bulleted list">
     <div class="item">À travers ce site Web, l’application mobile ou le Call Center. Un achat sur ce site Web signifie tout type de commande
       de produits ou de services que vous effectuez avec obligation de paiement et qui a été confirmée par Book In Pass. En achetant des
@@ -272,13 +272,8 @@
       vous obtiendrez, nous vous conseillons de prendre contact avec le service client avant de réserver votre billet.
     </div>
   </div>
-</div>
-<div class="matAction" mat-dialog-actions>
-  <div (click)="close()" class="ui orange mb-4 right floated animated button">
-    <div class="visible content">Accepter</div>
-    <div class="hidden content">
-      <i class="checkmark icon"></i>
-    </div>
-  </div>
-</div>
+</mat-dialog-content>
 
+<mat-dialog-actions class="flex-row justify-content-end align-items-center">
+  <div class="ui orange right floated button" mat-dialog-close>Accepter</div>
+</mat-dialog-actions>

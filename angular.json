@@ -3,9 +3,31 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bip-front": {
+    "bip": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:component": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:module": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +35,8 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bip-front",
+            "showCircularDependencies": true,
+            "outputPath": "dist/bip",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -26,19 +49,17 @@
               "src/.htaccess"
             ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
-              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/animate.css/animate.css",
-              "node_modules/semantic-ui-css/semantic.min.css"
+              "./node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/animate.css/animate.css",
+              "./node_modules/semantic-ui-css/semantic.min.css",
+              "./node_modules/angular-calendar/css/angular-calendar.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/popper.js/dist/umd/popper.min.js",
+              "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/hammerjs/hammer.min.js",
               "node_modules/semantic-ui-css/semantic.min.js",
               "src/assets/js/payexpresse.min.js"
             ]
@@ -78,18 +99,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "bip-front:build"
+            "browserTarget": "bip:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "bip-front:build:production"
+              "browserTarget": "bip:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bip-front:build"
+            "browserTarget": "bip:build"
           }
         },
         "test": {
@@ -104,7 +125,8 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/angular-calendar/css/angular-calendar.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "node_modules/angular-calendar/css/angular-calendar.css",
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
@@ -129,16 +151,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "bip-front:serve"
+            "devServerTarget": "bip:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "bip-front:serve:production"
+              "devServerTarget": "bip:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "bip-front"
+  "defaultProject": "bip",
+  "cli": {
+    "analytics": "78ee2cc6-9dcb-4428-b0aa-2a2a050493b8"
+  }
 }

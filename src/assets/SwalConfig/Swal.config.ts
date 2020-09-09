@@ -1,27 +1,31 @@
-import Swal, {SweetAlertType} from 'sweetalert2';
+import Swal, {SweetAlertIcon} from 'sweetalert2';
 
 export class SwalConfig {
 
-  date: Date;
-
   public Fire(title: string,
               text: string,
-              type: SweetAlertType,
+              icon: SweetAlertIcon,
               showCancelButton: boolean,
               confirmButtonText,
               cancelButtonText?) {
     return Swal.fire({
       title,
       text,
-      type,
+      icon,
       showCancelButton,
       confirmButtonText,
       cancelButtonText: showCancelButton && cancelButtonText !== null && cancelButtonText !== undefined ? cancelButtonText : 'Annuler',
       showCloseButton: false,
       focusConfirm: true,
-      customClass: '/style.css',
+      customClass: {
+        title: 'swal2-title',
+        icon: 'swal2-icon',
+        content: 'swal2-content',
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+      },
       allowOutsideClick: false,
-      allowEnterKey: false,
+      allowEnterKey: true,
       allowEscapeKey: false,
       buttonsStyling: true,
       position: 'center',
@@ -33,14 +37,20 @@ export class SwalConfig {
     Swal.fire({
       title,
       text,
-      type: 'error',
+      icon: 'error',
       confirmButtonText: 'OK',
       showCancelButton: false,
       showCloseButton: false,
       focusConfirm: true,
-      customClass: '/styles.css',
+      customClass: {
+        title: 'swal2-title',
+        icon: 'swal2-icon',
+        content: 'swal2-content',
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+      },
       allowOutsideClick: false,
-      allowEnterKey: false,
+      allowEnterKey: true,
       allowEscapeKey: false,
       buttonsStyling: true,
       position: 'center',
@@ -53,14 +63,20 @@ export class SwalConfig {
     return Swal.fire({
       title,
       text,
-      type: 'error',
+      icon: 'error',
       confirmButtonText: 'OK',
       focusConfirm: true,
       showCancelButton: false,
       showCloseButton: false,
-      customClass: '/styles.css',
+      customClass: {
+        title: 'swal2-title',
+        icon: 'swal2-icon',
+        content: 'swal2-content',
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+      },
       allowOutsideClick: false,
-      allowEnterKey: false,
+      allowEnterKey: true,
       allowEscapeKey: false,
       buttonsStyling: true,
       position: 'center',

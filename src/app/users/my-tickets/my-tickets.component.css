@@ -1,0 +1,20 @@
+tr.clear {
+  cursor: default;
+  pointer-events: none;
+}
+
+.transport-expired {
+  background-color: red;
+  color: white;
+  font-weight: 700;
+}
+
+.strikeout {
+  text-decoration-line: line-through;
+}
+
+.ticket-shared {
+  background-color: green;
+  color: white;
+  font-weight: 700;
+}

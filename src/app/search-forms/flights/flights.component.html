@@ -1,0 +1,133 @@
+<div class="ui form">
+  <div class="ui horizontal list flight-type">
+    <p [ngClass]="!oneWay ? 'active' : ''" class="item m-3">
+      <a (click)="oneWay = false">Aller-retour</a></p>
+    <p [ngClass]="oneWay ? 'active' : ''" class="item m-0">
+      <a (click)="oneWay = true">Aller simple</a></p>
+  </div>
+
+  <div class="ui two fields">
+    <div class="ui field">
+      <input (blur)="updateSelection(null)" (focus)="fuseSearch(true)" (keyup)="fuseSearch(true)"
+             [(ngModel)]="fuseKeySearchDepart" id="field__ref" name="fuse" placeholder="Depart" type="text">
+    </div>
+    <div class="ui field">
+      <input (blur)="updateSelection(null)" (focus)="fuseSearch(false)" (keyup)="fuseSearch(false)"
+             [(ngModel)]="fuseKeySearchReturn" name="fuse" placeholder="Arrive" type="text">
+    </div>
+
+    <div class="ui vertical menu fuse__display__result" id="fuse__block">
+      <div (click)="updateSelection(item)" *ngFor="let item of fuseResultList"
+           class="item d-flex flex-row justify-content-between align-items-center cursor-pointer">
+        <div class="fuse__details">{{item.airportName}}
+          <div>{{item.city}}, {{item.countryName}}</div>
+        </div>
+        <div class="fuse__iata">
+          <span>{{item.iata.toUpperCase()}}</span>
+        </div>
+      </div>
+      <div *ngIf="this.fuseResultList.length === 0" class="text-center mt-2 mb-2" style="color: #004e93">
+        Aucune correspondance trouve!
+      </div>
+      <div class="item fuse__close">
+        <button>fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui two fields">
+    <div class="field">
+      <div class="ui left action input fluid">
+        <button class="ui white labeled icon button cursor-default">Départ le</button>
+        <input [(ngModel)]="searchModel.departDate" class="w-100 border-0" name="departure" type="date"/>
+      </div>
+    </div>
+    <div class="field">
+      <div class="ui left action input fluid p-0">
+        <button class="ui white labeled icon button cursor-default">Retour le</button>
+        <input [(ngModel)]="searchModel.returnDate" [disabled]="oneWay" class="w-100 border-0" name="return" type="date"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-md-row justify-content-between text-white last-row">
+    <div class="ui fields mb-0 flex-column justify-content-start half-width">
+      <div class="field passenger_selection">
+        <p>Adulte (+12ans):</p>
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{searchModel.adults}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="searchModel.adults = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.adults = 2" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.adults = 3" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.adults = 4" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.adults = 5" class="cursor-pointer item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field passenger_selection">
+        <p>Enfant (-12ans):</p>
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{searchModel.children}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="searchModel.children = 0" class="cursor-pointer item">0</div>
+            <div (click)="searchModel.children = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.children = 2" *ngIf="searchModel.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.children = 3" *ngIf="searchModel.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.children = 4" *ngIf="searchModel.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.children = 5" *ngIf="searchModel.adults > 4" class="cursor-pointer item">5</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field passenger_selection">
+        <p>Bébé (-2ans):</p>
+        <div class="dropdown dropdown-class">
+          <button class="dropdownBtn">
+            {{searchModel.infants}}
+            <i class="dropdown icon"></i>
+          </button>
+          <div class="dropdown-content">
+            <div (click)="searchModel.infants = 0" class="cursor-pointer item">0</div>
+            <div (click)="searchModel.infants = 1" class="cursor-pointer item">1</div>
+            <div (click)="searchModel.infants = 2" *ngIf="searchModel.adults > 1" class="cursor-pointer item">2</div>
+            <div (click)="searchModel.infants = 3" *ngIf="searchModel.adults > 2" class="cursor-pointer item">3</div>
+            <div (click)="searchModel.infants = 4" *ngIf="searchModel.adults > 3" class="cursor-pointer item">4</div>
+            <div (click)="searchModel.infants = 5" *ngIf="searchModel.adults > 4" class="cursor-pointer item">5</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column justify-content-between half-width">
+      <div class="dropdown dropdown-class">
+        <button class="dropdownBtn">
+          Classe: {{searchModel.travelClass === 'ECONOMY' ? 'Économique' :
+          searchModel.travelClass === 'PREMIUM_ECONOMY' ? 'Économique Prémium' : searchModel.travelClass === 'BUSINESS' ? 'Affaires' :
+            searchModel.travelClass === 'FIRST' ? 'Première Classe' : '' | titlecase}}
+          <i class="dropdown icon"></i>
+        </button>
+        <div class="dropdown-content">
+          <div (click)="searchModel.travelClass = 'ECONOMY'" class="cursor-pointer item">Économique</div>
+          <div (click)="searchModel.travelClass = 'PREMIUM_ECONOMY'" class="cursor-pointer item">Économique Premium</div>
+          <div (click)="searchModel.travelClass = 'BUSINESS'" class="cursor-pointer item">Affaires</div>
+          <div (click)="searchModel.travelClass = 'FIRST'" class="cursor-pointer item">Première Classe</div>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-between align-items-center">
+        <div class="ui checkbox">
+          <input [(ngModel)]="searchModel.nonStop" type="checkbox"/>
+          <label>Vol Direct</label>
+        </div>
+        <button (click)="searchFlight()" class="search-btn">Rechercher</button>
+      </div>
+    </div>
+  </div>
+</div>

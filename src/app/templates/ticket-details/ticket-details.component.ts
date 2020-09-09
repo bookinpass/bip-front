@@ -2,12 +2,12 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {faPlaneDeparture} from '@fortawesome/free-solid-svg-icons';
 import {AirportsJson} from '../../../assets/airports.json';
 import {DomSanitizer} from '@angular/platform-browser';
-import {FlightModel, SegmentsEntity} from '../../models/amadeus/flight.model';
+import {FlightModel, SegmentsEntity} from '../../models/amadeuss/flight.model';
 import {CompanyJson} from '../../../assets/compagnies.json';
 import {CompagnieModel} from '../../models/compagnie.model';
 
 @Component({
-  selector: 'app-ticket-details',
+  selector: 'app-ticket-resume',
   templateUrl: './ticket-details.component.html',
   styleUrls: ['./ticket-details.component.css']
 })
@@ -15,7 +15,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
 
   @Input() ticket: FlightModel;
 
-  faDeparture = faPlaneDeparture;
+  public faDeparture = faPlaneDeparture;
   public company: CompagnieModel;
   private airports = new AirportsJson();
 
@@ -41,9 +41,5 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
       .replace('  ', ' ')
       .trim();
     return `Aéroport ${apt.airportName}, ${apt.state}, ${apt.countryName}`.trim();
-  }
-
-  private isNullUndefined(x: any) {
-    return x === null || x === undefined;
   }
 }

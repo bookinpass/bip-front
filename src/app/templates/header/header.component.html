@@ -24,19 +24,19 @@
       </div>
 
       <!-- Right Side Of Navbar -->
-      <div class="d-none d-lg-flex flex-row flex-nowrap" id="navbarNav">
-        <ul class="navbar-nav">
+      <div class="d-none d-lg-flex flex-row flex-nowrap">
+        <ul class="navbar-nav" id="navbarNav">
           <li class="nav-item">
-            <a class="nav-link active" routerLink="/" routerLinkActive="active">Accueil</a>
+            <a class="nav-link">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">Comment ça marche?</a>
+            <a class="nav-link" routerLink="/how-to" routerLinkActive="active">Comment ça marche?</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">Nous contactez</a>
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active">Nous contactez</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="active">A propos</a>
+            <a class="nav-link" routerLink="/about" routerLinkActive="active">A propos</a>
           </li>
           <li #loginButton *ngIf="!client" class="nav-item">
             <a (click)="loginEmitter.emit()" class="nav-link">
@@ -46,10 +46,11 @@
           <li *ngIf="client" class="nav-item dropdown user-dropdown">
             <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-capitalize" data-toggle="dropdown"
                id="navbarDropdownMenuLink" role="button">
-              Bienvenue, {{client.lastName}} {{client.firstName}}
+              Bienvenue, {{client.firstName}}
             </a>
             <div aria-labelledby="navbarDropdownMenuLink" class="dropdown-menu">
-              <a class="dropdown-item" routerLink="/">Mon compte</a>
+              <a [routerLink]="['/account/mytickets']" class="dropdown-item">Mes Billets</a>
+              <a [routerLink]="['/account/myaccount']" class="dropdown-item">Details du compte</a>
               <a class="dropdown-divider"></a>
               <a (click)="logoutEmitter.emit()" class="dropdown-item">Déconnexion</a>
             </div>

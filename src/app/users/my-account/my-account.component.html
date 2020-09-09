@@ -1,0 +1,125 @@
+<div *ngIf="loading" class="ui active dimmer h-100 w-100">
+  <div class="ui active huge text inverted loader">Chargement</div>
+</div>
+<div *ngIf="!loading" class="ui main container mb-4 mt-4">
+  <div class="ui card fluid">
+    <div class="content">
+      <div *ngIf="!editing" class="right floated meta">
+        <i (click)="editing = true" class="violet large edit outline icon cursor-pointer" matTooltip="Modifier"></i>
+      </div>
+      <h1 class="header">Mon compte</h1>
+    </div>
+    <div class="content">
+      <h3 class="ui dividing sub header">Information</h3>
+      <form (ngSubmit)="onSubmit()" [formGroup]="userForm" autocomplete="on" class="ui form">
+        <div class="two equal width fields">
+          <div [ngClass]="submitted && f.firstName.status === 'INVALID' ? 'error' : ''" class="{{editing ? 'required field' : 'field'}}">
+            <label>Prénom</label>
+            <input [readonly]="!editing" autocapitalize="words" formControlName="firstName" type="text"/>
+            <div *ngIf="submitted && f.firstName.errors">
+              <div *ngIf="f.firstName.errors.required" class="invalid-message">Ce champ est requis.</div>
+              <div *ngIf="f.firstName.errors.minlength" class="invalid-message">Ce champ doit contenir au moins 2 caractères.</div>
+            </div>
+          </div>
+          <div [ngClass]="submitted && f.lastName.status === 'INVALID' ? 'error' : ''" class="{{editing ? 'required field' : 'field'}}">
+            <label>Nom</label>
+            <input [readonly]="!editing" autocapitalize="words" formControlName="lastName" type="text"/>
+            <div *ngIf="submitted && f.lastName.errors">
+              <div *ngIf="f.lastName.errors.required" class="invalid-message">Ce champ est requis.</div>
+              <div *ngIf="f.lastName.errors.minlength" class="invalid-message">Ce champ doit contenir au moins 2 caractères.</div>
+            </div>
+          </div>
+        </div>
+        <div class="two equal width fields">
+          <div [ngClass]="submitted && f.username.status === 'INVALID' ? 'error' : ''" class="{{editing ? 'required field' : 'field'}}">
+            <label>Nom d'utilisateur</label>
+            <input (keyup)="f.username.setValue(f.username.value.toLowerCase())" [readonly]="!editing" autocomplete="off"
+                   formControlName="username" type="text"/>
+            <div *ngIf="submitted && f.username.errors">
+              <div *ngIf="f.username.errors.required" class="invalid-message">Ce champ est requis.</div>
+              <div *ngIf="f.username.errors.minlength" class="invalid-message">Ce champ doit contenir au moins 6 caractères.</div>
+              <div *ngIf="f.username.errors.maxlength" class="invalid-message">Ce champ ne peut contenir plus de 20 caractères.</div>
+            </div>
+          </div>
+          <div [ngClass]="submitted && f.email.status === 'INVALID' ? 'error' : ''" class="field">
+            <label>Email</label>
+            <input [readonly]="!editing" formControlName="email" placeholder="Not set" type="email"/>
+            <div *ngIf="submitted && f.email.errors">
+              <div *ngIf="f.email.errors.maxlength" class="invalid-message">Ce champ ne peut contenir plus de 200 caractères.</div>
+              <div *ngIf="f.email.errors.email" class="invalid-message">Le format de votre email est invalide.</div>
+            </div>
+          </div>
+        </div>
+        <div class="two equal width fields">
+          <div class="field">
+            <label>Type d'identification</label>
+            <input *ngIf="!editing" [value]="getIdType()" placeholder="Not set" readonly type="text">
+            <select *ngIf="editing" class="ui dropdown selectable" formControlName="idType" name="idType">
+              <option [value]="null" selected>Séléctionner</option>
+              <option value="CNI">Carte Nationale d'identité</option>
+              <option value="password">Passport</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Numéro d'identification</label>
+            <input [readonly]="!editing" formControlName="idNumber" placeholder="Not set" type="text">
+          </div>
+        </div>
+        <div class="field fluid">
+          <label>Adresse</label>
+          <input [readonly]="!editing" autocapitalize="words" formControlName="line" placeholder="Not set" type="text">
+        </div>
+        <div class="three fields">
+          <div class="six wide field">
+            <label>Ville</label>
+            <input [readonly]="!editing" autocapitalize="words" formControlName="city" placeholder="Not set" type="text"/>
+          </div>
+          <div class="six wide field">
+            <label>Département</label>
+            <input [readonly]="!editing" autocapitalize="words" formControlName="state" placeholder="Not set" type="text"/>
+          </div>
+          <div [ngClass]="submitted && f.postalCode.errors ? 'error':''" class="four wide field">
+            <label>Code postal</label>
+            <input [readonly]="!editing" formControlName="postalCode" placeholder="Not set" type="text"/>
+            <div *ngIf="submitted && f.postalCode.errors">
+              <div *ngIf="f.postalCode.errors.pattern" class="invalid-message">Ce champ ne peut contenir que des chiffres.</div>
+            </div>
+          </div>
+        </div>
+        <div class="ui two equal width fields">
+          <div [ngClass]="submitted && f.countryCode.errors ? 'error' : ''" class="{{editing ? 'required field' : 'field'}}">
+            <label>Pays</label>
+            <input *ngIf="!editing" [value]="getCountry() | titlecase" placeholder="Not set" readonly type="text"/>
+            <select *ngIf="editing" class="ui dropdown selection share-tel mr-2  mb-0 h6" formControlName="countryCode">
+              <option *ngFor="let item of countries" [value]="item.code">{{item.name}}</option>
+            </select>
+            <div *ngIf="submitted && f.countryCode.errors">
+              <div *ngIf="f.countryCode.errors.required" class="invalid-message">Ce champ est requis.</div>
+            </div>
+          </div>
+          <div [ngClass]="submitted && f.telephone.errors ? 'error' : ''" class="{{editing ? 'required field' : 'field'}}">
+            <label>Téléphone</label>
+            <div class="ui left labeled input">
+              <div class="ui olive label">
+                <i class="{{f.countryCode.value | lowercase}} flag"></i>{{getDialCode()}}
+              </div>
+              <input *ngIf="!editing" [value]="formatNumber()" readonly type="tel"/>
+              <input (keyup)="formatNumber()" *ngIf="editing" formControlName="telephone" type="tel"/>
+            </div>
+            <div *ngIf="submitted && f.telephone.errors">
+              <div *ngIf="f.telephone.errors.required" class="invalid-message">Ce champ est requis.</div>
+              <div *ngIf="f.telephone.errors.validPhone" class="invalid-message">Le format de votre numéro de téléphone est invalide.
+              </div>
+              <div *ngIf="f.telephone.errors.pattern" class="invalid-message">Ce champ ne peut contenir que des chiffres.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button (click)="updatePassword()" *ngIf="!editing" class="ui right floated violet button">Modifier mot de passe</button>
+          <button (click)="resetForm()" *ngIf="editing" class="ui right floated red button">Annuler</button>
+          <button *ngIf="editing" class="ui right floated blue button" type="submit">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

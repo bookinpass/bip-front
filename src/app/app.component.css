@@ -55,3 +55,9 @@
   margin: 12px;
 }
 
+/********************** NGX_PAGINATION ************************/
+
+.ngx-pagination {
+  display: flex;
+  justify-content: center;
+}

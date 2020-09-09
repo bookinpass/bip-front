@@ -1,37 +1,20 @@
 import {ErrorHandler, Injectable} from '@angular/core';
-import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
 import {HttpErrorResponse} from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalErrorHandlerService implements ErrorHandler {
 
-  swal = new SwalConfig();
-
   constructor() {
   }
 
-  handleError(error: any): void {
-
-    if (error instanceof HttpErrorResponse) {
-      if (!navigator.onLine) {
-        this.swal.ErrorSwalWithNoReturn('Erreur', 'Vous êtes pas connecté à internet. Veuillez vérifier votre connexion');
-      } else {
-        this.errorMessageSwitching(error);
-      }
-      console.error('################################## ERROR ####################################');
-      console.error('An Error occurred');
-      console.error('url: ', error.url);
-      console.error('Status: ', error.status);
-      console.error('msg: ', error.message);
-      console.error('################################## END ERROR ####################################');
-    } else {
-      console.error(error);
-    }
+  private static getStatus(code: number, min: number, max: number): number {
+    return (min <= code && code <= max) ? code : -1;
   }
 
-  errorMessageSwitching(error: HttpErrorResponse) {
+  private static errorMessageSwitching(error: HttpErrorResponse) {
     let message: string;
     switch (error.status) {
       case 400:
@@ -47,7 +30,7 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       case 404:
         message = 'La ressource demandée n\'éxiste pas';
         break;
-      case 407 || this.getStatus(error.status, 409, 499):
+      case 407 || GlobalErrorHandlerService.getStatus(error.status, 409, 499):
         message = 'Une erreur s\'est produite. Veuillez réessayer SVP';
         break;
       case 500 || 0:
@@ -59,17 +42,38 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       case 504 || 408:
         message = 'Le temps d\'attente est écoulé.  \tLa requête ne peut être traitée en l’état actuel. !';
         break;
-      case 502 || 503 || this.getStatus(error.status, 505, 527):
+      case 502 || 503 || GlobalErrorHandlerService.getStatus(error.status, 505, 527):
         message = 'Service temporairement. Veuillez réessayer plus tard SVP';
         break;
       default:
         message = 'Une erreur s\'est produite. Veuillez réessayer SVP';
         break;
     }
-    this.swal.ErrorSwalWithNoReturn('Erreur', message);
+    Swal.fire('Erreur', message, 'error');
   }
 
-  getStatus(code, min, max): number {
-    return (min <= code <= max) ? code : -1;
+  public handleError(error: any): void {
+    if (error instanceof HttpErrorResponse) {
+      if (!navigator.onLine)
+        Swal.fire({
+          title: 'Erreur',
+          html: 'Vous êtes pas connecté à internet. Veuillez vérifier votre connexion',
+          icon: 'error',
+          focusConfirm: true,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          showCloseButton: false
+        }).then(res => {
+          if (res) location.reload();
+        });
+      else GlobalErrorHandlerService.errorMessageSwitching(error);
+
+      console.error('################################## ERROR ####################################');
+      console.error('url: ' + error.url);
+      console.error('Status: ' + error.status);
+      console.error('msg: ' + error.message);
+      console.error('################################## END ERROR ##################################');
+    } else console.error(error);
   }
+
 }

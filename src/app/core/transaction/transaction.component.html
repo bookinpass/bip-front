@@ -1,0 +1,105 @@
+<div *ngIf="loading" class="ui active dimmer h-100 w-100">
+  <div class="ui active huge text inverted loader">Chargement</div>
+</div>
+<div *ngIf="!loading" class="ui main container segments mb-4 mt-4">
+  <div *ngIf="type === 'event_sport'" class="ui raised segment">
+    <h2 class="ui dividing header">Info de l'evenement</h2>
+    <div class="ui items">
+      <div class="item">
+        <div class="ui small rectangle image">
+          <img alt="" src="../../../assets/images/event/{{idEvent}}.jpg">
+        </div>
+        <div class="content">
+          <a class="header event-title">{{event.designation}}</a>
+          <div class="description d-flex flex-column">
+            <div><h6>Type</h6>: {{event.eventType}}</div>
+            <div><h6>Lieu</h6>: {{event.place.designation}}</div>
+            <div><h6>Début</h6>: {{event.startingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.startingTime}}</div>
+            <div><h6>Fin</h6>: {{event.endingDate | date: 'EEEE, dd MMMM yyyy' | titlecase}} a
+              {{event.endingTime}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="item d-flex flex-column">
+        <!--        <h5 class="font-weight-bold underlined h5">Description:</h5>-->
+        <h6 class="font-weight-normal">{{event.description}}</h6>
+      </div>
+    </div>
+  </div>
+  <div class="ui raised segment">
+    <div>
+      <h2 class="ui dividing header">Mes billets</h2>
+      <div (click)="download()" class="ui right floated button download-button">Telecharger</div>
+    </div>
+
+    <div *ngIf="type === 'event_sport'" class="my-tickets-container">
+      <div (click)="downloadTicket('event', i)" *ngFor="let item of eventTickets; let i = index" class="d-flex flex-column ticket-container"
+           id="event-ticket-container{{i}}">
+        <div class="overlay">
+          <a class="icon" title="Telecharger"><i class="download inverted icon"></i></a>
+        </div>
+        <div class="ticket-header">
+          <img alt="event image" height="100" src="../../../assets/images/event/{{idEvent}}.jpg" width="220">
+          <qrcode [allowEmptyString]="false" [elementType]="'url'" [errorCorrectionLevel]="'H'" [margin]="0" [qrdata]="item.codeTicket"
+                  [version]="6" [width]="90"></qrcode>
+        </div>
+        <div class="ticket-body">
+          <span class="text-uppercase">{{event.designation}}</span>
+          <span>{{event.place.designation}}</span>
+          <span>Le {{event.startingDate | date: 'dd MMM yyyy'}} a partir de {{event.startingTime}}</span>
+          <!--          <span class="text-uppercase">{{item.firstName}} {{item.lastName}}</span>-->
+          <span class="text-uppercase">Ticket {{item.type.toLowerCase()}},
+            {{item.totalPrice | currency: 'XOF': 'symbol-narrow': '1.1-2'}}
+          </span>
+        </div>
+        <hr class="w-100">
+        <div class="d-flex flex-row justify-content-around">
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Réserve sur</p>
+            <img alt="logo bip" src="../../../assets/images/logo/bip-logo-ticket.jpg">
+          </div>
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Payé via</p>
+            <img [src]="getLogoPath(item.transactionType)" alt="logo vendeur">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-end ticket-footer">
+          www.bookinpass.com
+        </div>
+      </div>
+    </div>
+    <div *ngIf="type === 'transport'" class="my-tickets-container">
+      <div (click)="downloadTicket('event', i)" *ngFor="let item of transportTickets; let i = index"
+           class="d-flex flex-column ticket-container" id="transport-ticket-container{{i}}">
+        <div class="ticket-header bus">
+          <img alt="sen-dd bus img" class="bus" height="100" src="../../../assets/images/icons/sen-dd2.jpg" width="220"/>
+          <qrcode [allowEmptyString]="false" [elementType]="'url'" [errorCorrectionLevel]="'H'" [margin]="0" [qrdata]="item.codeTicket"
+                  [version]="6" [width]="90" class="bus"></qrcode>
+        </div>
+        <p class="h7 font-weight-bold mb-1 ml-2"><span
+          class="underlined">Date</span>: {{item.departDate | date : 'dd MMMM yyyy' | titlecase}}
+          à {{item.departTime}}</p>
+        <p class="h7 font-weight-bold mb-1 ml-2"><span class="underlined">Prix</span>:
+          {{item.totalPrice | currency: 'XOF' : 'symbol-narrow' : '1.1-1'}}
+        </p>
+        <p class="h7 font-weight-bold mb-1 text-center" style="color: #FF6600">Ce ticket est non remboursable</p>
+        <hr style="width: 100% !important;">
+        <div class="d-flex flex-row justify-content-around">
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Réserve sur</p>
+            <img alt="logo bip" src="../../../assets/images/logo/bip-logo-ticket.jpg">
+          </div>
+          <div class="d-flex flex-column justify-content-start align-items-center logo-container">
+            <p>Payé via</p>
+            <img [src]="getLogoPath(item.transactionType)" alt="logo vendeur">
+          </div>
+        </div>
+        <div class="d-flex flex-row justify-content-end ticket-footer">
+          www.bookinpass.com
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

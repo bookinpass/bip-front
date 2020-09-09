@@ -1,0 +1,60 @@
+#ticket-container {
+  border-radius: 5px;
+  border: 1px outset aquamarine;
+  padding: 7px;
+  margin-bottom: 10px;
+}
+
+.step-1 > div {
+  width: 48%;
+}
+
+.step-buttons {
+  padding: 11px;
+}
+
+.bus-details-form {
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin: 0;
+}
+
+.bus-details-form > .field:nth-of-type(1),
+.bus-details-form > .field:nth-of-type(2) {
+  margin-bottom: 13px;
+  background-color: #FF6600;
+  padding: 5px 7px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.bus-details-form > .field:nth-of-type(2) {
+  background-color: #2daae1;
+}
+
+.bus-details-form > .field:nth-of-type(4) > label {
+  font-size: 15px;
+  color: #FF6600;
+}
+
+.bus-details-form > .two.fields > .field {
+  font-size: 15px;
+}
+
+.bus-details-form > .two.fields > .field span {
+  margin: 0 4px 0 0;
+  font-weight: bold;
+  color: #ff6600;
+}
+
+@media screen and (max-width: 768px) {
+  .step-1 {
+    width: 100%;
+    flex-direction: column !important;
+  }
+
+  .step-1 > div {
+    width: 100% !important;
+  }
+
+}

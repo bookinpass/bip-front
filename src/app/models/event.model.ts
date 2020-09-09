@@ -7,6 +7,8 @@ export class EventModel {
   eventId: string;
   designation: string;
   description: string;
+  imageTimestamp: string;
+  mainType: string;
   eventType: string;
   eventState: string;
   startingDate: Date;

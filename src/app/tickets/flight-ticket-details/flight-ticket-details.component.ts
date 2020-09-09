@@ -1,36 +1,36 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AirportsJson} from '../../../assets/airports.json';
-import {FlightSearchingService} from '../../services/searching/flight/flight-searching.service';
-import {DomSanitizer} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material/dialog';
 import {ClientModel} from '../../models/client.model';
-import {GlobalErrorHandlerService} from '../../core/error/global-error-handler.service';
-import {AuthService} from '../../services/authentication/auth.service';
-import {CookiesService} from '../../services/cookie/cookies.service';
 import {SwalConfig} from '../../../assets/SwalConfig/Swal.config';
-import {DatePipe, Location} from '@angular/common';
-import {FlightModel} from '../../models/amadeus/flight.model';
-import {TravelerTypeEnum} from '../../models/TravelerType.enum';
-import {TravelerModel} from '../../models/amadeus/Traveler.model';
+import {DatePipe} from '@angular/common';
+import {FlightModel} from '../../models/amadeuss/flight.model';
+import {TravelerTypeEnum} from '../../models/traveler-type.enum';
+import {TravelerModel} from '../../models/amadeuss/Traveler.model';
 import {AirportModel} from '../../models/airport.model';
 import {CountryJson} from '../../../assets/Country.json';
+import {UrlConfig} from '../../../assets/url.config';
+import {InCashComponent} from '../../core/payments/in-cash/in-cash.component';
+import {EventNominationModel} from '../../models/event-nomination.model';
+import {GeneralConditionComponent} from '../../core/modal/general-condition/general-condition.component';
+import {EPaymentData} from '../../results/boat/boat-result.component';
 
+declare const PayExpresse: any;
 
 @Component({
   selector: 'app-flight-ticket-details',
   templateUrl: './flight-ticket-details.component.html',
   styleUrls: ['./flight-ticket-details.component.css']
 })
-export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
+export class FlightTicketDetailsComponent implements OnInit {
 
-  public fare: any;
   public error: any = null;
   public innerWidth = window.innerWidth;
   public isLoggedIn = false;
   public client: ClientModel = new ClientModel();
   public loading = true;
-  public paymentType = 'paypal';
+  public paymentType = '';
   public from: string;
   public to: string;
   public ticket: FlightModel;
@@ -40,18 +40,16 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
   public showPayment = false;
   public mapError = new Map<number, Set<string>>();
   public principalBoxChecked = false;
+  public paymentData: EPaymentData;
+  private url = new UrlConfig().mainHost;
   private countriesJson = new CountryJson();
   private travelerEnum = TravelerTypeEnum;
   private airports = new AirportsJson();
 
   constructor(private router: Router,
-              private ticketService: FlightSearchingService,
-              private sanitizer: DomSanitizer,
               public dialog: MatDialog,
-              private errorHandler: GlobalErrorHandlerService,
-              private cookie: CookiesService,
-              private authService: AuthService,
-              private location: Location,
+              public conditionModal: MatDialog,
+              public cashMatDialog: MatDialog,
               private datePipe: DatePipe) {
   }
 
@@ -74,9 +72,6 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
     setTimeout(() => this.loading = false, 1500);
   }
 
-  ngOnDestroy() {
-  }
-
   public getDescription() {
     const date = this.datePipe.transform(this.ticket.itineraries[0].segments[0].departure.at, 'dd MMM, YYYY', 'GMT');
     return `Your trip on ${date} from ${this.from.charAt(0).toUpperCase() +
@@ -87,10 +82,10 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
     return this.datePipe.transform(new Date(dateString), 'yyyy-MM-dd');
   }
 
-  setBirthCountry(code: string, index: number) {
+  public setBirthCountry(code: string, index: number) {
     this.listTravelersInfo[index].documents.birthCountry = code;
     const x = this.countriesJson.countries.find(country => country.code === code);
-    this.listTravelersInfo[index].documents.birthPlace = x !== null && x !== undefined ? x.name : ''
+    this.listTravelersInfo[index].documents.birthPlace = x !== null && x !== undefined ? x.name : '';
   }
 
   public checkNonPrincipalTravelers() {
@@ -126,8 +121,86 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  setPrincipalStatus($event: boolean) {
+  public openConditionDialog(): void {
+    const dialog = this.conditionModal.open(GeneralConditionComponent, {
+      width: 'auto',
+      maxWidth: '1000px',
+      height: 'auto',
+      hasBackdrop: false,
+      disableClose: true,
+      closeOnNavigation: true
+    });
+    dialog.afterClosed()
+      .subscribe(() => this.checkNonPrincipalTravelers());
+  }
+
+  public openCashPaymentDialog() {
+    this.paymentType = 'cash';
+    const ePaymentData = new EPaymentData();
+    const principal = this.listTravelersInfo[0];
+    ePaymentData.payer = new EventNominationModel();
+    ePaymentData.payer.firstName = principal.name.firstName;
+    ePaymentData.payer.lastName = principal.name.lastName;
+    ePaymentData.payer.countryCode = principal.contact.address.countryCode;
+    ePaymentData.payer.telephone = principal.contact.phones[0].number;
+    ePaymentData.type = 'cash';
+    ePaymentData.orderId = null;
+    ePaymentData.status = null;
+    ePaymentData.price = this.ticket.price.total;
+
+    const dialog = this.cashMatDialog.open(InCashComponent, {
+      width: window.innerWidth > 400 ? '400px' : '360px',
+      height: 'max-content',
+      hasBackdrop: true,
+      disableClose: true,
+      closeOnNavigation: true,
+      data: ePaymentData as EPaymentData
+    });
+    dialog.afterClosed()
+      .subscribe((data: EPaymentData) => {
+        this.paymentData = data;
+        // todo: save record to background
+      });
+  }
+
+  public setPrincipalStatus($event: boolean) {
     this.principalBoxChecked = $event;
+  }
+
+  public pay() {
+    const name = `Votre Billet d'avion ${this.from} - ${this.to}`;
+    const id = '';
+    (new PayExpresse({
+      item_id: id
+    })).withOption({
+      requestTokenUrl: `${this.url}/request-payment?name=${name}&price=${this.ticket.price.total}.0&order=${this.getDescription()}`,
+      method: 'POST',
+      headers: {
+        Accept: 'application/json'
+      },
+      prensentationMode: PayExpresse.OPEN_IN_POPUP,
+      // tslint:disable-next-line:variable-name
+      didPopupClosed(is_completed, success_url, cancel_url) {
+        window.location.href = is_completed === true ? success_url : cancel_url;
+        if (is_completed) {
+          localStorage.setItem('travelers', JSON.stringify(this.listTravelersInfo));
+          this.router.navigate(['print', 'flight'], {queryParams: {order: id}});
+        }
+      },
+      willGetToken() {
+        console.log('Je me prepare a obtenir un token');
+      },
+      didGetToken(token, redirectUrl) {
+        console.log('Mon token est : ' + token + ' et url est ' + redirectUrl);
+      },
+      didReceiveError(error) {
+        console.log(error);
+      },
+      didReceiveNonSuccessResponse(jsonResponse) {
+        console.log('non success response ', jsonResponse);
+        alert(jsonResponse.errors);
+      }
+    }).send();
   }
 
   private updateMapError(index: number, field: string, add: boolean) {
@@ -162,4 +235,5 @@ export class FlightTicketDetailsComponent implements OnInit, OnDestroy {
       return a.countryName > b.countryName ? 1 : a.countryName < a.countryName ? -1 : 0;
     });
   }
+
 }

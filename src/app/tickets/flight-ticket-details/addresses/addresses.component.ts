@@ -9,7 +9,7 @@ import {VariableConfig} from '../../../../assets/variable.config';
 import {Scavenger} from '@wishtack/rx-scavenger';
 import {SwalConfig} from '../../../../assets/SwalConfig/Swal.config';
 import {AuthService} from '../../../services/authentication/auth.service';
-import {PhoneModel, TravelerModel} from '../../../models/amadeus/Traveler.model';
+import {PhoneModel, TravelerModel} from '../../../models/amadeuss/Traveler.model';
 import {DatePipe} from '@angular/common';
 import {AirportModel} from '../../../models/airport.model';
 
@@ -69,21 +69,22 @@ export class AddressesComponent implements OnInit, OnDestroy {
 
   public setBirthCountry(code: string) {
     this.principal.documents.birthCountry = code;
-    const x = this.countriesJson.countries.find(x => x.code === code);
-    this.principal.documents.birthPlace = x === null || x === undefined ? '' : x.name;
+    const item = this.countriesJson.countries.find(y => y.code === code);
+    this.principal.documents.birthPlace = item === null || item === undefined ? '' : item.name;
   }
 
   public setDocumentDeliveryCountry(code: string) {
     this.principal.documents.issuanceCountry = code;
-    const pre = this.countriesJson.countries.find(x => x.code === code);
+    const pre = this.countriesJson.countries.find(ele => ele.code === code);
     this.principal.documents.issuanceLocation = pre === null || pre === undefined ? '' : pre.name;
   }
 
   public setPhonePrefix() {
-    const country = new AirportsJson().airport.find(x => x.countryName === this.selectedCountry);
+    const country = new AirportsJson().airport.find(ele => ele.countryName === this.selectedCountry);
     this.countryCode = country.countryCode;
-    const x = new CountryJson().countries.find(y => y.code === country.countryCode);
-    this.principal.contact.phones[0].countryCallingCode = x === null || x === undefined ? '' : x.dial_code;
+    this.principal.contact.address.countryCode = country.countryCode;
+    const item = new CountryJson().countries.find(ele => ele.code === country.countryCode);
+    this.principal.contact.phones[0].countryCallingCode = item === null || item === undefined ? '' : item.dial_code;
   }
 
   public format_number() {

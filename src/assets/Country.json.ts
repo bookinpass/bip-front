@@ -1,11 +1,9 @@
 export class CountryJson {
-
+  /*
+   *{dial_code: '', code: '', name: 'Default'},
+   *
+   **/
   readonly countries = [
-    {
-      dial_code: '',
-      code: '',
-      name: 'Default'
-    },
     {
       name: 'Israel',
       dial_code: '+972',
@@ -1045,17 +1043,6 @@ export class CountryJson {
       name: 'Zimbabwe',
       dial_code: '+263',
       code: 'ZW'
-    },
-    {
-
-      name: 'land Islands',
-      dial_code: '',
-      code: 'AX'
-    },
-    {
-      name: 'Antarctica',
-      dial_code: null,
-      code: 'AQ'
     },
     {
 

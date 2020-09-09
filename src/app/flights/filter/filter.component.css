@@ -1,0 +1,70 @@
+.filtering {
+  border-radius: 4px 4px 0 0;
+  padding: 10px;
+}
+
+.ui.accordion .title {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.ui.accordion > * {
+  font-family: Ubuntu, "Open Sans", Roboto, sans-serif !important;
+}
+
+i.filter.icon {
+  background-color: #6435c9 !important;
+  color: white;
+}
+
+.ui.inverted.violet.button {
+  box-shadow: 0 0 0 2px #6435c9 inset !important;
+  color: #6435c9 !important;
+}
+
+.ui.inverted.violet.button:hover {
+  background-color: #6435c9 !important;
+  color: white !important;
+}
+
+.stop-content {
+  display: flex !important;
+  padding: 0 0 9px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/****************** MAT TOGGLE BUTTON **********************/
+.mat-button-toggle-group, .mat-button-toggle-standalone {
+  border-radius: 7px;
+  box-shadow: 9px 9px 11px -1px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  align-items: center;
+  margin: 0 !important;
+  height: 34px;
+}
+
+.mat-button-toggle {
+  line-height: normal;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6435c9;
+}
+
+.mat-button-toggle-button:hover {
+  background-color: #f2f2f2;
+}
+
+.mat-button-toggle-checked {
+  background-color: #6435c9;
+  color: white !important;
+}
+
+
+a.ui.basic.orange.label:hover {
+  background-color: #FF6600 !important;
+  color: white !important;
+  border-color: #FF6600 !important;
+}

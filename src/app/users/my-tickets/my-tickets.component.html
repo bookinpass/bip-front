@@ -1,0 +1,68 @@
+<div *ngIf="!transportTickets || !eventTickets" class="ui active dimmer h-100 w-100">
+  <div class="ui active huge text inverted loader">Chargement</div>
+</div>
+<div *ngIf="transportTickets && eventTickets" class="container mt-3 mb-3">
+  <div class="ui raised segment">
+    <div class="ui header text-center">Mes titres de transport</div>
+    <table *ngIf="transportTickets" class="ui mini table celled very compact striped structured selectable">
+      <thead>
+      <tr class="center aligned">
+        <th rowspan="2" style="width: 200px">Date</th>
+        <th colspan="2">Itineraire</th>
+        <th colspan="2">Transport</th>
+      </tr>
+      <tr class="center aligned">
+        <th>Départ</th>
+        <th>Arrivé</th>
+        <th>Type</th>
+        <th>Désignation</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="transportTickets && transportTickets.length > 0">
+      <tr (click)="ticketDetails(item, 'transport')" *ngFor="let item of transportTickets"
+          [ngClass]="item.codeTicket === 'EXPIRER' ? 'center aligned clear' : 'center aligned cursor-pointer'">
+        <td *ngIf="item.codeTicket === 'EXPIRER'" class="transport-expired text-uppercase">EXPIRée</td>
+        <td *ngIf="item.codeTicket !== 'EXPIRER' && item.isShared" class="ticket-shared">PARTAGER</td>
+        <td *ngIf="item.codeTicket !== 'EXPIRER' && !item.isShared">
+          {{pipeDate(item.departDate) | date: 'dd MMMM yyyy':'UTC' | titlecase}} á {{item.departTime}}
+        </td>
+        <td>{{item.departLocation | titlecase}}</td>
+        <td>{{item.arrivalLocation | titlecase}}</td>
+        <td [ngClass]="item.codeTicket === 'EXPIRER' ? 'strikeout' : ''">{{item.transportType}}</td>
+        <td [ngClass]="item.codeTicket === 'EXPIRER' ? 'strikeout' : ''">{{item.transportName | titlecase}}</td>
+      </tr>
+      </tbody>
+      <tbody *ngIf="transportTickets && transportTickets.length === 0">
+      <tr *ngFor="let item of transportTickets" class="center aligned">
+        <td colspan="9">Aucun billet disponible</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="ui header text-center">Mes tickets d'evenement</div>
+    <table *ngIf="eventTickets" class="ui mini table celled very compact striped structured selectable">
+      <thead>
+      <tr class="center aligned">
+        <th style="width: 150px">Date</th>
+        <th>Désignation</th>
+        <th>Lieu</th>
+        <th>Classe</th>
+        <th>Prix</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr (click)="ticketDetails(item, 'event')" *ngFor="let item of eventTickets"
+          [ngClass]="item.codeTicket === 'EXPIRER' ? 'center aligned clear' : 'center aligned cursor-pointer'">
+        <td *ngIf="item.codeTicket !== 'EXPIRER' && item.isShared" class="ticket-shared">PARTAGER</td>
+        <td *ngIf="item.codeTicket !== 'EXPIRER' && !item.isShared">
+          {{getLinkedEvent(item).startingDate | date : 'dd MMMM yyyy': 'UTC' | titlecase}}
+        </td>
+        <td *ngIf="item.codeTicket === 'EXPIRER'" class="transport-expired text-uppercase">EXPIRée</td>
+        <td>{{getLinkedEvent(item).designation | titlecase}}</td>
+        <td>{{getLinkedEvent(item).place.designation | titlecase}}</td>
+        <td>{{item.type}}</td>
+        <td>{{item.totalPrice | currency : 'XOF' : 'symbol' : '1.1-2'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

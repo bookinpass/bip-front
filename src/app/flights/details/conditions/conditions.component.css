@@ -1,0 +1,14 @@
+.mat-dialog-content {
+  margin: 0;
+  padding: 10px 20px 0;
+  max-height: fit-content;
+  text-align: justify;
+}
+
+.description p {
+  font-size: 15px;
+  font-weight: 600;
+  text-align: justify;
+  text-transform: uppercase;
+  font-family: "Open Sans", Ubuntu, Roboto, sans-serif;
+}
