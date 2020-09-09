@@ -14,7 +14,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.helper.tokenGetter();
-    if (token !== null && token !== undefined && !req.url.startsWith(this.url.amadeusBaseUrl) && !req.url.startsWith(this.url.paygateBaseUrl)) {
+    if (token !== null && token !== undefined && !req.url.startsWith(this.url.amadeusBaseUrl) &&
+      !req.url.startsWith(this.url.paygateBaseUrl)) {
       req = req.clone({
         setHeaders:
           {
