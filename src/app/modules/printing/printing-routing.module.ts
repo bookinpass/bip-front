@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {PrintFlightTicketComponent} from '../../templates/print-flight-ticket/print-flight-ticket.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {PrintFlightTicketComponent} from '../../flights/print-flight-ticket/print-flight-ticket.component';
 
 
 const routes: Routes = [
@@ -14,4 +14,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PrintingRoutingModule { }
+export class PrintingRoutingModule {
+}

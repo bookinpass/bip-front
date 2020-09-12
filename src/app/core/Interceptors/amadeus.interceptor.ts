@@ -12,7 +12,7 @@ export class AmadeusInterceptor implements HttpInterceptor {
     if (req.url.startsWith(this.url.amadeusBaseUrl) && !req.url.endsWith(this.url.requestAmadeusToken)) {
       req = req.clone({
         setHeaders: {
-          Authorization: 'Bearer ' + localStorage.getItem('ama_token'),
+          Authorization: 'Bearer ' + sessionStorage.getItem('ama_token'),
           'content-type': 'application/json'
         }
       });

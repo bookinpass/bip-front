@@ -166,7 +166,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(this.scavenger.collect(),
         retry(2))
       .subscribe(res => {
-        localStorage.setItem('access_token', res.headers.get('Authorization'));
+        sessionStorage.setItem('access_token', res.headers.get('Authorization'));
         this.cookieService.setCookie('last_email', this.f.email.value, 10, null);
         this.storeUser();
       }, error => {

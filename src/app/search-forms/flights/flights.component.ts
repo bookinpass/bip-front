@@ -78,7 +78,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
     if (this.oneWay) this.searchModel.returnDate = null;
     if (this.areAirportsValidAndDifferent() && this.areDatesValid()) {
-      localStorage.setItem('search-data', JSON.stringify(this.searchModel));
+      sessionStorage.setItem('search-data', JSON.stringify(this.searchModel));
       this.router.navigate(['flights']).then();
     }
   }

@@ -56,7 +56,7 @@ import {PaygateResponseComponent} from './core/paygate/response/paygate-response
 registerLocaleData(localeFr);
 
 export function tokenGetter() {
-  return localStorage.getItem('access_token');
+  return sessionStorage.getItem('access_token');
 }
 
 // tslint:disable-next-line:no-string-literal

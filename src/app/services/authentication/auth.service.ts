@@ -28,7 +28,7 @@ export class AuthService {
 
   public getCurrentUser(): UserModel {
     if (!this.isLoggedIn()) {
-      localStorage.removeItem('access_token');
+      sessionStorage.removeItem('access_token');
       if (this.cookieService.check('current_user')) {
         this.cookieService.delete('current_user');
       }
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   public logout() {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     this.cookieService.delete('current_user');
     this.router.url.startsWith('/home') ?
       window.location.reload() :

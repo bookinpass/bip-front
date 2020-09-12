@@ -44,8 +44,10 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     await this.amadeusService.setToken();
-    this.searchModel = JSON.parse(localStorage.getItem('search-data')) as FlightSearchModel;
-    if (this.searchModel === null || this.searchModel === undefined) await this.router.navigate(['/'])
+    this.searchModel = JSON.parse(sessionStorage.getItem('search-data')) as FlightSearchModel;
+    if (this.searchModel === null || this.searchModel === undefined) {
+      await this.router.navigate(['/']);
+    }
     this.searchFlights();
   }
 
@@ -68,7 +70,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   public getCityFromDictionary = (iata: string) => {
     let city = this.airports.airport.find(x => x.iata.equalIgnoreCase(iata))?.city;
-    if (city === null) city = this.result.dictionaries.locations[iata].cityCode;
+    if (city === null) {
+      city = this.result.dictionaries.locations[iata].cityCode;
+    }
     return this.titleCasePipe.transform(city) + ` (${iata.toUpperCase()})`;
   }
 
@@ -84,16 +88,18 @@ export class SearchComponent implements OnInit, OnDestroy {
   public filterPrice(map: Map<string, number>) {
     this.isFiltering(true);
     this.collection = this.result.data;
-    if (map.has('min'))
+    if (map.has('min')) {
       this.collection = this.collection.filter(x => Number(x.price.grandTotal) >= Number(map.get('min')));
-    if (map.has('max'))
+    }
+    if (map.has('max')) {
       this.collection = this.collection.filter(x => Number(x.price.grandTotal) <= Number(map.get('max')));
+    }
     this.totalElements = this.collection.length;
     setTimeout(() => this.isFiltering(), 2000);
   }
 
   public filterAirlines(airlines: string) {
-    this.isFiltering(true)
+    this.isFiltering(true);
     this.searchModel.includedAirlineCodes = airlines;
     this.searchFlights(true);
   }
@@ -113,13 +119,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.searchModel.adults = Number(map.get('adults'));
     this.searchModel.children = Number(map.get('children'));
     this.searchModel.infants = Number(map.get('infants'));
-    localStorage.setItem('search-data', JSON.stringify(this.searchModel));
+    sessionStorage.setItem('search-data', JSON.stringify(this.searchModel));
     this.updatingSearch = true;
     this.searchFlights();
   }
 
   public selectTicket = (item: FlightOfferModel) => {
-    localStorage.setItem('offer', JSON.stringify(item));
+    sessionStorage.setItem('offer', JSON.stringify(item));
     this.router.navigate(['flights', 'details']).then();
   }
 
@@ -149,14 +155,22 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.result = data;
             this.collection = data.data;
             this.totalElements = data.meta.count;
-            if (!filter) this.dictionaryModel = data.dictionaries;
+            if (!filter) {
+              this.dictionaryModel = data.dictionaries;
+            }
             this.setRangePrice();
           }
         }, () => this.swalError('Une erreur s\'est produite lors de la recherche. Veuillez réessayer SVP!'),
         () => {
           if (!filter) {
-            if (this.updatingSearch) this.updatingSearch = false; else this.loading = false;
-          } else this.isFiltering();
+            if (this.updatingSearch) {
+              this.updatingSearch = false;
+            } else {
+              this.loading = false;
+            }
+          } else {
+            this.isFiltering();
+          }
           setTimeout(() => this.fixNGXClass(), 250);
         });
   }
@@ -168,7 +182,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       icon: 'error', allowEnterKey: true, allowEscapeKey: false, allowOutsideClick: false, focusConfirm: true
     }).then(res => {
       if (res.value) {
-        localStorage.removeItem('search-data');
+        sessionStorage.removeItem('search-data');
         this.router.navigate(['/']).then();
       }
     });

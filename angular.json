@@ -35,6 +35,21 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "jquery",
+              "qrcode",
+              "@mattlewis92/dom-autoscroller",
+              "core-js",
+              "raf",
+              "underscore.string",
+              "angular-calendar/date-adapters/date-fns",
+              "@babel/runtime/helpers/get",
+              "@babel/runtime/helpers/toConsumableArray",
+              "@babel/runtime/helpers/inherits",
+              "@babel/runtime/helpers/possibleConstructorReturn",
+              "@babel/runtime/helpers/slicedToArray",
+              "@babel/runtime/regenerator"
+            ],
             "showCircularDependencies": true,
             "outputPath": "dist/bip",
             "index": "src/index.html",

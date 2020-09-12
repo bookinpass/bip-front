@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from './services/authentication/auth.service';
 import {LoginComponent} from './users/login/login.component';
 import {RegisterComponent} from './users/register/register.component';
-import {UserModel} from "./models/User.model";
+import {UserModel} from './models/User.model';
 
 @Component({
   selector: 'app-root',
@@ -22,13 +22,6 @@ export class AppComponent implements OnInit {
   constructor(private router: Router,
               public dialog: MatDialog,
               private authService: AuthService) {
-    // router.events
-    //   .subscribe(data => {
-    // if (data instanceof NavigationEnd && (!data.urlAfterRedirects.startsWith('/details/flight') ||
-    // !data.urlAfterRedirects.startsWith('/print'))) {
-    //   localStorage.removeItem('ticket');
-    // }
-    // });
   }
 
   // todo: underscore library
@@ -45,17 +38,11 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.client = this.authService.getCurrentUser();
     const headerHeight = document.getElementById('app-header-container').offsetHeight;
-    const footerHeight = document.getElementById('app-footer-container');
     $('#sidenavContent')[0].style.minHeight = `calc(100vh - ${headerHeight}px)`;
     const outlet = document.getElementById('routerOutlet');
-    outlet.style.minHeight = '100%';
     outlet.style.display = 'flex';
     outlet.style.flexFlow = 'column';
     outlet.style.justifyContent = 'space-between';
-    // outlet.style.paddingBottom = `${footerHeight.offsetHeight}px`;
-    // footerHeight.style.position = 'absolute';
-    // footerHeight.style.bottom = '0';
-    // footerHeight.style.width = '100%';
   }
 
   public login() {

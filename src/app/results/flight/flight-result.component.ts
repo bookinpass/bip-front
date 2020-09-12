@@ -119,7 +119,7 @@ export class FlightResultComponent implements OnInit, OnDestroy {
   }
 
   public selectTicket(ticket: FlightModel) {
-    localStorage.setItem('ticket', JSON.stringify(ticket));
+    sessionStorage.setItem('ticket', JSON.stringify(ticket));
     this.router.navigate(['details', 'flight']);
   }
 
@@ -130,7 +130,7 @@ export class FlightResultComponent implements OnInit, OnDestroy {
   }
 
   getFlights() {
-    this.ticketModel = JSON.parse(localStorage.getItem('search_ticket'));
+    this.ticketModel = JSON.parse(sessionStorage.getItem('search_ticket'));
     if (this.ticketModel === null || this.ticketModel === undefined) {
       this.router.navigate(['/']);
     }
@@ -142,7 +142,7 @@ export class FlightResultComponent implements OnInit, OnDestroy {
             this.swal.ErrorSwalWithReturn('Ooops!!!', 'Votre recherche n\'a donnee aucun resultat. Veuillez essayer avec une date differente')
               .then(res => {
                 if (res.value) {
-                  localStorage.removeItem('search_ticket');
+                  sessionStorage.removeItem('search_ticket');
                   this.router.navigate(['/']);
                 }
               });
@@ -164,7 +164,7 @@ export class FlightResultComponent implements OnInit, OnDestroy {
             this.swal.ErrorSwalWithReturn('Erreur', 'La connexion au serveur a échoué. Veuillez réessayer plus tard!')
               .then(res => {
                 if (res.value) {
-                  localStorage.removeItem('search_ticket');
+                  sessionStorage.removeItem('search_ticket');
                   this.router.navigateByUrl('/');
                 }
               });

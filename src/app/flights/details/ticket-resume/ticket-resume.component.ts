@@ -7,7 +7,7 @@ import * as _ from 'underscore.string';
 import {differenceInHours, differenceInMinutes} from 'date-fns';
 import {TravelerModel} from '../../../models/amadeus/traveler.model';
 import {CountryFRJson} from '../../../../assets/Country-FR.json';
-import {IDatePickerConfig} from 'ng2-date-picker';
+import {ECalendarValue, IDatePickerConfig} from 'ng2-date-picker';
 import * as moment from 'moment';
 
 @Component({
@@ -34,7 +34,9 @@ export class TicketResumeComponent {
 
   public getItineraries = () => {
     const arr = [this.flightOffer.itineraries[0]];
-    if (this.flightOffer.itineraries.length > 1) arr.push(this.flightOffer.itineraries[this.flightOffer.itineraries.length - 1])
+    if (this.flightOffer.itineraries.length > 1) {
+      arr.push(this.flightOffer.itineraries[this.flightOffer.itineraries.length - 1]);
+    }
     return arr;
   }
 
@@ -53,12 +55,14 @@ export class TicketResumeComponent {
 
   public getCityAirport = (iataCode: string) => {
     const item = this.airports.find(x => x.iata.equalIgnoreCase(iataCode));
-    if (item === null || item === undefined) return iataCode;
+    if (item === null || item === undefined) {
+      return iataCode;
+    }
     return item.airportName.replace(/airport/i, '')
       .replace(/international/i, '')
       .replace(/internationale/i, '')
       .replace('  ', ' ').trim()
-      .concat(`, ${_.humanize(item.city)} (${_.humanize(item.countryName)})`)
+      .concat(`, ${_.humanize(item.city)} (${_.humanize(item.countryName)})`);
   }
 
   public getCity = (iataCode: string) => {
@@ -73,10 +77,15 @@ export class TicketResumeComponent {
   }
 
   public getPassengerType = (t: string) => {
-    if (t.equalIgnoreCase('adult')) return 'Adulte (+12 ans)'
-    else if (['infant', 'held_infant', 'seated_infant'].includes(t.toLowerCase())) return 'Bebe (0 - 2 ans)'
-    else if (t.equalIgnoreCase('child')) return 'Enfant (2 - 12 ans)'
-    else if (t.equalIgnoreCase('senior')) return 'Senior (60 ans et +)'
+    if (t.equalIgnoreCase('adult')) {
+      return 'Adulte (+12 ans)';
+    } else if (['infant', 'held_infant', 'seated_infant'].includes(t.toLowerCase())) {
+      return 'Bebe (0 - 2 ans)';
+    } else if (t.equalIgnoreCase('child')) {
+      return 'Enfant (2 - 12 ans)';
+    } else if (t.equalIgnoreCase('senior')) {
+      return 'Senior (60 ans et +)';
+    }
   }
 
   public getIncludedBags = (segmentId: string, travelerIndex: number): string => {
@@ -84,6 +93,16 @@ export class TicketResumeComponent {
       .filter(x => x.segmentId.equalIgnoreCase(segmentId))[0].includedCheckedBags;
     return (!item.quantity ? 1 : item.quantity).toString(10)
       .concat(item.weight !== null && item.weight !== undefined ? ' * ' + item.weight + ' ' + item.weightUnit : ' * 23 KG');
+  }
+
+  public setTravelerDate(data: any, index: number, issuance: boolean) {
+    if (issuance === null) {
+      this.travelers[index].dateOfBirth = data._d;
+    } else if (issuance) {
+      this.travelers[index].documents[0].issuanceDate = data._d;
+    } else {
+      this.travelers[index].documents[0].expiryDate = data._d;
+    }
   }
 
   private configDP = (): void => {
@@ -97,6 +116,7 @@ export class TicketResumeComponent {
     this.datePickerConfig.opens = 'right';
     this.datePickerConfig.max = moment.utc();
     this.datePickerConfig.disableKeypress = true;
+    this.datePickerConfig.returnedValueType = ECalendarValue.Moment;
   }
 
   private configDP2 = (): void => {
@@ -110,5 +130,6 @@ export class TicketResumeComponent {
     this.datePickerConfig2.opens = 'right';
     this.datePickerConfig2.min = moment.utc();
     this.datePickerConfig2.disableKeypress = true;
+    this.datePickerConfig.returnedValueType = ECalendarValue.Moment;
   }
 }

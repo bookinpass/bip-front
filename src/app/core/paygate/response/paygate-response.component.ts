@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {PaygateService} from '../../../services/paygate.service';
 
 @Component({
   selector: 'app-response',
@@ -8,11 +9,31 @@ import {Router} from '@angular/router';
 })
 export class PaygateResponseComponent implements OnInit {
 
-  constructor(private router: Router) {
-    console.log(router);
+  private paygateId: string;
+
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private paygateService: PaygateService) {
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.paygateId = params.get('transaction_id');
+      if (this.paygateId === null || this.paygateId === undefined || this.paygateId.length <= 0) {
+        this.paygateId = sessionStorage.getItem('paygate_trx_id');
+      }
+    });
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    const flag = sessionStorage.getItem('flag');
+    const headerHeight = $('header')[0].offsetHeight;
+    const footerHeight = $('footer')[0].offsetHeight;
+    const pageHeight = window.innerHeight;
+    $('#loader')[0].style.height = pageHeight - headerHeight - footerHeight + 'px';
+    if (flag === 'flight') {
+      const response = await this.paygateService.checkTransactionStatus(this.paygateId);
+      if (response !== null && response !== undefined && response.payment.status.equalIgnoreCase('success')) {
+        this.router.navigate(['print', 'flight'], {queryParams: {ref: response.order_ref}}).then();
+      }
+    }
   }
 
 }

@@ -22,7 +22,7 @@ export class TicketSearchingComponent {
   public variableConfig = new VariableConfig();
 
   constructor() {
-    localStorage.removeItem('search_ticket');
+    sessionStorage.removeItem('search_ticket');
   }
 
 }

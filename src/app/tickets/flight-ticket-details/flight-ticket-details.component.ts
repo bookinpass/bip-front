@@ -54,7 +54,7 @@ export class FlightTicketDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ticket = JSON.parse(localStorage.getItem('ticket'));
+    this.ticket = JSON.parse(sessionStorage.getItem('ticket'));
     if (this.ticket === null || this.ticket === undefined) {
       new SwalConfig().ErrorSwalWithReturn('Erreure', 'Une erreur s\'est produite lors de la récupération de votre ticket.' +
         ' Nous nous excusons de la gêne occasionnée et vous invitons à réessayer s\'il vous plait...')
@@ -183,7 +183,7 @@ export class FlightTicketDetailsComponent implements OnInit {
       didPopupClosed(is_completed, success_url, cancel_url) {
         window.location.href = is_completed === true ? success_url : cancel_url;
         if (is_completed) {
-          localStorage.setItem('travelers', JSON.stringify(this.listTravelersInfo));
+          sessionStorage.setItem('travelers', JSON.stringify(this.listTravelersInfo));
           this.router.navigate(['print', 'flight'], {queryParams: {order: id}});
         }
       },

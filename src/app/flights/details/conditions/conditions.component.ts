@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import * as _ from 'underscore.string';
@@ -8,7 +8,7 @@ import * as _ from 'underscore.string';
   templateUrl: './conditions.component.html',
   styleUrls: ['./conditions.component.css']
 })
-export class ConditionsComponent implements OnInit {
+export class ConditionsComponent {
 
   public conditions = new Map<string, string>();
 
@@ -16,15 +16,13 @@ export class ConditionsComponent implements OnInit {
               public dialogRef: MatDialogRef<ConditionsComponent>) {
     for (let i = 1; i < 5; i++) {
       if (this.notNull(data.conditions[i]) && this.notNull(data.conditions[i].fareNotes) &&
-        this.notNull(data.conditions[i].fareNotes.descriptions))
+        this.notNull(data.conditions[i].fareNotes.descriptions)) {
         data.conditions[i].fareNotes.descriptions.forEach(x => {
           const text = '<p>' + _.humanize(x.text).replace(/[*]{3}/g, '</p><p>').replace(/[.]{3}/g, '</p><p>') + '</p>';
           this.conditions.set(_.humanize(x.descriptionType), text);
         });
+      }
     }
-  }
-
-  ngOnInit(): void {
   }
 
   private notNull = (item: any) => {

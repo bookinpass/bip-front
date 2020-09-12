@@ -40,9 +40,12 @@ export class AmadeusService implements OnDestroy {
         max: max.toString(10)
       }
     });
-    if (returnDate && returnDate.length > 0) httpParam = httpParam.append('returnDate', returnDate);
-    if (includedAirlineCodes && includedAirlineCodes.length > 0)
+    if (returnDate && returnDate.length > 0) {
+      httpParam = httpParam.append('returnDate', returnDate);
+    }
+    if (includedAirlineCodes && includedAirlineCodes.length > 0) {
       httpParam = httpParam.append('includedAirlineCodes', includedAirlineCodes.toUpperCase());
+    }
     return this.http.get<FlightOfferResponseModel>(this.url.flightOfferSearch, {params: httpParam});
   }
 
@@ -52,7 +55,7 @@ export class AmadeusService implements OnDestroy {
         include: 'credit-card-fees,bags,other-services,detailed-fare-rules',
         forceClass: 'true'
       }
-    })
+    });
     return this.http.post<FlightOfferPricingResponseModel>(this.url.flightOfferPricing, data, {params});
   }
 
@@ -60,12 +63,12 @@ export class AmadeusService implements OnDestroy {
     return this.http.post<any>(this.url.seatsMap, data);
   }
 
-  public createOrder(data: string) {
-    return this.http.post<FlightCreateOrderResponseModel>(this.url.flightCreateOrder, data);
+  public async createOrder(data: string) {
+    return this.http.post<FlightCreateOrderResponseModel>(this.url.flightCreateOrder, data).toPromise();
   }
 
-  public getOrder(id: string) {
-    return this.http.get<FlightCreateOrderResponseModel>(this.url.flightCreateOrder + '/' + id);
+  public async getOrder(id: string) {
+    return this.http.get<FlightCreateOrderResponseModel>(this.url.flightCreateOrder + '/' + id).toPromise();
   }
 
   public deleteOrder(id: string) {
@@ -76,17 +79,17 @@ export class AmadeusService implements OnDestroy {
     const expiry = this.isTokenExpired();
     if (expiry) {
       const data: any = await this.requestToken();
-      localStorage.setItem('ama_token', data.access_token);
-      localStorage.setItem('ama_expiry', data.expires_in);
-      localStorage.setItem('ama_gen', new Date().toString());
+      sessionStorage.setItem('ama_token', data.access_token);
+      sessionStorage.setItem('ama_expiry', data.expires_in);
+      sessionStorage.setItem('ama_gen', new Date().toString());
     }
   }
 
   private isTokenExpired = (): boolean => {
-    const token = localStorage.getItem('ama_token');
+    const token = sessionStorage.getItem('ama_token');
     if (token === null || token === undefined) return true;
-    const expiry = localStorage.getItem('ama_expiry');
-    const gen = new Date(localStorage.getItem('ama_gen'));
+    const expiry = sessionStorage.getItem('ama_expiry');
+    const gen = new Date(sessionStorage.getItem('ama_gen'));
     const expiryDate = addSeconds(gen, Number(expiry));
     return isAfter(new Date(), expiryDate);
   }

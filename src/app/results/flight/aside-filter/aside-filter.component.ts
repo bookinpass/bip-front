@@ -37,7 +37,7 @@ export class AsideFilterComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.ticket = JSON.parse(localStorage.getItem('search_ticket'));
+    this.ticket = JSON.parse(sessionStorage.getItem('search_ticket'));
     this.ticket.includedAirlineCodes.split(',')
       .forEach(x => this.includedCompanies.add(x.trim()));
     if (this.activatedRoute.snapshot.queryParamMap.has('ex-ar') &&
@@ -89,7 +89,7 @@ export class AsideFilterComponent implements OnInit, AfterViewInit, OnDestroy {
     } else {
       this.ticket.includedAirlineCodes = '';
     }
-    localStorage.setItem('search_ticket', JSON.stringify(this.ticket));
+    sessionStorage.setItem('search_ticket', JSON.stringify(this.ticket));
     this.router.navigate(['.'], {relativeTo: this.activatedRoute, queryParams: params});
   }
 

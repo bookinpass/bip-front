@@ -21,7 +21,7 @@
           </div>
         </div>
         <div style="font-size: 17px">
-          {{itinerary.segments[0].departure.at | date : 'EEEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}}
+          {{itinerary.segments[0].departure.at | date : 'EEEE dd/MM' : 'UTC' | titlecase}}
         </div>
       </div>
       <!--      End Header of resume-->
@@ -35,7 +35,7 @@
               <span>({{itinerary.segments[0].departure.iataCode | uppercase}})</span>
             </div>
             <div class="mt-2">
-              <p>{{itinerary.segments[0].departure.at | date : 'EEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}},&nbsp;
+              <p>{{itinerary.segments[0].departure.at | date : 'EEE dd/MM' : 'UTC'  | titlecase}},&nbsp;
                 {{getTerminal(itinerary.segments[0].departure.terminal)}}</p>
               <p>{{getCityAirport(itinerary.segments[0].departure.iataCode)}}</p>
             </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="mt-2">
               <p>
-                {{itinerary.segments[itinerary.segments.length - 1].arrival.at | date : 'EEE dd/MM' : 'UTC' : 'fr-FR' | titlecase}},&nbsp;
+                {{itinerary.segments[itinerary.segments.length - 1].arrival.at | date : 'EEE dd/MM' : 'UTC' | titlecase}},&nbsp;
                 {{getTerminal(itinerary.segments[itinerary.segments.length - 1].arrival.terminal)}}
               </p>
               <p>{{getCityAirport(itinerary.segments[itinerary.segments.length - 1].arrival.iataCode)}}</p>
@@ -90,7 +90,7 @@
         </div>
         <div class="inline field required d-flex flex-nowrap justify-content-start align-items-center">
           <label>Date de naissance</label>
-          <dp-date-picker [(ngModel)]="travelers[i].dateOfBirth" [config]="datePickerConfig" [name]="'birthdate'+i" [required]="true"
+          <dp-date-picker (onChange)="setTravelerDate($event, i, null)" [config]="datePickerConfig"
                           [theme]="'dp-material'" mode="day" placeholder="Date de naissance"></dp-date-picker>
         </div>
       </div>
@@ -137,15 +137,13 @@
         <div class="three fields">
           <div class="field required">
             <label>Date de delivrance</label>
-            <dp-date-picker [(ngModel)]="travelers[i].documents[0].issuanceDate" [config]="datePickerConfig" [required]="true"
-                            [theme]="'dp-material'" mode="day" name="deliveryDate" placeholder="Date de delivrance"
-                            style="width: 100%"></dp-date-picker>
+            <dp-date-picker (onChange)="setTravelerDate($event, i, true)" [config]="datePickerConfig" [theme]="'dp-material'"
+                            mode="day" name="deliveryDate" placeholder="Date de delivrance" style="width: 100%"></dp-date-picker>
           </div>
           <div class="field required">
             <label>Date d'expiration</label>
-            <dp-date-picker [(ngModel)]="travelers[i].documents[0].expiryDate" [config]="datePickerConfig2" [required]="true"
-                            [theme]="'dp-material'" mode="day" name="expiryDate" placeholder="Date d'expiration"
-                            style="width: 100%"></dp-date-picker>
+            <dp-date-picker (onChange)="setTravelerDate($event, i, false)" [config]="datePickerConfig2" [theme]="'dp-material'"
+                            mode="day" name="expiryDate" placeholder="Date d'expiration" style="width: 100%"></dp-date-picker>
           </div>
           <div class="required field">
             <label>Lieu de delivrance</label>

@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TicketResumeComponent} from '../../flights/details/ticket-resume/ticket-resume.component';
 import {ConditionsComponent} from '../../flights/details/conditions/conditions.component';
 import {DpDatePickerModule} from 'ng2-date-picker';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {DpDatePickerModule} from 'ng2-date-picker';
     FlightDetailsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DpDatePickerModule
+    DpDatePickerModule,
+    MatDialogModule
   ]
 })
 

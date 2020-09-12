@@ -88,7 +88,7 @@ export class TrendPreferenceComponent implements OnInit, OnDestroy {
       ticket.toIata = selected.code;
       ticket.oneWay = true;
       ticket.departure = result.toString();
-      localStorage.setItem('search_ticket', JSON.stringify(ticket));
+      sessionStorage.setItem('search_ticket', JSON.stringify(ticket));
       this.router.navigate(['search', 'flights']).then(() => {
       });
     });

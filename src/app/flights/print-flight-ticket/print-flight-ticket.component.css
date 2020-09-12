@@ -24,13 +24,13 @@
 }
 
 .strongDarkBlue {
-  font-weight: bolder;
+  font-weight: 600;
   color: #1a3e68;
 }
 
 .title-banner {
   background-color: #1a3e68;
-  height: 40px;
+  height: 34px;
   margin: 10px 0;
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@
 
 .table-header {
   background-color: #1a3e68;
-  height: 40px;
+  height: 30px;
   font-size: 18px;
   color: white;
   text-align: center;
@@ -77,6 +77,7 @@
 
 .table-content > td {
   border: 1px solid #1a3e68;
+  padding: 3px 5px;
 }
 
 .table-content > td,
@@ -85,7 +86,7 @@
   vertical-align: baseline;
   color: #1a3e68;
   font-weight: 600;
-  margin-bottom: 1px;
+  margin-bottom: 0;
 }
 
 .table-content > td > p > span {
