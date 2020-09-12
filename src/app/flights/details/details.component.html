@@ -1,5 +1,5 @@
 <div [ngClass]="loading ? 'active' : ''" class="ui dimmer inverted">
-  <div class="ui large text loader">Chargement</div>
+  <div class="ui large text loader" id="loaderMessage">Chargement</div>
 </div>
 
 <div *ngIf="!loading" class="container">
@@ -88,8 +88,8 @@
 
         <!--        Payment area-->
         <div class="ui orange segment">
-          <button (click)="proceedToPayment()" class="ui orange button" disabled id="paymentButton" style="width:200px">
-            Proceder au paiement
+          <button (click)="proceedToPayment()" class="ui button disabled" id="paymentButton"
+                  style="width:250px; background-color: #ff6600; color: white">Procéder au paiement
           </button>
         </div>
         <!--        End Payment area-->
